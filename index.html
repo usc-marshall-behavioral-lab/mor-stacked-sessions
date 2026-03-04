@@ -1377,9 +1377,11 @@ summary::marker { display: none; content: ''; }
   <div class="section-nav-inner">
     <a href="#sec-overview" class="nav-link" data-section="sec-overview">Overview</a>
     <a href="#sec-planner" class="nav-link" data-section="sec-planner">Planner</a>
+    <a href="#input-step-dur" class="nav-sub-link" data-subsection="input-step-dur">① Duration</a>
+    <a href="#input-step-n" class="nav-sub-link" data-subsection="input-step-n">② Target N</a>
+    <a href="#sec-fit" class="nav-sub-link" data-subsection="sec-fit">③ Slot Availability</a>
+    <a href="#sec-timeline" class="nav-sub-link" data-subsection="sec-timeline">④ Schedule</a>
     <a href="#sec-stack" class="nav-sub-link" data-subsection="sec-stack">Session Roster</a>
-    <a href="#sec-fit" class="nav-sub-link" data-subsection="sec-fit">Slot Availability</a>
-    <a href="#sec-timeline" class="nav-sub-link" data-subsection="sec-timeline">Schedule</a>
     <a href="#sec-join" class="nav-link" data-section="sec-join">Submit</a>
     <a href="#sec-faq" class="nav-link" data-section="sec-faq">FAQ</a>
     <a href="#" class="nav-top-link" id="nav-top-link" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;" aria-label="Back to top">↑ Top</a>
@@ -1562,6 +1564,54 @@ summary::marker { display: none; content: ''; }
         </div>
       </div>
 
+      <!-- Step 3: Session slot availability -->
+      <div class="input-step" id="input-step-fit">
+        <div class="input-step-num">3</div>
+        <div class="input-step-body" id="sec-fit">
+          <div class="input-step-label">Does your study fit in the session?</div>
+          <div class="planner-section-desc" id="fit-section-desc" style="font-size:13px;color:var(--text-3);margin-bottom:10px">Enter your study duration above to check.</div>
+          <div id="fit-summary-banner" style="margin-bottom:8px"></div>
+          <div id="all-layouts-container"></div>
+        </div>
+      </div>
+
+      <!-- Step 4: Collection timeline -->
+      <div class="input-step" id="input-step-timeline">
+        <div class="input-step-num">4</div>
+        <div class="input-step-body" id="sec-timeline">
+          <div class="input-step-label">When will you reach your target N?</div>
+          <div class="live-zone" id="timeline-zone">
+            <div id="calc-empty-state" style="text-align:center;padding:16px 0;color:var(--text-3)">
+              <div style="font-size:13px">Enter a duration and target N above to see a projected schedule.</div>
+            </div>
+            <div id="calc-filled-state" style="display:none">
+              <div id="calc-schedule-summary" style="font-size:13px;color:var(--text-2);margin-bottom:12px;line-height:1.5"></div>
+              <div class="calc-result-grid" id="calc-result-grid"></div>
+            </div>
+          </div>
+          <!-- Inline calendar reference -->
+          <div style="margin-top:12px">
+            <details>
+              <summary style="cursor:pointer;font-size:13px;font-weight:600;color:var(--text-2);list-style:none;display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-top:1px solid var(--border-light)">
+                <span>View session dates calendar</span>
+                <span style="font-size:14px;color:var(--text-3);transition:transform 0.2s" class="power-expand-arrow">▸</span>
+              </summary>
+              <div style="padding-top:8px">
+                <div class="mini-cal-wrap" id="mini-cal-wrap"></div>
+                <div class="avail-legend" style="margin-top:12px">
+                  <div class="avail-legend-item"><div class="avail-legend-dot" style="background:var(--green);border-color:var(--green)"></div> Open session day</div>
+                  <div class="avail-legend-item"><div class="avail-legend-dot" style="background:#F5F5F5;border-color:#CCC"></div> Spring Recess</div>
+                  <div style="width:1px;height:14px;background:var(--border);margin:0 2px"></div>
+                  <span style="font-size:12px;color:var(--text-3)">Badges show which studies run that day:</span>
+                  <div id="cal-study-legend" style="display:flex;gap:6px;align-items:center;flex-wrap:wrap"></div>
+                </div>
+                <div class="avail-summary" id="avail-summary" style="margin-top:8px"></div>
+              </div>
+            </details>
+          </div>
+        </div>
+      </div>
+
       </div><!-- /.planner-input-inner -->
     </div>
 
@@ -1701,61 +1751,7 @@ summary::marker { display: none; content: ''; }
       </div>
     </div>
 
-    <!-- ═══ SECTION: Session Fit ═══ -->
-    <div class="planner-section" id="sec-fit">
-      <div class="planner-section-header">
-        <div class="planner-section-label">Session slot availability</div>
-        <div class="planner-section-desc">The 60-minute slot is already partially booked by the studies below. The bar shows the <strong>most constrained session</strong> your study would need to fit into — if it fits there, it fits everywhere. If not, it shows the earliest date when the slot opens up enough for your study to join.</div>
-      </div>
-      <div class="live-zone" id="fit-zone" style="margin:8px 24px 16px">
-        <div id="fit-summary-banner" style="margin-bottom:8px"></div>
-        <div id="all-layouts-container">
-          <!-- rendered by renderAllLayouts() -->
-        </div>
-      </div>
-    </div>
-
-    <!-- ═══ SECTION: Collection Timeline ═══ -->
-    <div class="planner-section" id="sec-timeline">
-      <div class="planner-section-header">
-        <div class="planner-section-label">Schedule</div>
-        <div class="planner-section-desc">A day-by-day projection of data collection pace toward your target sample size, based on ~84 participants per day across 6 sessions. Expand the calendar below to see all session dates.</div>
-      </div>
-      <div style="padding:8px 24px 0">
-        <div class="live-zone" id="timeline-zone">
-          <div id="calc-empty-state" style="text-align:center;padding:24px 0;color:var(--text-3)">
-            <div style="font-size:13px">Enter a duration and target N above to see a projected schedule.</div>
-          </div>
-          <div id="calc-filled-state" style="display:none">
-            <div id="calc-schedule-summary" style="font-size:13px;color:var(--text-2);margin-bottom:12px;line-height:1.5"></div>
-            <div class="calc-result-grid" id="calc-result-grid"></div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Inline calendar reference -->
-      <div style="padding:12px 24px 20px">
-        <details>
-          <summary style="cursor:pointer;font-size:13px;font-weight:600;color:var(--text-2);list-style:none;display:flex;justify-content:space-between;align-items:center;padding:8px 0">
-            <span>View session dates calendar</span>
-            <span style="font-size:14px;color:var(--text-3);transition:transform 0.2s" class="power-expand-arrow">▸</span>
-          </summary>
-          <div style="padding-top:8px">
-            <div class="mini-cal-wrap" id="mini-cal-wrap">
-              <!-- rendered by JS -->
-            </div>
-            <div class="avail-legend" style="margin-top:12px">
-              <div class="avail-legend-item"><div class="avail-legend-dot" style="background:var(--green);border-color:var(--green)"></div> Open session day</div>
-              <div class="avail-legend-item"><div class="avail-legend-dot" style="background:#F5F5F5;border-color:#CCC"></div> Spring Recess</div>
-              <div style="width:1px;height:14px;background:var(--border);margin:0 2px"></div>
-              <span style="font-size:12px;color:var(--text-3)">Badges show which studies run that day:</span>
-              <div id="cal-study-legend" style="display:flex;gap:6px;align-items:center;flex-wrap:wrap"></div>
-            </div>
-            <div class="avail-summary" id="avail-summary" style="margin-top:8px"></div>
-          </div>
-        </details>
-      </div>
-    </div>
+    <!-- ═══ SECTION: Collection Timeline moved into input card above ═══ -->
 
   </div>
 
@@ -2474,22 +2470,17 @@ function updateStepStates() {
   var n = parseInt(targetInput.value) || 0;
   document.getElementById('input-step-dur').className = 'input-step' + (dur > 0 ? ' active' : '');
   document.getElementById('input-step-n').className = 'input-step' + (n > 0 ? ' active' : '');
+  document.getElementById('input-step-fit').className = 'input-step' + (dur > 0 ? ' active' : '');
+  document.getElementById('input-step-timeline').className = 'input-step' + (dur > 0 && n > 0 ? ' active' : '');
 }
 
 // Live zone highlighting
 function updateLiveZones() {
   var dur = parseInt(durInput.value) || 0;
   var n = parseInt(targetInput.value) || 0;
-
   var estimateZone = document.getElementById('estimate-zone');
-  var fitZone = document.getElementById('fit-zone');
   var timelineZone = document.getElementById('timeline-zone');
-
-  // Estimate zone lights up when both dur and N are set
   if (estimateZone) estimateZone.className = 'live-zone' + (dur > 0 && n > 0 ? ' has-value' : '');
-  // Fit zone lights up when dur is set
-  if (fitZone) fitZone.className = 'live-zone' + (dur > 0 ? ' has-value' : '');
-  // Timeline zone lights up when both are set
   if (timelineZone) timelineZone.className = 'live-zone' + (dur > 0 && n > 0 ? ' has-value' : '');
 }
 
