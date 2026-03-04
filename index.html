@@ -1446,7 +1446,7 @@ summary::marker { display: none; content: ''; }
         <!-- Stat row -->
         <div style="display:flex;align-items:stretch;border-bottom:1px solid rgba(255,255,255,0.12)">
           <div style="flex:1;padding:14px 18px;border-right:1px solid rgba(255,255,255,0.12);text-align:center">
-            <div style="font-family:'Source Serif 4',Georgia,serif;font-size:28px;font-weight:900;color:white;line-height:1">13</div>
+            <div style="font-family:'Source Serif 4',Georgia,serif;font-size:28px;font-weight:900;color:white;line-height:1">12</div>
             <div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:1px;color:rgba(255,255,255,0.6);margin-top:3px">Session days</div>
           </div>
           <div style="flex:1;padding:14px 18px;border-right:1px solid rgba(255,255,255,0.12);text-align:center">
@@ -1467,7 +1467,6 @@ summary::marker { display: none; content: ''; }
           <div style="flex:1;min-width:0">
             <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;flex-wrap:wrap">
               <span style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:rgba(255,255,255,0.5);min-width:42px">March</span>
-              <span style="display:inline-block;background:rgba(255,255,255,0.15);color:white;font-size:12px;font-weight:700;padding:3px 9px;border-radius:4px">Mar 5</span>
               <span style="display:inline-block;background:rgba(255,255,255,0.15);color:white;font-size:12px;font-weight:700;padding:3px 9px;border-radius:4px">Mar 6</span>
               <span style="display:inline-block;background:rgba(255,255,255,0.15);color:white;font-size:12px;font-weight:700;padding:3px 9px;border-radius:4px">Mar 12</span>
               <span style="display:inline-block;background:rgba(255,255,255,0.15);color:white;font-size:12px;font-weight:700;padding:3px 9px;border-radius:4px">Mar 13</span>
@@ -2612,7 +2611,10 @@ var STUDY_ROSTER = [
     status: 'collecting', startLab: 1, endLab: 5 },
   { id: 'C', dur: 5, targetN: 250, color: '#93C5FD', label: 'C',
     title: 'Status and Prosocial Behavior', researcher: 'C. Wakslak', dept: 'Management & Organization',
-    status: 'pending', startLab: 1, endLab: 3 }
+    status: 'pending', startLab: 1, endLab: 3 },
+  { id: 'D', dur: 15, targetN: 200, color: '#C4B5FD', label: 'D',
+    title: '', researcher: 'Andrea D.', dept: 'Management & Organization',
+    status: 'pending', startLab: 1, endLab: 3 },
 ];
 var SESSION_CAP = 60;
 var OVERHEAD_CHECKIN = 5;
@@ -2683,7 +2685,7 @@ function renderSessionBar(comp, height, showLabels) {
 
 // ═══ LL102 AVAILABILITY GRID ═══
 var ll102Weeks = [
-  { wk: 'Mar 2', dates: 'Mar 2–6', days: ['no','no','no','open|Mar 5 (Thu)','open|Mar 6 (Fri)'], current: true },
+  { wk: 'Mar 2', dates: 'Mar 2–6', days: ['no','no','no','no','open|Mar 6 (Fri)'], current: true },
   { wk: 'Mar 9', dates: 'Mar 9–13', days: ['no','no','no','open|Mar 12 (Thu)','open|Mar 13 (Fri)'], current: false },
   { wk: 'Mar 16', dates: 'Mar 16–20', days: ['break','break','break','break','break'], current: false },
   { wk: 'Mar 23', dates: 'Mar 23–27', days: ['open|Mar 23 (Mon)','open|Mar 24 (Tue)','open|Mar 25 (Wed)','no','open|Mar 27 (Fri)'], current: false },
