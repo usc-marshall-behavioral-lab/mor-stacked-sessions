@@ -1,0 +1,3316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Stacked Research Sessions: Proctored In-Lab Data Collection for Online Studies</title>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,700;8..60,900&family=Source+Sans+3:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --cardinal: #990000;
+  --cardinal-dark: #7a0000;
+  --cardinal-light: #FEF2F2;
+  --gold: #FFCC00;
+  --bg: #FAF9F6;
+  --surface: #FFFFFF;
+  --text: #1A1A1A;
+  --text-2: #585858;
+  --text-3: #8C8C8C;
+  --border: #e4e0da;
+  --border-light: #f0ede8;
+  --green: #16A34A;
+  --green-bg: #ECFDF5;
+  --green-text: #065F46;
+  --amber-bg: #FFFBEB;
+  --amber-text: #92400E;
+  --blue: #2563EB;
+  --blue-bg: #EFF6FF;
+  --red-bg: #FEF2F2;
+  --radius: 4px;
+  --shadow: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+}
+
+html { scroll-behavior: smooth; scroll-padding-top: 52px; }
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: 'Source Sans 3', Arial, Helvetica, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ═══ Journey Section Headers ═══ */
+.journey-header {
+  margin-bottom: 6px;
+}
+.journey-step-label {
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: var(--cardinal);
+  margin-bottom: 6px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.journey-step-label::before {
+  content: '';
+  width: 18px;
+  height: 2px;
+  background: var(--cardinal);
+  display: inline-block;
+}
+.journey-headline {
+  font-family: 'Source Serif 4', Georgia, serif;
+  font-size: 19px;
+  font-weight: 700;
+  color: var(--cardinal);
+  line-height: 1.3;
+  margin-bottom: 8px;
+}
+.journey-subtext {
+  font-size: 14px;
+  color: var(--text-2);
+  line-height: 1.65;
+  max-width: 640px;
+}
+
+/* ═══ Page Shell ═══ */
+.page-header {
+  background: var(--cardinal);
+  color: white;
+}
+.page-header-inner {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 18px 32px 14px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+.page-header h1 {
+  font-family: 'Source Serif 4', Georgia, serif;
+  font-size: 22px;
+  font-weight: 900;
+  letter-spacing: 0.2px;
+}
+.header-brand {
+  font-size: 10px;
+  font-weight: 300;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  opacity: 0.8;
+  margin-bottom: 6px;
+}
+.page-header .subtitle {
+  font-size: 13px;
+  color: rgba(255,255,255,0.7);
+  margin-top: 1px;
+}
+.header-pill {
+  margin-left: auto;
+  font-size: 11px;
+  font-weight: 700;
+  background: var(--gold);
+  color: var(--cardinal-dark);
+  padding: 5px 14px;
+  border-radius: 2px;
+  letter-spacing: 1px;
+  white-space: nowrap;
+  text-transform: uppercase;
+}
+.gold-bar { height: 4px; background: var(--gold); }
+
+.main {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 28px 32px 60px;
+}
+
+/* ═══ 1. Throughput Calculator ═══ */
+.throughput-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--cardinal);
+  border-radius: var(--radius);
+  overflow: hidden;
+  margin-bottom: 28px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08), 0 1px 2px rgba(0,0,0,0.04);
+}
+.calc-field label {
+  display: block;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--text-3);
+  margin-bottom: 5px;
+}
+.calc-field input, .calc-field select {
+  width: 100%;
+  padding: 10px 14px;
+  border: 1.5px solid var(--border);
+  border-radius: 6px;
+  font-family: inherit;
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text);
+  background: var(--surface);
+  outline: none;
+  transition: border-color 0.15s;
+}
+.calc-field input:focus, .calc-field select:focus {
+  border-color: var(--cardinal);
+}
+.calc-field select {
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%235C5C5C' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  cursor: pointer;
+}
+.calc-field .field-hint {
+  font-size: 11px;
+  color: var(--text-3);
+  margin-top: 4px;
+}
+
+.calc-result-grid {
+  margin-bottom: 16px;
+}
+/* Mini calendar */
+.mini-cal-wrap {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+.mini-cal {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  overflow: hidden;
+  flex: 1;
+  min-width: 260px;
+}
+.mini-cal-month {
+  font-family: 'Source Serif 4', Georgia, serif;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--cardinal);
+  padding: 10px 14px;
+  background: #F4F2EF;
+  border-bottom: 2px solid var(--gold);
+}
+.mini-cal-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 0;
+  padding: 8px;
+}
+.mini-cal-dow {
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--text-3);
+  text-align: center;
+  padding: 2px 0 6px;
+}
+.mini-cal-day {
+  text-align: center;
+  padding: 5px 2px;
+  font-size: 13px;
+  color: var(--text-3);
+  border-radius: 4px;
+}
+.mini-cal-day.open {
+  background: var(--green);
+  color: white;
+  font-weight: 700;
+  cursor: default;
+  border-radius: 6px;
+  box-shadow: 0 1px 3px rgba(22,163,74,0.3);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+  padding: 5px 2px 5px;
+}
+.mini-cal-day-num {
+  line-height: 1;
+}
+.mini-cal-badges {
+  display: flex;
+  gap: 2px;
+  justify-content: center;
+  flex-wrap: wrap;
+  min-height: 12px;
+}
+.mini-cal-badge {
+  font-size: 8px;
+  font-weight: 800;
+  line-height: 12px;
+  padding: 0 3px;
+  border-radius: 2px;
+  color: #111;
+  letter-spacing: 0.2px;
+}
+/* legacy meter — keep for updateCalendarMeters compat, hide visually */
+.mini-cal-meter { display: none; }
+
+/* Schedule session composition bar */
+.sched-session-bar {
+  display: flex;
+  height: 16px;
+  border-radius: 3px;
+  overflow: hidden;
+  background: #EEEAE5;
+  min-width: 80px;
+}
+.sched-session-seg {
+  height: 100%;
+  transition: width 0.2s;
+}
+.sched-session-open { opacity: 0.2; }
+.sched-session-label {
+  font-size: 9px;
+  color: var(--text-3);
+  margin-top: 1px;
+  white-space: nowrap;
+}
+.mini-cal-day.break {
+  background: #F5F5F5;
+  color: #BBB;
+  font-style: italic;
+  font-size: 11px;
+}
+.mini-cal-day.empty {
+  color: transparent;
+}
+.mini-cal-day.weekend {
+  color: #CCC;
+}
+
+.avail-legend {
+  display: flex;
+  gap: 16px;
+  margin-top: 12px;
+  font-size: 12px;
+  color: var(--text-3);
+  flex-wrap: wrap;
+}
+.avail-legend-item { display: flex; align-items: center; gap: 5px; }
+.avail-legend-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 3px;
+  border: 1px solid rgba(0,0,0,0.08);
+}
+.avail-summary {
+  margin-top: 8px;
+  font-size: 14px;
+  color: var(--text-2);
+  line-height: 1.6;
+}
+
+/* ═══ 3. Opt-In & Steps ═══ */
+.optin-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  margin-bottom: 28px;
+  box-shadow: var(--shadow);
+}
+.optin-steps {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+.optin-step {
+  text-align: center;
+  padding: 16px 12px;
+  position: relative;
+}
+.optin-step-num {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--cardinal);
+  color: white;
+  font-size: 14px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 10px;
+}
+.optin-step h3 {
+  font-family: 'Source Serif 4', Georgia, serif;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--cardinal);
+  margin-bottom: 6px;
+}
+.optin-step p {
+  font-size: 13px;
+  color: var(--text-2);
+  line-height: 1.5;
+}
+.optin-step::after {
+  content: '→';
+  position: absolute;
+  right: -12px;
+  top: 22px;
+  font-size: 16px;
+  color: var(--border);
+  font-weight: 700;
+}
+.optin-step:last-child::after { display: none; }
+
+
+/* ═══ 4. FAQ ═══ */
+.faq-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: var(--shadow);
+}
+.faq-items { padding: 0; }
+.faq-items > .faq-item:first-child .faq-q { padding-top: 18px; }
+.faq-item {
+  padding: 0;
+  border-bottom: 1px solid var(--border-light);
+}
+.faq-item:last-child { border-bottom: none; }
+.faq-q {
+  font-family: 'Source Serif 4', Georgia, serif;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--cardinal);
+  padding: 14px 24px;
+  cursor: pointer;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  transition: color 0.15s;
+}
+.faq-q::-webkit-details-marker { display: none; }
+.faq-q::marker { display: none; content: ''; }
+.faq-q::after {
+  content: '+';
+  font-size: 18px;
+  font-weight: 400;
+  color: var(--text-3);
+  flex-shrink: 0;
+  transition: transform 0.2s;
+}
+.faq-item[open] .faq-q::after {
+  content: '−';
+}
+.faq-q:hover { color: var(--cardinal); }
+.faq-a {
+  font-size: 14px;
+  color: var(--text-2);
+  line-height: 1.6;
+  padding: 0 24px 14px;
+}
+
+/* ═══ Power Analysis Card ═══ */
+.power-body {
+  padding: 24px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  align-items: start;
+}
+.power-inputs { display: flex; flex-direction: column; gap: 12px; }
+.power-presets {
+  display: flex;
+  gap: 6px;
+  margin-top: 2px;
+}
+.power-preset {
+  font-size: 11px;
+  font-weight: 600;
+  padding: 4px 10px;
+  border-radius: 4px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  cursor: pointer;
+  font-family: inherit;
+  color: var(--text-2);
+  transition: all 0.15s;
+}
+.power-preset:hover { border-color: var(--blue); color: var(--blue); }
+.power-preset.active { background: var(--blue); color: white; border-color: var(--blue); }
+
+.power-result-panel {
+  background: var(--blue-bg);
+  border: 1px solid #BFDBFE;
+  border-radius: var(--radius);
+  padding: 20px 24px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+.power-result-label {
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: var(--blue);
+}
+.power-result-n {
+  font-family: 'Source Serif 4', Georgia, serif;
+  font-size: 48px;
+  font-weight: 900;
+  color: var(--text);
+  line-height: 1;
+}
+.power-result-breakdown {
+  font-size: 13px;
+  color: var(--text-2);
+  line-height: 1.5;
+}
+.power-result-breakdown strong { color: var(--text); }
+.power-use-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 22px;
+  background: var(--cardinal);
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.15s;
+  margin-top: 4px;
+}
+.power-use-btn:hover { background: var(--cardinal-dark); transform: translateY(-1px); box-shadow: 0 3px 10px rgba(153,0,0,0.2); }
+
+.power-note {
+  font-size: 12px;
+  color: var(--text-3);
+  text-align: center;
+  line-height: 1.5;
+  max-width: 340px;
+}
+
+.power-reference {
+  padding: 12px 24px;
+  background: #FAFAF8;
+  border-top: 1px solid var(--border-light);
+  font-size: 12px;
+  color: var(--text-3);
+  line-height: 1.6;
+}
+.power-reference strong { color: var(--text-2); }
+
+.power-citations {
+  padding: 14px 24px;
+  border-top: 1px solid var(--border-light);
+  font-size: 11.5px;
+  color: var(--text-3);
+  line-height: 1.7;
+}
+.power-citations summary {
+  cursor: pointer;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--text-3);
+  padding: 2px 0;
+  user-select: none;
+}
+.power-citations summary:hover { color: var(--text-2); }
+.power-citations .cite {
+  display: block;
+  padding: 3px 0 3px 16px;
+  text-indent: -16px;
+  margin-left: 16px;
+}
+.power-citations .cite em { font-style: italic; }
+
+.power-linked-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--blue);
+  background: var(--blue-bg);
+  border: 1px solid #BFDBFE;
+  padding: 2px 10px;
+  border-radius: 4px;
+  margin-left: 8px;
+  animation: fadeInBadge 0.3s ease;
+}
+@keyframes fadeInBadge { from { opacity: 0; transform: translateY(-4px); } to { opacity: 1; transform: translateY(0); } }
+
+@media (max-width: 900px) {
+  .power-body { grid-template-columns: 1fr; }
+}
+@media (max-width: 768px) {
+  .power-presets { flex-wrap: wrap; }
+}
+
+/* ═══ Current Stack ═══ */
+
+/* Capacity bar */
+.capacity-bar-wrap {
+  position: relative;
+  height: 64px;
+  background: #F0F0EE;
+  border-radius: 8px;
+  overflow: visible;
+  display: flex;
+  box-shadow: inset 0 1px 3px rgba(0,0,0,0.08);
+  margin-top: 42px;
+}
+.capacity-segment {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 800;
+  color: #111111;
+  transition: width 0.3s;
+  position: relative;
+  min-width: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  border-right: 2px solid rgba(255,255,255,0.5);
+  letter-spacing: 0.2px;
+}
+.capacity-segment:last-child { border-right: none; }
+.capacity-segment.transitions {
+  background: #6B7280;
+  color: white;
+  font-size: 11px;
+  font-weight: 600;
+  border-right: 2px solid rgba(255,255,255,0.3);
+}
+.capacity-open {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--green-text);
+  background: repeating-linear-gradient(
+    -45deg,
+    var(--green-bg),
+    var(--green-bg) 6px,
+    #D1FAE5 6px,
+    #D1FAE5 12px
+  );
+  border: 2px dashed var(--green);
+  border-radius: 0;
+  min-width: 0;
+}
+.capacity-open.over-session {
+  background: repeating-linear-gradient(
+    -45deg,
+    #FEF2F2,
+    #FEF2F2 6px,
+    #FECACA 6px,
+    #FECACA 12px
+  );
+  border-color: #DC2626;
+  color: #DC2626;
+}
+
+.capacity-bar-inner {
+  position: absolute;
+  inset: 0;
+  border-radius: 8px;
+  overflow: hidden;
+  display: flex;
+  width: 100%;
+}
+
+.capacity-segment.your-study {
+  background: #86EFAC;
+  transition: width 0.3s, opacity 0.3s;
+  border-right: 2px solid rgba(255,255,255,0.5);
+}
+.capacity-segment.your-study.over-session {
+  background: #EF4444;
+  color: white;
+}
+
+/* ═══ Footer ═══ */
+.site-footer {
+  background: var(--cardinal);
+  color: white;
+  margin-top: 40px;
+}
+.site-footer-inner {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 20px 32px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+.footer-cta {
+  font-family: 'Source Serif 4', Georgia, serif;
+  font-size: 16px;
+  font-weight: 700;
+}
+.footer-contact {
+  font-size: 13px;
+  line-height: 1.7;
+  opacity: 0.85;
+  text-align: right;
+}
+.footer-contact a {
+  color: var(--gold);
+  text-decoration: none;
+  font-weight: 600;
+}
+.footer-contact a:hover { text-decoration: underline; }
+.footer-meta {
+  background: var(--cardinal-dark);
+  padding: 10px 32px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 100%;
+}
+.footer-meta-inner {
+  max-width: 1120px;
+  margin: 0 auto;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.footer-meta-label {
+  font-size: 11px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.5);
+  font-weight: 300;
+}
+.back-to-top {
+  font-size: 11px;
+  font-weight: 600;
+  color: rgba(255,255,255,0.6);
+  text-decoration: none;
+  letter-spacing: 0.5px;
+  transition: color 0.15s;
+}
+.back-to-top:hover { color: var(--gold); }
+
+/* ═══ Responsive ═══ */
+@media (max-width: 900px) {
+  .optin-steps { grid-template-columns: 1fr 1fr 1fr; }
+  .optin-step::after { display: none; }
+}
+@media (max-width: 768px) {
+  .main { padding: 16px; }
+  .page-header-inner { padding: 14px 16px; flex-wrap: wrap; }
+  .page-header h1 { font-size: 18px; }
+  #sec-overview > div:nth-child(2) { grid-template-columns: 1fr !important; }
+  .eligibility-grid { grid-template-columns: 1fr !important; }
+  .optin-steps { grid-template-columns: 1fr; }
+  .mini-cal-wrap { flex-direction: column; }
+  .sched-header { display: none; }
+  .sched-row { grid-template-columns: 1fr auto auto auto; font-size: 12px; }
+  .sched-col-bar { display: none; }
+  .sched-col-session { display: none; }
+  .capacity-open { font-size: 10px; }
+  .input-slider-row { gap: 8px; }
+  .dur-slider { min-width: 120px; }
+  .input-n-row { gap: 6px; }
+  .planner-inline-help { margin-left: 0; }
+}
+
+/* Section nav */
+.section-nav {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+}
+.section-nav-inner {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 0 20px;
+  display: flex;
+  gap: 2px;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+.section-nav-inner::-webkit-scrollbar { display: none; }
+.nav-link {
+  padding: 10px 12px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-3);
+  text-decoration: none;
+  white-space: nowrap;
+  border-bottom: 2px solid transparent;
+  transition: color 0.15s, border-color 0.15s;
+}
+.nav-link:hover { color: var(--text); }
+.nav-link.active {
+  color: var(--cardinal);
+  border-bottom-color: var(--cardinal);
+}
+/* Planner is the primary destination — give it permanent visual weight */
+.nav-link[data-section="sec-planner"] {
+  color: var(--cardinal);
+  font-weight: 700;
+}
+.nav-link[data-section="sec-planner"]:not(.active) {
+  border-bottom-color: rgba(153,0,0,0.2);
+}
+.nav-top-link {
+  margin-left: auto;
+  padding: 10px 12px;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text-3);
+  text-decoration: none;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s;
+}
+.nav-top-link.visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+.nav-top-link:hover { color: var(--cardinal); }
+
+/* Sub-links — always-visible indented planner subsections */
+.nav-sub-link {
+  padding: 10px 10px 10px 20px;
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--text-3);
+  text-decoration: none;
+  white-space: nowrap;
+  border-bottom: 2px solid transparent;
+  transition: color 0.15s, border-color 0.15s;
+  position: relative;
+}
+.nav-sub-link::before {
+  content: '›';
+  position: absolute;
+  left: 10px;
+  color: var(--border);
+  transition: color 0.15s;
+}
+.nav-sub-link:hover { color: var(--text-2); }
+.nav-sub-link:hover::before { color: var(--text-3); }
+.nav-sub-link.active {
+  color: var(--cardinal);
+  border-bottom-color: var(--cardinal);
+}
+.nav-sub-link.active::before { color: var(--cardinal); }
+
+
+/* Power expandable */
+/* Power analysis modal */
+.power-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  background: rgba(0,0,0,0.4);
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+.power-overlay.open { display: flex; animation: overlayFade 0.2s ease; }
+@keyframes overlayFade { from { opacity: 0; } to { opacity: 1; } }
+.power-modal {
+  background: var(--surface);
+  border-radius: 12px;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+  max-width: 720px;
+  width: 100%;
+  max-height: 85vh;
+  overflow-y: auto;
+  animation: modalSlide 0.25s ease;
+}
+@keyframes modalSlide { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+.power-modal-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  padding: 20px 24px 16px;
+  border-bottom: 1px solid var(--border-light);
+  position: sticky;
+  top: 0;
+  background: var(--surface);
+  z-index: 1;
+  border-radius: 12px 12px 0 0;
+}
+.power-modal-close {
+  background: none;
+  border: none;
+  font-size: 24px;
+  color: var(--text-3);
+  cursor: pointer;
+  padding: 0 4px;
+  line-height: 1;
+  transition: color 0.15s;
+}
+.power-modal-close:hover { color: var(--text); }
+.power-modal-body { padding: 0 4px 4px; }
+.power-modal-body .power-body { padding: 20px; }
+.power-modal-body .power-reference { margin: 0; padding: 12px 20px; }
+.power-modal-body .power-citations { margin: 0; padding: 14px 20px; }
+
+/* Generic details/summary styles */
+details[open] > summary .power-expand-arrow { transform: rotate(90deg); }
+summary::-webkit-details-marker { display: none; }
+summary::marker { display: none; content: ''; }
+.power-expand-arrow {
+  font-size: 14px;
+  transition: transform 0.2s;
+  color: var(--text-3);
+}
+
+/* Planner interactive input bar */
+.planner-input-bar {
+  background: #EDEAE5;
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  padding: 28px 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+.planner-input-inner {
+  background: var(--surface);
+  border-radius: 10px;
+  border: 1px solid rgba(153,0,0,0.12);
+  box-shadow:
+    0 0 0 4px rgba(153,0,0,0.05),
+    0 4px 24px rgba(0,0,0,0.10),
+    0 1px 4px rgba(0,0,0,0.06);
+  overflow: hidden;
+}
+.input-step {
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+  padding: 22px 24px;
+}
+.input-step + .input-step {
+  border-top: 1px solid var(--border-light);
+}
+.input-step-num {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: var(--border);
+  color: var(--text-3);
+  font-size: 12px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  margin-top: 2px;
+  transition: background 0.2s, color 0.2s;
+}
+.input-step.active .input-step-num {
+  background: var(--cardinal);
+  color: white;
+}
+.input-step-body { flex: 1; min-width: 0; }
+.input-step-label {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 12px;
+}
+
+/* Duration slider row */
+.input-slider-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.slider-wrap {
+  flex: 1;
+  position: relative;
+  padding-bottom: 20px;
+  padding-right: 8px;
+}
+/* Last tick label aligns right so it doesn't overflow into number input */
+.slider-tick:last-child {
+  transform: translateX(-100%);
+}
+.dur-slider {
+  width: 100%;
+  -webkit-appearance: none;
+  appearance: none;
+  height: 6px;
+  border-radius: 3px;
+  background: var(--border);
+  outline: none;
+  cursor: pointer;
+}
+.slider-tick {
+  position: absolute;
+  top: 10px;
+  transform: translateX(-50%);
+  pointer-events: none;
+}
+.slider-tick-line {
+  width: 1px;
+  height: 8px;
+  background: var(--amber-text);
+  margin: 0 auto;
+  opacity: 0.5;
+}
+.slider-tick-label {
+  display: block;
+  font-size: 9px;
+  font-weight: 600;
+  color: var(--amber-text);
+  white-space: nowrap;
+  margin-top: 1px;
+  opacity: 0.7;
+}
+.dur-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: var(--cardinal);
+  border: 2px solid white;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.2);
+  cursor: grab;
+  transition: transform 0.1s;
+}
+.dur-slider::-webkit-slider-thumb:active { transform: scale(1.15); cursor: grabbing; }
+.dur-slider::-moz-range-thumb {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: var(--cardinal);
+  border: 2px solid white;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.2);
+  cursor: grab;
+}
+.input-dur-display {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  flex-shrink: 0;
+}
+.dur-num-input {
+  width: 52px;
+  padding: 6px 4px;
+  border: 2px solid var(--border);
+  border-radius: 6px;
+  font-family: inherit;
+  font-size: 18px;
+  font-weight: 800;
+  color: var(--cardinal);
+  background: var(--surface);
+  outline: none;
+  text-align: center;
+  transition: border-color 0.15s;
+}
+.dur-num-input:focus { border-color: var(--cardinal); }
+.dur-num-input::placeholder { color: var(--border); font-weight: 400; font-size: 14px; }
+.dur-unit { font-size: 14px; font-weight: 600; color: var(--text-3); }
+
+/* N input row */
+.input-n-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.input-n-prefix {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text);
+}
+.n-num-input {
+  width: 90px;
+  padding: 6px 10px;
+  border: 2px solid var(--border);
+  border-radius: 6px;
+  font-family: inherit;
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--cardinal);
+  background: var(--surface);
+  outline: none;
+  text-align: center;
+  transition: border-color 0.15s;
+}
+.n-num-input:focus { border-color: var(--cardinal); }
+.n-num-input::placeholder { color: var(--border); font-weight: 400; font-size: 13px; }
+.planner-inline-help {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--blue);
+  text-decoration: none;
+  white-space: nowrap;
+  margin-left: auto;
+}
+.planner-inline-help:hover { text-decoration: underline; }
+.input-n-estimate {
+  margin-top: 14px;
+}
+.estimate-stats {
+  display: flex;
+  gap: 20px;
+  align-items: baseline;
+}
+.estimate-stat-num {
+  font-family: 'Source Serif 4', Georgia, serif;
+  font-size: 28px;
+  font-weight: 900;
+  color: var(--text);
+  line-height: 1;
+  border-bottom: 2.5px solid var(--gold);
+  display: inline-block;
+  padding-bottom: 2px;
+}
+.estimate-stat-label {
+  font-size: 12px;
+  color: var(--text-3);
+  margin-top: 2px;
+}
+
+/* ═══ Live output zones ═══ */
+.live-zone {
+  border: 1.5px dashed var(--border);
+  border-radius: var(--radius);
+  padding: 16px 18px;
+  position: relative;
+  transition: border-color 0.3s, background-color 0.3s;
+}
+.live-zone.has-value {
+  border-color: rgba(153,0,0,0.18);
+  background: rgba(153,0,0,0.015);
+}
+.live-zone-tag {
+  position: absolute;
+  top: -9px;
+  left: 12px;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--text-3);
+  background: var(--surface);
+  padding: 0 6px;
+  line-height: 18px;
+}
+.live-zone.has-value .live-zone-tag {
+  color: var(--cardinal);
+}
+
+/* ═══ Dynamic value highlights ═══ */
+.dv {
+  display: inline;
+  font-weight: 800;
+  color: var(--text);
+  background: #FFF8E1;
+  border-bottom: 2px solid var(--gold);
+  padding: 0 3px;
+  border-radius: 2px;
+}
+.dv-lg {
+  display: inline;
+  font-family: 'Source Serif 4', Georgia, serif;
+  font-size: 18px;
+  font-weight: 900;
+  color: var(--text);
+  background: #FFF8E1;
+  border-bottom: 2px solid var(--gold);
+  padding: 0 5px;
+  border-radius: 2px;
+  line-height: 1.3;
+}
+
+/* Summary strip */
+.planner-summary-strip {
+  padding: 10px 24px;
+  background: var(--surface);
+  border-bottom: 1px solid var(--border-light);
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+  font-size: 13px;
+  animation: stripReveal 0.25s ease;
+}
+@keyframes stripReveal { from { opacity: 0; max-height: 0; padding: 0 24px; } to { opacity: 1; max-height: 60px; } }
+.strip-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+.strip-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+.strip-divider {
+  width: 1px;
+  height: 16px;
+  background: var(--border);
+}
+
+/* Planner tabs */
+/* Planner sections (single flow) */
+.planner-section {
+  border-top: 1px solid var(--border);
+}
+.planner-section-header {
+  padding: 20px 24px 8px;
+}
+.planner-section-label {
+  font-family: 'Source Serif 4', Georgia, serif;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--cardinal);
+  margin-bottom: 10px;
+  padding-bottom: 6px;
+  border-bottom: 1.5px solid var(--border-light);
+}
+/* Shared box label — inside tinted card boxes */
+.card-box-label {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: var(--cardinal);
+  margin-bottom: 6px;
+}
+/* Shared serif section divider label — used in submit card */
+.section-overline {
+  font-family: 'Source Serif 4', Georgia, serif;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--cardinal);
+  margin-bottom: 14px;
+  padding-bottom: 6px;
+  border-bottom: 1.5px solid var(--border-light);
+}
+.planner-section-desc {
+  font-size: 14px;
+  color: var(--text-2);
+  line-height: 1.5;
+}
+.planner-empty-prompt {
+  text-align: center;
+  padding: 24px;
+  font-size: 13px;
+  color: var(--text-3);
+  line-height: 1.6;
+}
+.planner-empty-prompt strong { color: var(--text-2); }
+.roster-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+}
+.roster-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--text);
+  background: #F8F7F5;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 6px 12px;
+}
+.roster-pill-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 2px;
+  flex-shrink: 0;
+}
+.roster-pill-meta {
+  font-size: 11px;
+  color: var(--text-3);
+  font-weight: 400;
+}
+.roster-overhead {
+  font-size: 12px;
+  color: var(--text-3);
+  margin-top: 12px;
+  padding-top: 10px;
+  border-top: 1px solid var(--border-light);
+  line-height: 1.5;
+}
+
+/* Schedule table */
+.sched-table { font-size: 13px; width: 100%; }
+.sched-header {
+  display: grid;
+  grid-template-columns: 110px 130px 55px 60px 70px 1fr;
+  gap: 0 8px;
+  padding: 6px 4px;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text-3);
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  border-bottom: 1px solid var(--border);
+}
+.sched-row {
+  display: grid;
+  grid-template-columns: 110px 130px 55px 60px 70px 1fr;
+  gap: 0 8px;
+  padding: 8px 4px;
+  align-items: center;
+  border-bottom: 1px solid #F5F2EE;
+}
+.sched-col-session { position: relative; }
+.sched-row-day-start {
+  border-top: 1px solid var(--border);
+}
+.sched-row-target {
+  background: rgba(34,139,34,0.06);
+  border-radius: 4px;
+}
+.sched-col-date { font-weight: 600; color: var(--text); }
+.sched-col-num { text-align: right; color: var(--text-2); font-size: 12px; }
+.sched-cumul-hit { color: var(--green); font-weight: 700; }
+.sched-col-bar { position: relative; }
+.sched-bar-track {
+  height: 18px;
+  background: #EEEAE5;
+  border-radius: 4px;
+  position: relative;
+  overflow: visible;
+}
+.sched-bar-fill {
+  height: 100%;
+  background: var(--cardinal);
+  border-radius: 4px;
+  transition: width 0.2s;
+}
+/* Floating label above capacity bar for narrow "Yours" segment */
+.bar-float-tip {
+  position: absolute;
+  top: -38px;
+  transform: translateX(-50%);
+  pointer-events: none;
+  z-index: 10;
+}
+.bar-float-tip-box {
+  background: var(--green);
+  color: white;
+  font-size: 12px;
+  font-weight: 600;
+  white-space: nowrap;
+  padding: 5px 10px;
+  border-radius: 5px;
+  line-height: 1.4;
+  position: relative;
+}
+.bar-float-tip-box::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 5px solid transparent;
+  border-top-color: var(--green);
+}
+
+</style>
+</head>
+<body>
+
+<div class="page-header">
+  <div class="page-header-inner">
+    <div>
+      <div class="header-brand">Marshall Behavioral Research Lab &nbsp;·&nbsp; Management &amp; Organization</div>
+      <h1>Stacked Research Sessions</h1>
+      <div class="subtitle">In-person proctored data collection · MOR Subject Pool · LL102</div>
+    </div>
+    <a href="mailto:huhb@marshall.usc.edu?subject=Stacking%20Planner%20Bug%20Report" style="margin-left:8px;font-size:11px;font-weight:700;background:rgba(255,255,255,0.15);color:white;border:1px solid rgba(255,255,255,0.35);padding:5px 12px;border-radius:2px;letter-spacing:1px;white-space:nowrap;text-transform:uppercase;text-decoration:none;display:inline-flex;align-items:center;gap:6px">
+      <span style="display:inline-block;width:7px;height:7px;border-radius:50%;background:#FACC15;flex-shrink:0"></span>Beta — report an error
+    </a>
+  </div>
+  <div class="gold-bar"></div>
+</div>
+
+<nav class="section-nav" id="section-nav">
+  <div class="section-nav-inner">
+    <a href="#sec-overview" class="nav-link" data-section="sec-overview">Overview</a>
+    <a href="#sec-planner" class="nav-link" data-section="sec-planner">Planner</a>
+    <a href="#sec-stack" class="nav-sub-link" data-subsection="sec-stack">Session Roster</a>
+    <a href="#sec-fit" class="nav-sub-link" data-subsection="sec-fit">Slot Availability</a>
+    <a href="#sec-timeline" class="nav-sub-link" data-subsection="sec-timeline">Schedule</a>
+    <a href="#sec-join" class="nav-link" data-section="sec-join">Submit</a>
+    <a href="#sec-faq" class="nav-link" data-section="sec-faq">FAQ</a>
+    <a href="#" class="nav-top-link" id="nav-top-link" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;" aria-label="Back to top">↑ Top</a>
+  </div>
+</nav>
+
+<div class="main">
+
+  <!-- ═══ OVERVIEW ═══ -->
+  <div id="sec-overview" style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:28px 24px 0;margin-bottom:28px;box-shadow:var(--shadow)">
+    <div class="journey-step-label">Overview</div>
+    <div class="journey-headline" style="margin-bottom:10px">Collect verified, proctored survey responses through shared lab sessions</div>
+    <p style="font-size:14px;color:var(--text-2);line-height:1.65;margin:0 0 20px 0">Multiple short Qualtrics studies run back-to-back in LL102. Participants complete each study at individual workstations under RA supervision, with study order counterbalanced across days (all sessions within a day run the same order). Participants sign up for a fixed time slot and must remain for its full duration — everyone in the room starts and finishes together. You provide collaborator access to your Qualtrics survey — we handle scheduling, proctoring, SONA setup, and credit assignment.</p>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px">
+      <div style="padding:14px 16px;background:#F8F7F5;border-radius:6px">
+        <div class="card-box-label">What you provide</div>
+        <p style="font-size:14px;color:var(--text-2);line-height:1.5;margin:0 0 10px 0">Submit the following five items by email, finalized <strong>by the day before your first session</strong>:</p>
+        <div style="display:flex;flex-direction:column;gap:5px">
+          <div style="font-size:13px;color:var(--text);display:flex;gap:8px;align-items:baseline"><span style="color:var(--cardinal);font-weight:700;flex-shrink:0">1.</span> <span><strong>Qualtrics collaborator access</strong> — the coordinator needs collaborator access (not just a link) to configure the redirect chain between studies</span></div>
+          <div style="font-size:13px;color:var(--text);display:flex;gap:8px;align-items:baseline"><span style="color:var(--cardinal);font-weight:700;flex-shrink:0">2.</span> Estimated study duration</div>
+          <div style="font-size:13px;color:var(--text);display:flex;gap:8px;align-items:baseline"><span style="color:var(--cardinal);font-weight:700;flex-shrink:0">3.</span> IRB protocol number</div>
+          <div style="font-size:13px;color:var(--text);display:flex;gap:8px;align-items:baseline"><span style="color:var(--cardinal);font-weight:700;flex-shrink:0">4.</span> Study name</div>
+          <div style="font-size:13px;color:var(--text);display:flex;gap:8px;align-items:baseline"><span style="color:var(--cardinal);font-weight:700;flex-shrink:0">5.</span> Preferred session weeks</div>
+        </div>
+      </div>
+      <div style="padding:14px 16px;background:#F8F7F5;border-radius:6px">
+        <div class="card-box-label">What you get</div>
+        <div style="display:flex;flex-direction:column;gap:7px">
+          <div style="font-size:13px;color:var(--text);display:flex;gap:8px;align-items:baseline"><span style="color:var(--green);font-weight:700;flex-shrink:0">✓</span> ID-verified participants on dedicated lab computers — tab switching and external applications are disabled</div>
+          <div style="font-size:13px;color:var(--text);display:flex;gap:8px;align-items:baseline"><span style="color:var(--green);font-weight:700;flex-shrink:0">✓</span> Up to 16 seats per session, 6 sessions per day (~84 participants/day)</div>
+          <div style="font-size:13px;color:var(--text);display:flex;gap:8px;align-items:baseline"><span style="color:var(--green);font-weight:700;flex-shrink:0">✓</span> Participants are required to remain for the full session duration and are dismissed simultaneously</div>
+          <div style="font-size:13px;color:var(--text);display:flex;gap:8px;align-items:baseline"><span style="color:var(--green);font-weight:700;flex-shrink:0">✓</span> A brief neutral transition screen between studies reduces carryover and priming effects</div>
+          <div style="font-size:13px;color:var(--text);display:flex;gap:8px;align-items:baseline"><span style="color:var(--green);font-weight:700;flex-shrink:0">✓</span> Participants who complete your study in a stacked session are automatically excluded from the online SONA version — no risk of duplicate participation</div>
+          <div style="font-size:13px;color:var(--text);display:flex;gap:8px;align-items:baseline"><span style="color:var(--green);font-weight:700;flex-shrink:0">✓</span> SONA credit: <strong>0.5</strong> (≤ 30 min) · <strong>0.75</strong> (31–45 min) · <strong>1.0</strong> (46–60 min)</div>
+          <div style="font-size:13px;color:var(--text);display:flex;gap:8px;align-items:baseline"><span style="color:var(--green);font-weight:700;flex-shrink:0">✓</span> Your survey content, logic, and data are untouched — responses appear in your standard Qualtrics export</div>
+        </div>
+      </div>
+      <div id="sec-eligibility" style="padding:14px 16px;background:var(--cardinal-light);border-radius:6px;border:1px solid rgba(153,0,0,0.08);grid-column:1/-1">
+        <div class="card-box-label">Eligibility</div>
+        <div class="eligibility-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:4px 24px;font-size:14px;color:var(--text);line-height:1.5">
+          <div><span style="color:var(--green);font-weight:700">✓</span> Qualtrics-based online survey</div>
+          <div><span style="color:var(--green);font-weight:700">✓</span> Individual-level (no groups or dyads)</div>
+          <div><span style="color:var(--green);font-weight:700">✓</span> ≤ 30 minutes in duration</div>
+          <div><span style="color:var(--green);font-weight:700">✓</span> Active IRB approval</div>
+          <div style="grid-column:1/-1"><span style="color:var(--green);font-weight:700">✓</span> No deception</div>
+        </div>
+      </div>
+    </div>
+    <div style="padding:14px 0 20px;border-top:1px solid var(--border-light);margin-top:4px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap">
+      <span style="font-size:13px;color:var(--text-3)">Use the planner to check session capacity and project your collection timeline.</span>
+      <a href="#sec-planner" onclick="document.getElementById('sec-planner').scrollIntoView({behavior:'smooth',block:'start'});return false;" style="display:inline-flex;align-items:center;gap:8px;background:var(--cardinal);color:white;padding:10px 20px;border-radius:6px;text-decoration:none;font-size:13px;font-weight:700;white-space:nowrap;transition:background 0.15s" onmouseover="this.style.background='var(--cardinal-dark)'" onmouseout="this.style.background='var(--cardinal)'">Plan data collection →</a>
+    </div>
+  </div>
+
+  <!-- ═══ PLAN DATA COLLECTION ═══ -->
+  <div class="throughput-card" id="sec-planner" style="overflow:visible">
+    <div style="padding:28px 24px 20px">
+      <div class="journey-step-label">Planning tool</div>
+      <div class="journey-headline">Plan data collection</div>
+      <p style="font-size:14px;color:var(--text-2);line-height:1.65;margin:8px 0 0 0;max-width:720px">Enter your study duration and target sample size. The planner checks whether your study fits in the current session slot, shows how the 60-minute window is allocated across active studies, and projects the number of collection days required to reach your target N.</p>
+
+      <!-- Session dates summary -->
+      <div style="margin-top:16px;background:var(--cardinal);border-radius:8px;overflow:hidden">
+        <!-- Stat row -->
+        <div style="display:flex;align-items:stretch;border-bottom:1px solid rgba(255,255,255,0.12)">
+          <div style="flex:1;padding:14px 18px;border-right:1px solid rgba(255,255,255,0.12);text-align:center">
+            <div style="font-family:'Source Serif 4',Georgia,serif;font-size:28px;font-weight:900;color:white;line-height:1">13</div>
+            <div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:1px;color:rgba(255,255,255,0.6);margin-top:3px">Session days</div>
+          </div>
+          <div style="flex:1;padding:14px 18px;border-right:1px solid rgba(255,255,255,0.12);text-align:center">
+            <div style="font-family:'Source Serif 4',Georgia,serif;font-size:28px;font-weight:900;color:white;line-height:1">6</div>
+            <div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:1px;color:rgba(255,255,255,0.6);margin-top:3px">Sessions/day</div>
+          </div>
+          <div style="flex:1;padding:14px 18px;border-right:1px solid rgba(255,255,255,0.12);text-align:center">
+            <div style="font-family:'Source Serif 4',Georgia,serif;font-size:28px;font-weight:900;color:white;line-height:1">16</div>
+            <div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:1px;color:rgba(255,255,255,0.6);margin-top:3px">Seats/session</div>
+          </div>
+          <div style="flex:1;padding:14px 18px;text-align:center">
+            <div style="font-family:'Source Serif 4',Georgia,serif;font-size:28px;font-weight:900;color:var(--gold);line-height:1">84</div>
+            <div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:1px;color:rgba(255,255,255,0.6);margin-top:3px">Participants/day</div>
+          </div>
+        </div>
+        <!-- Dates row -->
+        <div style="padding:12px 18px 16px;display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:12px">
+          <div style="flex:1;min-width:0">
+            <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;flex-wrap:wrap">
+              <span style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:rgba(255,255,255,0.5);min-width:42px">March</span>
+              <span style="display:inline-block;background:rgba(255,255,255,0.15);color:white;font-size:12px;font-weight:700;padding:3px 9px;border-radius:4px">Mar 5</span>
+              <span style="display:inline-block;background:rgba(255,255,255,0.15);color:white;font-size:12px;font-weight:700;padding:3px 9px;border-radius:4px">Mar 6</span>
+              <span style="display:inline-block;background:rgba(255,255,255,0.15);color:white;font-size:12px;font-weight:700;padding:3px 9px;border-radius:4px">Mar 12</span>
+              <span style="display:inline-block;background:rgba(255,255,255,0.15);color:white;font-size:12px;font-weight:700;padding:3px 9px;border-radius:4px">Mar 13</span>
+              <span style="display:inline-block;background:rgba(255,255,255,0.06);color:rgba(255,255,255,0.35);font-size:11px;font-style:italic;padding:3px 9px;border-radius:4px;border:1px dashed rgba(255,255,255,0.2)">recess Mar 16–20</span>
+              <span style="display:inline-block;background:rgba(255,255,255,0.15);color:white;font-size:12px;font-weight:700;padding:3px 9px;border-radius:4px">Mar 23</span>
+              <span style="display:inline-block;background:rgba(255,255,255,0.15);color:white;font-size:12px;font-weight:700;padding:3px 9px;border-radius:4px">Mar 24</span>
+              <span style="display:inline-block;background:rgba(255,255,255,0.15);color:white;font-size:12px;font-weight:700;padding:3px 9px;border-radius:4px">Mar 25</span>
+              <span style="display:inline-block;background:rgba(255,255,255,0.15);color:white;font-size:12px;font-weight:700;padding:3px 9px;border-radius:4px">Mar 27</span>
+              <span style="display:inline-block;background:rgba(255,255,255,0.15);color:white;font-size:12px;font-weight:700;padding:3px 9px;border-radius:4px">Mar 30</span>
+              <span style="display:inline-block;background:rgba(255,255,255,0.15);color:white;font-size:12px;font-weight:700;padding:3px 9px;border-radius:4px">Mar 31</span>
+            </div>
+            <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">
+              <span style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:rgba(255,255,255,0.5);min-width:42px">April</span>
+              <span style="display:inline-block;background:rgba(255,255,255,0.15);color:white;font-size:12px;font-weight:700;padding:3px 9px;border-radius:4px">Apr 1</span>
+              <span style="display:inline-block;background:rgba(255,255,255,0.15);color:white;font-size:12px;font-weight:700;padding:3px 9px;border-radius:4px">Apr 2</span>
+              <span style="display:inline-block;background:rgba(255,255,255,0.15);color:white;font-size:12px;font-weight:700;padding:3px 9px;border-radius:4px">Apr 3</span>
+            </div>
+          </div>
+          <a href="#sec-timeline" onclick="var d=document.querySelector('#sec-timeline details');if(d)d.open=true;document.getElementById('sec-timeline').scrollIntoView({behavior:'smooth',block:'start'});return false;" style="font-size:12px;font-weight:600;color:var(--gold);text-decoration:none;white-space:nowrap;padding-top:2px">View calendar →</a>
+        </div>
+      </div>
+      </div><!-- /.journey-header wrapper padding -->
+
+      <!-- How to use this planner -->
+      <div style="border-top:1px solid var(--border-light)">
+        <details>
+          <summary style="cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;padding:12px 24px;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--text-3);user-select:none">
+            <span>How to use this planner</span>
+            <span class="power-expand-arrow" style="font-size:13px">▸</span>
+          </summary>
+          <div style="padding:4px 24px 20px;display:grid;grid-template-columns:repeat(4,1fr);gap:12px">
+            <div style="padding:12px 14px;background:#F8F7F5;border-radius:6px;border-top:2px solid var(--cardinal)">
+              <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--cardinal);margin-bottom:6px">① Duration</div>
+              <div style="font-size:13px;color:var(--text-2);line-height:1.5">Drag the slider or type your study duration. The capacity bar updates live to show whether your study fits within the session.</div>
+            </div>
+            <div style="padding:12px 14px;background:#F8F7F5;border-radius:6px;border-top:2px solid var(--cardinal)">
+              <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--cardinal);margin-bottom:6px">② Target N</div>
+              <div style="font-size:13px;color:var(--text-2);line-height:1.5">Enter your target sample size. The estimate below updates to show required collection days and projected completion date. Use "Calculate from design →" to derive N from your study design.</div>
+            </div>
+            <div style="padding:12px 14px;background:#F8F7F5;border-radius:6px;border-top:2px solid var(--cardinal)">
+              <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--cardinal);margin-bottom:6px">③ Review</div>
+              <div style="font-size:13px;color:var(--text-2);line-height:1.5">Review the Session Roster to see which studies are currently scheduled in the stack, the Capacity Check to confirm your study fits, and the Schedule for a day-by-day collection timeline.</div>
+            </div>
+            <div style="padding:12px 14px;background:#F8F7F5;border-radius:6px;border-top:2px solid var(--cardinal)">
+              <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--cardinal);margin-bottom:6px">④ Submit</div>
+              <div style="font-size:13px;color:var(--text-2);line-height:1.5">Email your study name, Qualtrics collaborator access, duration, preferred weeks, and IRB number. The coordinator handles SONA setup, scheduling, and proctoring.</div>
+            </div>
+          </div>
+        </details>
+      </div>
+
+    
+    <div class="planner-input-bar">
+      <div class="planner-input-inner">
+
+      <!-- Step 1: Duration with slider + mini capacity preview -->
+      <div class="input-step" id="input-step-dur">
+        <div class="input-step-num">1</div>
+        <div class="input-step-body">
+          <div class="input-step-label">How long is your study?</div>
+          <div class="input-slider-row">
+            <div class="slider-wrap">
+              <input type="range" id="calc-dur-slider" class="dur-slider" min="0" max="30" step="1" value="0">
+              <div class="slider-tick" style="left:16.7%"><div class="slider-tick-line" style="background:var(--text-3)"></div><span class="slider-tick-label" style="color:var(--text-3)">5</span></div>
+              <div class="slider-tick" style="left:33.3%"><div class="slider-tick-line" style="background:var(--text-3)"></div><span class="slider-tick-label" style="color:var(--text-3)">10</span></div>
+              <div class="slider-tick" style="left:50%"><div class="slider-tick-line" style="background:var(--text-3)"></div><span class="slider-tick-label" style="color:var(--text-3)">15</span></div>
+              <div class="slider-tick" style="left:66.7%"><div class="slider-tick-line" style="background:var(--text-3)"></div><span class="slider-tick-label" style="color:var(--text-3)">20</span></div>
+              <div class="slider-tick" style="left:100%"><div class="slider-tick-line"></div><span class="slider-tick-label">30m limit</span></div>
+            </div>
+            <div class="input-dur-display" id="dur-display">
+              <input type="number" id="calc-dur" class="dur-num-input" placeholder="—" min="2" max="30" step="1">
+              <span class="dur-unit">min</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 2: Target N with inline estimate -->
+      <div class="input-step" id="input-step-n">
+        <div class="input-step-num">2</div>
+        <div class="input-step-body">
+          <div class="input-step-label">How many participants do you need?</div>
+          <div class="input-n-row">
+            <span class="input-n-prefix">N&thinsp;=</span>
+            <input type="number" id="calc-target" class="n-num-input" placeholder="e.g. 200" min="20" max="2000" step="10">
+            <span id="calc-target-badge"></span>
+            <a href="#" class="planner-inline-help" onclick="document.getElementById('power-helper-wrap').classList.toggle('open');return false;">Not sure? Calculate from design →</a>
+          </div>
+          <div class="live-zone" id="estimate-zone">
+            <div class="live-zone-tag">Updates live ↓</div>
+            <div class="input-n-estimate" id="input-n-estimate"></div>
+          </div>
+        </div>
+      </div>
+
+      </div><!-- /.planner-input-inner -->
+    </div>
+
+    <!-- Summary strip -->
+    <div class="planner-summary-strip" id="planner-summary-strip" style="display:none"></div>
+
+    <!-- Power analysis modal overlay -->
+    <div class="power-overlay" id="power-helper-wrap">
+      <div class="power-modal">
+        <div class="power-modal-header">
+          <div>
+            <div style="font-size:16px;font-weight:700;color:var(--text)">Calculate N from study design</div>
+            <div style="font-size:12px;color:var(--text-3);margin-top:2px">The result will populate your target N automatically</div>
+          </div>
+          <button class="power-modal-close" onclick="document.getElementById('power-helper-wrap').classList.remove('open')" aria-label="Close">&times;</button>
+        </div>
+        <div class="power-modal-body">
+          <div class="power-body">
+            <div class="power-inputs">
+              <div class="calc-field">
+                <label>Study design</label>
+                <select id="pwr-design">
+                  <option value="" disabled selected>— Select study design —</option>
+                  <option value="twocell">Between-subjects (2 conditions)</option>
+                  <option value="factorial">2×2 factorial (testing interaction)</option>
+                  <option value="mediation">Mediation (X → M → Y)</option>
+                  <option value="moderation">Moderation (interaction with continuous variable)</option>
+                  <option value="multicell">Between-subjects (3+ conditions)</option>
+                </select>
+                <div class="field-hint" id="pwr-design-hint">Select a design to see effect size benchmarks and calculate required N.</div>
+                <div class="field-hint" style="margin-top:6px;font-style:italic">Looking for moderated mediation (X → M → Y, conditional on W)? Powering that design requires Monte Carlo simulation. Try the <a href="https://schoemanna.shinyapps.io/mc_power_med/" target="_blank" rel="noopener" style="color:var(--cardinal);font-weight:600">Schoemann, Boulton &amp; Short power app</a> or the R <code style="font-size:10px;background:#F0F0EE;padding:1px 4px;border-radius:3px">semPower</code> package, then enter the resulting N in the target sample size field above.</div>
+              </div>
+
+              <div class="calc-field" id="pwr-k-wrap" style="display:none">
+                <label>Number of conditions</label>
+                <select id="pwr-k">
+                  <option value="" disabled selected>— Select —</option>
+                  <option value="3">3 conditions</option>
+                  <option value="4">4 conditions</option>
+                  <option value="5">5 conditions</option>
+                  <option value="6">6 conditions</option>
+                </select>
+              </div>
+
+              <div id="pwr-med-wrap" style="display:none">
+                <div class="calc-field">
+                  <label>Path strengths (a and b paths)</label>
+                  <select id="pwr-med-paths">
+                    <option value="" disabled selected>— Select path strengths —</option>
+                    <option value="mm">Both medium (β=.39, β=.39) — most common</option>
+                    <option value="ml">Medium a, large b (β=.39, β=.59)</option>
+                    <option value="lm">Large a, medium b (β=.59, β=.39)</option>
+                    <option value="ll">Both large (β=.59, β=.59)</option>
+                    <option value="sm">Small a, medium b (β=.14, β=.39)</option>
+                    <option value="ms">Medium a, small b (β=.39, β=.14)</option>
+                    <option value="sl">Small a, large b (β=.14, β=.59)</option>
+                    <option value="ls">Large a, small b (β=.59, β=.14)</option>
+                    <option value="ss">Both small (β=.14, β=.14) — hardest to detect</option>
+                  </select>
+                  <div class="field-hint">Based on Fritz &amp; MacKinnon (2007) sample size tables. Path values are standardized regression coefficients.</div>
+                </div>
+              </div>
+
+              <div id="pwr-effect-wrap" style="display:none">
+                <div class="calc-field">
+                  <label>Expected effect size <span id="pwr-effect-type"></span></label>
+                  <div class="power-presets" id="pwr-presets">
+                    <button class="power-preset" onclick="setPwrEffect(this,0.10)">Small (d=.10)</button>
+                    <button class="power-preset" onclick="setPwrEffect(this,0.18)">Typical (d=.18)</button>
+                    <button class="power-preset" onclick="setPwrEffect(this,0.32)">Large (d=.32)</button>
+                  </div>
+                  <div style="display:flex;align-items:center;gap:8px;margin-top:8px">
+                    <span style="font-size:12px;color:var(--text-3);white-space:nowrap" id="pwr-effect-label">Interaction d =</span>
+                    <input type="number" id="pwr-effect" placeholder="—" min="0.01" max="3.0" step="0.01" style="max-width:90px">
+                  </div>
+                  <div class="field-hint" id="pwr-effect-hint">Select a preset or enter a custom value.</div>
+                </div>
+              </div>
+
+              <div class="calc-field">
+                <label>Significance level (α)</label>
+                <select id="pwr-alpha">
+                  <option value="" disabled selected>— Select —</option>
+                  <option value="0.05">α = .05</option>
+                  <option value="0.01">α = .01</option>
+                  <option value="0.001">α = .001</option>
+                </select>
+              </div>
+              <div class="calc-field">
+                <label>Desired power (1 − β)</label>
+                <select id="pwr-power">
+                  <option value="" disabled selected>— Select —</option>
+                  <option value="0.80">80%</option>
+                  <option value="0.90">90%</option>
+                  <option value="0.95">95%</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="power-result-panel">
+              <div class="power-result-label">Required total sample size</div>
+              <div class="power-result-n" id="pwr-result-n">—</div>
+              <div class="power-result-breakdown" id="pwr-result-detail"></div>
+              <div id="pwr-warning" style="display:none;font-size:12px;color:var(--amber-text);background:var(--amber-bg);border:1px solid #FDE68A;border-radius:6px;padding:8px 12px;text-align:left;width:100%;margin-top:4px"></div>
+              <button class="power-use-btn" id="pwr-use-btn" onclick="usePowerN()" disabled style="opacity:0.5;cursor:default">
+                Use N = <span id="pwr-use-n">—</span>
+              </button>
+              <div class="power-note" id="pwr-note">Select a study design, effect size, α, and power to calculate.</div>
+            </div>
+          </div>
+          <div class="power-reference" id="pwr-reference" style="margin:0 -20px;padding:12px 20px;background:#FAFAF8;border-top:1px solid var(--border-light)">
+            Select a study design to see relevant effect size benchmarks and references.
+          </div>
+          <div class="power-citations" style="margin:0 -20px;padding:14px 20px;border-top:1px solid var(--border-light)">
+            <details>
+              <summary>Benchmark sources &amp; references</summary>
+              <span class="cite">Aguinis, H., Beaty, J. C., Boik, R. J., &amp; Pierce, C. A. (2005). Effect size and power in assessing moderating effects of categorical variables using multiple regression: A 30-year review. <em>Journal of Applied Psychology, 90</em>(1), 94–107.</span>
+              <span class="cite">Bosco, F. A., Aguinis, H., Singh, K., Field, J. G., &amp; Pierce, C. A. (2015). Correlational effect size benchmarks. <em>Journal of Applied Psychology, 100</em>(2), 431–449.</span>
+              <span class="cite">Fritz, M. S., &amp; MacKinnon, D. P. (2007). Required sample size to detect the mediated effect. <em>Psychological Science, 18</em>(3), 233–239.</span>
+              <span class="cite">McClelland, G. H., &amp; Judd, C. M. (1993). Statistical difficulties of detecting interactions and moderator effects. <em>Psychological Bulletin, 114</em>(2), 376–390.</span>
+              <span class="cite">Paterson, T. A., Harms, P. D., Steel, P., &amp; Credé, M. (2016). An assessment of the magnitude of effect sizes: Evidence from 30 years of meta-analysis in management. <em>Journal of Leadership &amp; Organizational Studies, 23</em>(1), 66–81.</span>
+              <span class="cite">Simonsohn, U. (2014). No-way interactions. <em>Data Colada</em> [Blog post #17]. http://datacolada.org/17</span>
+            </details>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══ SECTION: Current Stack ═══ -->
+    <div class="planner-section" id="sec-stack">
+      <div class="planner-section-header">
+        <div class="planner-section-label">Session roster</div>
+        <div class="planner-section-desc">Studies currently sharing the session slot. Each participant completes all of them back-to-back. Credit is based on total time in the lab: <strong>0.5 credit</strong> (≤ 30 min), <strong>0.75 credit</strong> (31–45 min), or <strong>1.0 credit</strong> (46–60 min). Participants receive one credit award per session, not per study.</div>
+      </div>
+      <div id="stack-roster-legend" style="padding:8px 24px 16px">
+        <!-- rendered by JS -->
+      </div>
+    </div>
+
+    <!-- ═══ SECTION: Session Fit ═══ -->
+    <div class="planner-section" id="sec-fit">
+      <div class="planner-section-header">
+        <div class="planner-section-label">Session slot availability</div>
+        <div class="planner-section-desc">The 60-minute slot is already partially booked by the studies below. The bar shows the <strong>most constrained session</strong> your study would need to fit into — if it fits there, it fits everywhere. If not, it shows the earliest date when the slot opens up enough for your study to join.</div>
+      </div>
+      <div class="live-zone" id="fit-zone" style="margin:8px 24px 16px">
+        <div id="fit-summary-banner" style="margin-bottom:8px"></div>
+        <div id="all-layouts-container">
+          <!-- rendered by renderAllLayouts() -->
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══ SECTION: Collection Timeline ═══ -->
+    <div class="planner-section" id="sec-timeline">
+      <div class="planner-section-header">
+        <div class="planner-section-label">Schedule</div>
+        <div class="planner-section-desc">A day-by-day projection of data collection pace toward your target sample size, based on ~84 participants per day across 6 sessions. Expand the calendar below to see all session dates.</div>
+      </div>
+      <div style="padding:8px 24px 0">
+        <div class="live-zone" id="timeline-zone">
+          <div id="calc-empty-state" style="text-align:center;padding:24px 0;color:var(--text-3)">
+            <div style="font-size:13px">Enter a duration and target N above to see a projected schedule.</div>
+          </div>
+          <div id="calc-filled-state" style="display:none">
+            <div id="calc-schedule-summary" style="font-size:13px;color:var(--text-2);margin-bottom:12px;line-height:1.5"></div>
+            <div class="calc-result-grid" id="calc-result-grid"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Inline calendar reference -->
+      <div style="padding:12px 24px 20px">
+        <details>
+          <summary style="cursor:pointer;font-size:13px;font-weight:600;color:var(--text-2);list-style:none;display:flex;justify-content:space-between;align-items:center;padding:8px 0">
+            <span>View session dates calendar</span>
+            <span style="font-size:14px;color:var(--text-3);transition:transform 0.2s" class="power-expand-arrow">▸</span>
+          </summary>
+          <div style="padding-top:8px">
+            <div class="mini-cal-wrap" id="mini-cal-wrap">
+              <!-- rendered by JS -->
+            </div>
+            <div class="avail-legend" style="margin-top:12px">
+              <div class="avail-legend-item"><div class="avail-legend-dot" style="background:var(--green);border-color:var(--green)"></div> Open session day</div>
+              <div class="avail-legend-item"><div class="avail-legend-dot" style="background:#F5F5F5;border-color:#CCC"></div> Spring Recess</div>
+              <div style="width:1px;height:14px;background:var(--border);margin:0 2px"></div>
+              <span style="font-size:12px;color:var(--text-3)">Badges show which studies run that day:</span>
+              <div id="cal-study-legend" style="display:flex;gap:6px;align-items:center;flex-wrap:wrap"></div>
+            </div>
+            <div class="avail-summary" id="avail-summary" style="margin-top:8px"></div>
+          </div>
+        </details>
+      </div>
+    </div>
+
+  </div>
+
+
+  <!-- ═══ HOW TO JOIN ═══ -->
+  <div class="optin-card" id="sec-join">
+    <div style="padding:28px 24px 20px">
+      <div class="journey-step-label">Submission</div>
+      <div class="journey-headline">Submit your study</div>
+      <p style="font-size:14px;color:var(--text-2);line-height:1.65;margin:8px 0 0 0;max-width:720px">Submit your study information by email and the coordinator will handle all remaining setup — SONA study page creation, scheduling, and proctoring logistics. No modifications to your Qualtrics survey are required.</p>
+    </div>
+
+    <!-- CTA -->
+    <div style="padding:20px 24px;text-align:center;background:var(--cardinal-light);border-bottom:1px solid rgba(153,0,0,0.08)">
+      <p style="font-size:14px;color:var(--text);margin:0 0 6px 0">Email the following: <strong>study name</strong>, <strong>Qualtrics collaborator access</strong>, <strong>estimated duration</strong>, <strong>preferred session weeks</strong>, and <strong>IRB protocol number</strong>.</p>
+      <a href="/cdn-cgi/l/email-protection#375f425f55775a5645445f565b5b1942445419525342" style="display:inline-block;background:var(--cardinal);color:white;padding:10px 24px;border-radius:6px;text-decoration:none;font-size:14px;font-weight:600;margin-top:8px"><span class="__cf_email__" data-cfemail="5139243933113c30232239303d3d7f2422327f343524">[email&#160;protected]</span></a>
+    </div>
+
+    <!-- What happens next -->
+    <div style="padding:18px 24px">
+      <div class="section-overline">Process after submission</div>
+      <div class="optin-steps">
+        <div class="optin-step">
+          <div class="optin-step-num">1</div>
+          <h3>Compatibility review</h3>
+          <p>The coordinator checks for participant overlap, potential priming conflicts, and scheduling fit with other studies in the stack.</p>
+        </div>
+        <div class="optin-step">
+          <div class="optin-step-num">2</div>
+          <h3>Scheduling &amp; setup</h3>
+          <p>Session weeks are confirmed, the SONA study page is created, and the coordinator configures the Qualtrics redirect chain linking all studies in the stack. No further action is required from the researcher.</p>
+        </div>
+        <div class="optin-step">
+          <div class="optin-step-num">3</div>
+          <h3>Data collection</h3>
+          <p>An RA proctors each session. Participants complete all studies in the stack and receive a single SONA credit award based on total session time (0.5, 0.75, or 1.0 credit). Responses appear in the researcher's standard Qualtrics export.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ FAQ ═══ -->
+  <div class="faq-card" id="sec-faq">
+    <div style="padding:28px 24px 16px">
+      <div class="journey-step-label">FAQ</div>
+      <div class="journey-headline" style="margin-bottom:8px">Frequently asked questions</div>
+      <p style="font-size:14px;color:var(--text-2);line-height:1.65;margin:0;max-width:720px">Common questions about how sessions work, participant flow, credit, and data quality.</p>
+    </div>
+    <div class="faq-items">
+      <details class="faq-item">
+        <summary class="faq-q">How do participants move between studies — are the surveys linked?</summary>
+        <div class="faq-a">Yes. Studies are connected via a <strong>Qualtrics redirect chain</strong>: when a participant finishes one study, they are automatically redirected to the next one without returning to SONA in between. The coordinator configures this redirect in the end-of-survey settings of each study — that is the only thing touched in your survey. Your content, logic, display order, and data remain completely unchanged. This is why collaborator access to your Qualtrics survey is required rather than just a link.</div>
+      </details>
+      <details class="faq-item">
+        <summary class="faq-q">What prevents a participant from completing my study twice — once in the lab and once online?</summary>
+        <div class="faq-a">Participants who complete your study in a stacked session are automatically excluded from signing up for the online SONA version. This is handled at the SONA level — once they receive credit for the stacked session study, the online listing is no longer available to them. You can also run stacked sessions and online collection simultaneously without risk of overlap.</div>
+      </details>
+      <details class="faq-item">
+        <summary class="faq-q">Can I submit multiple studies of my own to run in the same session?</summary>
+        <div class="faq-a">Yes. Multiple studies from the same researcher can run back-to-back within the same stack, as long as they are on unrelated topics and the combined duration fits within the session cap. Study order will still be counterbalanced across days. If you have a preference for ordering or position in the stack, mention it at submission and the coordinator will accommodate where possible.</div>
+      </details>
+      <details class="faq-item">
+        <summary class="faq-q">When does my study need to be finalized before a session?</summary>
+        <div class="faq-a">Your Qualtrics survey should be fully finalized — content, logic, and flow — by <strong>the day before your first session</strong>. This gives the coordinator time to configure the redirect chain, test the full session flow end-to-end, and resolve any issues before participants arrive. Changes to survey content after this point cannot be guaranteed to make it into the session.</div>
+      </details>
+      <details class="faq-item">
+        <summary class="faq-q">Can participants leave early if they finish their studies quickly?</summary>
+        <div class="faq-a">No. Participants sign up for a fixed time slot and are required to remain for its entire duration — all participants are dismissed simultaneously by the RA. This is intentional: early departures would reveal to remaining participants that some studies are shorter than others, potentially introducing demand effects. It also ensures the credit tier accurately reflects time in the lab. Participants who complete all studies before the session ends are asked to remain seated until dismissal.</div>
+      </details>
+      <details class="faq-item">
+        <summary class="faq-q">How much SONA credit do participants receive?</summary>
+        <div class="faq-a">Credit is awarded based on total time in the lab session — not per study. The tiers are: <strong>0.5 credit</strong> for sessions up to 30 minutes, <strong>0.75 credit</strong> for 31–45 minutes, and <strong>1.0 credit</strong> for 46–60 minutes. Participants receive one credit award per session regardless of how many studies are in the stack. The current stack duration determines which tier applies, so adding your study may move the session into a higher credit bracket.</div>
+      </details>
+      <details class="faq-item">
+        <summary class="faq-q">Can a participant in Study A also be in Study B within the same session?</summary>
+        <div class="faq-a">Yes — each participant completes all studies in the stack sequentially and receives a single SONA credit award for the session based on total time in the lab. Studies within the same stack should not measure the same construct to avoid priming effects.</div>
+      </details>
+      <details class="faq-item">
+        <summary class="faq-q">What if my study has exclusion criteria that conflict with another study?</summary>
+        <div class="faq-a">This is reviewed during the compatibility check. If there is an exclusion overlap, the stack composition can be adjusted or the studies can be scheduled in different weeks.</div>
+      </details>
+      <details class="faq-item">
+        <summary class="faq-q">Do I need to modify my study for the proctored setting?</summary>
+        <div class="faq-a">No. Each participant works independently at their own station, and your survey runs as designed in Qualtrics. The RA proctor handles session logistics (seating, timing, credit assignment) but does not interact with the study content.</div>
+      </details>
+      <details class="faq-item">
+        <summary class="faq-q">How is study order determined within a session?</summary>
+        <div class="faq-a">By default, study order is counterbalanced <strong>across session days</strong> — each day uses a different ordering so that order effects wash out across your full sample. Within a single day, all sessions run in the same order. If you have a specific counterbalancing request (e.g., rotating order within the same day, or a particular position in the stack), please mention it when you submit and the coordinator will do their best to accommodate it.</div>
+      </details>
+      <details class="faq-item">
+        <summary class="faq-q">Can I run stacked sessions alongside online collection for the same study?</summary>
+        <div class="faq-a">Yes. Stacked sessions create an additional in-person collection channel. Your Qualtrics link remains active for online participants as well. You can include a question in your survey to identify which responses came from stacked sessions versus online.</div>
+      </details>
+      <details class="faq-item">
+        <summary class="faq-q">What if there aren't enough sessions available for my study on a given day?</summary>
+        <div class="faq-a">Each day runs 6 sessions. If some sessions are full or unavailable, your study can be scheduled in the remaining open sessions on that day, or moved to another available date. Session dates are listed in the collection planner above.</div>
+      </details>
+      <details class="faq-item">
+        <summary class="faq-q">Should I still include attention checks in a proctored session?</summary>
+        <div class="faq-a">Attention checks remain useful as a data quality measure. However, failure rates in proctored settings are typically lower than in unsupervised online completion, so the effective sample size after exclusions should be closer to the raw N collected.</div>
+      </details>
+      <details class="faq-item">
+        <summary class="faq-q">Where does the ~2 no-shows per session estimate come from?</summary>
+        <div class="faq-a">This is a rough average based on typical SONA session attendance. Actual no-show rates vary by time of day, day of week, and point in the semester (attendance tends to drop near finals). The planner uses this estimate to give you a realistic timeline, but your actual collection pace may be faster or slower.</div>
+      </details>
+    </div>
+  </div>
+
+</div>
+
+<!-- ═══ FOOTER ═══ -->
+<footer class="site-footer">
+  <div style="height:4px;background:var(--gold)"></div>
+  <div class="site-footer-inner">
+    <div class="footer-cta">Ready to add your study to the stack?</div>
+    <div class="footer-contact">
+      <a href="mailto:huhb@marshall.usc.edu">huhb@marshall.usc.edu</a><br>
+      Marshall Behavioral Research Lab &nbsp;·&nbsp; LL102 &nbsp;·&nbsp; Spring 2026
+    </div>
+  </div>
+  <div class="footer-meta">
+    <div class="footer-meta-inner">
+      <span class="footer-meta-label">Marshall School of Business &nbsp;·&nbsp; Management &amp; Organization</span>
+      <a href="#" class="back-to-top" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;">↑ Back to top</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+// ═══ POWER ANALYSIS (OB-Specific Designs) ═══
+// Normal quantile — Abramowitz & Stegun rational approximation
+function qnorm(p) {
+  if (p <= 0) return -Infinity;
+  if (p >= 1) return Infinity;
+  if (p === 0.5) return 0;
+  var flip = p > 0.5;
+  if (flip) p = 1 - p;
+  var t = Math.sqrt(-2 * Math.log(p));
+  var z = t - (2.515517 + 0.802853*t + 0.010328*t*t) / (1 + 1.432788*t + 0.189269*t*t + 0.001308*t*t*t);
+  return flip ? z : -z;
+}
+
+// ── ANOVA power via non-central F (Poisson mixture of incomplete beta) ──
+// Log-gamma via Lanczos approximation
+function lnGamma(x) {
+  var c = [0.99999999999980993, 676.5203681218851, -1259.1392167224028,
+    771.32342877765313, -176.61502916214059, 12.507343278686905,
+    -0.13857109526572012, 9.9843695780195716e-6, 1.5056327351493116e-7];
+  x -= 1;
+  var a = c[0], t = x + 7.5;
+  for (var i = 1; i < 9; i++) a += c[i] / (x + i);
+  return 0.5 * Math.log(2 * Math.PI) + (x + 0.5) * Math.log(t) - t + Math.log(a);
+}
+// Continued fraction for regularized incomplete beta
+function betacf(a, b, x) {
+  var qab = a + b, qap = a + 1, qam = a - 1;
+  var c = 1, d = 1 - qab * x / qap;
+  if (Math.abs(d) < 1e-30) d = 1e-30;
+  d = 1 / d;
+  var h = d;
+  for (var m = 1; m <= 200; m++) {
+    var m2 = 2 * m;
+    var aa = m * (b - m) * x / ((qam + m2) * (a + m2));
+    d = 1 + aa * d; if (Math.abs(d) < 1e-30) d = 1e-30; d = 1 / d;
+    c = 1 + aa / c; if (Math.abs(c) < 1e-30) c = 1e-30;
+    h *= d * c;
+    aa = -(a + m) * (qab + m) * x / ((a + m2) * (qap + m2));
+    d = 1 + aa * d; if (Math.abs(d) < 1e-30) d = 1e-30; d = 1 / d;
+    c = 1 + aa / c; if (Math.abs(c) < 1e-30) c = 1e-30;
+    var del = d * c;
+    h *= del;
+    if (Math.abs(del - 1) < 1e-10) break;
+  }
+  return h;
+}
+// Regularized incomplete beta I_x(a, b)
+function betai(a, b, x) {
+  if (x <= 0) return 0;
+  if (x >= 1) return 1;
+  var bt = Math.exp(lnGamma(a + b) - lnGamma(a) - lnGamma(b) + a * Math.log(x) + b * Math.log(1 - x));
+  if (x < (a + 1) / (a + b + 2)) return bt * betacf(a, b, x) / a;
+  return 1 - bt * betacf(b, a, 1 - x) / b;
+}
+// Central F CDF and quantile
+function pf(x, v1, v2) {
+  if (x <= 0) return 0;
+  return betai(v1 / 2, v2 / 2, v1 * x / (v1 * x + v2));
+}
+function qf(p, v1, v2) {
+  var lo = 0, hi = 100;
+  while (pf(hi, v1, v2) < p) hi *= 2;
+  for (var i = 0; i < 80; i++) {
+    var mid = (lo + hi) / 2;
+    if (pf(mid, v1, v2) < p) lo = mid; else hi = mid;
+  }
+  return (lo + hi) / 2;
+}
+// Non-central F CDF via Poisson-weighted sum of central betas
+function pfNc(x, v1, v2, lambda) {
+  if (x <= 0) return 0;
+  var halfLam = lambda / 2, prob = 0, logW = -halfLam;
+  for (var j = 0; j < 200; j++) {
+    if (j > 0) logW += Math.log(halfLam / j);
+    var w = Math.exp(logW);
+    if (j > 10 && w < 1e-12) break;
+    prob += w * betai(v1 / 2 + j, v2 / 2, v1 * x / (v1 * x + v2));
+  }
+  return prob;
+}
+// Power of one-way ANOVA F-test; bisection for per-group N
+function anovaPower(n, k, f, alpha) {
+  var v1 = k - 1, v2 = k * (n - 1), lam = k * n * f * f;
+  return 1 - pfNc(qf(1 - alpha, v1, v2), v1, v2, lam);
+}
+function findAnovaN(k, f, alpha, targetPower) {
+  var lo = 2, hi = 5000;
+  if (anovaPower(hi, k, f, alpha) < targetPower) return hi;
+  while (hi - lo > 1) {
+    var mid = Math.floor((lo + hi) / 2);
+    if (anovaPower(mid, k, f, alpha) >= targetPower) hi = mid; else lo = mid;
+  }
+  return hi;
+}
+
+// Fritz & MacKinnon (2007, Psychological Science) mediation N lookup
+// Bias-corrected bootstrap test. Path sizes: small β=.14, medium β=.39, large β=.59
+// The .80 power row is from the original paper (Table 2). Values for .90 and .95 are
+// approximate, scaled from .80 baseline — treat as estimates, not exact benchmarks.
+var MEDIATION_TABLE = {
+  '0.80': { ss: 462, sl: 148, ls: 148, sm: 406, ms: 406, mm: 71, ml: 57, lm: 57, ll: 36 },
+  '0.90': { ss: 614, sl: 194, ls: 194, sm: 532, ms: 532, mm: 92, ml: 74, lm: 74, ll: 46 },
+  '0.95': { ss: 760, sl: 238, ls: 238, sm: 660, ms: 660, mm: 112, ml: 90, lm: 90, ll: 56 }
+};
+
+// Design metadata — effect size benchmarks calibrated to OB/applied psychology research
+// Primary source: Bosco, Aguinis, Singh, Field, & Pierce (2015, JAP) — large-scale meta-analysis of effect sizes
+// Supplemented by: Paterson, Harms, Steel, & Credé (2016, JLOS) for OB-specific estimates
+// Note: r-to-d conversions use d = 2r/√(1-r²) assuming equal group sizes
+var DESIGN_INFO = {
+  twocell: {
+    hint: 'Standard control vs. treatment. Benchmarks based on Bosco et al. (2015) effect size distribution in applied psychology.',
+    effectLabel: "Cohen's d =",
+    effectHint: 'OB benchmarks (Bosco et al., 2015): d ≈ .18 is 25th percentile, d ≈ .32 is median, d ≈ .63 is 75th percentile of published effects',
+    presets: [{v:0.18,l:'25th pctl (d=.18)'},{v:0.32,l:'Median (d=.32)'},{v:0.63,l:'75th pctl (d=.63)'}],
+    reference: '<strong>Two-group designs — OB benchmarks (Bosco et al., 2015, <em>JAP</em>).</strong> In a large-scale meta-analysis of correlational effect sizes in applied psychology, the median effect was r = .16 (d ≈ .32). The 25th percentile was r = .09 (d ≈ .18) and the 75th percentile was r = .30 (d ≈ .63). Cohen\'s conventional "medium" (d = .50) falls between the 50th and 75th percentile of observed OB effects. d values converted via d = 2r / √(1 − r²), assuming equal group sizes.'
+  },
+  factorial: {
+    hint: 'Common OB design. Interaction effects are typically smaller than main effects; the per-cell N requirement is substantial.',
+    effectLabel: "Interaction d =",
+    effectHint: 'Interaction effects in OB experiments are typically smaller than either main effect. If the main effect is at the OB median (d ≈ .32), the interaction may be d ≈ .15–.20.',
+    presets: [{v:0.10,l:'Small (d=.10)'},{v:0.18,l:'Typical (d=.18)'},{v:0.32,l:'Large (d=.32)'}],
+    reference: '<strong>2×2 Factorial — interaction power.</strong> If the interaction effect size is roughly half the main effect, detecting it requires approximately 4× the per-cell sample (Simonsohn, 2014, Data Colada #17 — note: blog post, not peer-reviewed). This heuristic follows from N ∝ 1/d²: halving d quadruples the required N. Since the OB median main effect is d ≈ .32 (Bosco et al., 2015), a conservative interaction estimate is d ≈ .15–.20. The 4× rule assumes a crossover interaction specifically; ordinal interactions may differ. This is a common source of underpowered studies in OB experimental research.'
+  },
+  mediation: {
+    hint: 'X → M → Y indirect effect. N based on Fritz & MacKinnon (2007) bias-corrected bootstrap tables.',
+    effectLabel: '',
+    effectHint: '',
+    presets: [],
+    reference: '<strong>Mediation — Fritz &amp; MacKinnon (2007, <em>Psychological Science</em>).</strong> Required N for the indirect effect (a × b path) using bias-corrected bootstrap at α = .05. The original paper reports values for .80 power; values for .90 and .95 power are approximations scaled from the .80 baseline. The most common OB scenario — both paths medium (β = .39, β = .39) — needs N ≈ 71 at .80 power. When either path is small (β = .14), N escalates substantially. <em>Note:</em> these Ns assume a single mediator with no measurement error. Multiple or serial mediators require simulation-based power analysis.'
+  },
+  moderation: {
+    hint: 'Testing whether an effect varies by a continuous moderator. Interaction ΔR² in OB tends to be small.',
+    effectLabel: "Interaction ΔR² =",
+    effectHint: 'Typical ΔR² for interaction terms in OB: .005–.02 (small), .02–.05 (medium), .05+ (large)',
+    presets: [{v:0.01,l:'Small (ΔR²=.01)'},{v:0.03,l:'Medium (ΔR²=.03)'},{v:0.07,l:'Large (ΔR²=.07)'}],
+    reference: '<strong>Moderation — interaction ΔR².</strong> Aguinis, Beaty, Boik, &amp; Pierce (2005, <em>JAP</em>) reviewed 30 years of moderated multiple regression with categorical moderators and found very small median ΔR² values. McClelland &amp; Judd (1993, <em>Psychological Bulletin</em>) showed that interactions with field-measured continuous moderators are inherently difficult to detect due to restricted range and unequal distributions. Lab experiments with manipulated moderators yield somewhat larger effects (ΔR² ≈ .01–.05). <em>Note:</em> the Aguinis et al. findings are specific to categorical moderators; continuous moderator benchmarks may differ. If your moderator is measured (not manipulated), conservative estimates (ΔR² = .01) are advisable.'
+  },
+  multicell: {
+    hint: 'One-way comparison across 3+ conditions. Uses Cohen\'s f for omnibus ANOVA test.',
+    effectLabel: "Cohen's f =",
+    effectHint: 'Cohen\'s conventions: f = .10 (small), .25 (medium), .40 (large). OB research tends toward the lower end of this range.',
+    presets: [{v:0.10,l:'Small (f=.10)'},{v:0.25,l:'Medium (f=.25)'},{v:0.40,l:'Large (f=.40)'}],
+    reference: '<strong>Multi-condition designs.</strong> Cohen\'s (1988) conventions for ANOVA: f = 0.10 (small), 0.25 (medium), 0.40 (large). These are the standard benchmarks; direct conversion from Bosco et al.\'s r-based percentiles to f for multi-group designs is not straightforward, so Cohen\'s original values are used here. Paterson et al. (2016, <em>JLOS</em>) found that observed effect sizes in OB/leadership meta-analyses tend toward the small-to-medium range. If your hypothesis focuses on a specific contrast (e.g., condition 2 vs. 3), power that contrast directly rather than the omnibus test.'
+  }
+};
+
+function calcPowerN() {
+  var design = document.getElementById('pwr-design').value;
+  var alpha = parseFloat(document.getElementById('pwr-alpha').value);
+  var power = parseFloat(document.getElementById('pwr-power').value);
+  var k = parseInt(document.getElementById('pwr-k').value) || 0;
+
+  // Check required inputs
+  var effectVal = parseFloat(document.getElementById('pwr-effect').value);
+  var medCombo = document.getElementById('pwr-med-paths').value;
+  var needsEffect = design !== 'mediation' && design !== '';
+  var needsMedPaths = design === 'mediation';
+  var needsK = design === 'multicell';
+
+  var missing = !design || !alpha || !power;
+  if (needsEffect && (isNaN(effectVal) || effectVal <= 0)) missing = true;
+  if (needsMedPaths && !medCombo) missing = true;
+  if (needsK && !k) missing = true;
+
+  var btn = document.getElementById('pwr-use-btn');
+  if (missing) {
+    document.getElementById('pwr-result-n').textContent = '—';
+    document.getElementById('pwr-result-detail').innerHTML = '';
+    document.getElementById('pwr-use-n').textContent = '—';
+    document.getElementById('pwr-warning').style.display = 'none';
+    document.getElementById('pwr-note').textContent = 'Select all inputs above to calculate.';
+    btn.disabled = true;
+    btn.style.opacity = '0.5';
+    btn.style.cursor = 'default';
+    window._powerN = null;
+    return;
+  }
+
+  var za = qnorm(1 - alpha / 2);
+  var zb = qnorm(power);
+
+  var totalN, perCell, d, detail, warning = '';
+
+  if (design === 'twocell') {
+    d = parseFloat(document.getElementById('pwr-effect').value) || 0.32;
+    perCell = Math.ceil(2 * Math.pow((za + zb) / d, 2)) + 1;
+    totalN = perCell * 2;
+    detail = '<strong>' + perCell + ' per group</strong> × 2 groups';
+  }
+  else if (design === 'factorial') {
+    // 2×2 factorial — power the interaction
+    // Interaction detection: each cell needs the same N as a two-group study at the interaction effect size
+    d = parseFloat(document.getElementById('pwr-effect').value) || 0.18;
+    perCell = Math.ceil(2 * Math.pow((za + zb) / d, 2)) + 1;
+    totalN = perCell * 4;
+    detail = '<strong>' + perCell + ' per cell</strong> × 4 cells';
+    if (d >= 0.32) {
+      warning = 'An interaction d ≥ .32 is equivalent to the median main effect in OB (Bosco et al., 2015). Interactions are typically smaller than main effects. Consider whether the available data support an interaction of this magnitude.';
+    }
+  }
+  else if (design === 'mediation') {
+    var combo = document.getElementById('pwr-med-paths').value;
+    var powerKey = power.toFixed(2);
+    var table = MEDIATION_TABLE[powerKey] || MEDIATION_TABLE['0.80'];
+    totalN = table[combo] || 71;
+    // Alpha correction — the Fritz & MacKinnon tables assume α = .05
+    // For stricter alpha, scale up roughly
+    if (alpha < 0.05) {
+      var alphaMultiplier = Math.pow(qnorm(1 - alpha/2) / qnorm(0.975), 2);
+      totalN = Math.ceil(totalN * alphaMultiplier);
+    }
+    var pathLabels = {
+      ss:'Both small (β=.14, β=.14)', sl:'Small a, large b', ls:'Large a, small b',
+      sm:'Small a, medium b', ms:'Medium a, small b',
+      mm:'Both medium (β=.39, β=.39)', ml:'Medium a, large b', lm:'Large a, medium b', ll:'Both large (β=.59, β=.59)'
+    };
+    detail = '<strong>' + totalN + ' participants</strong> total<br><span style="font-size:12px;color:var(--text-3)">' + (pathLabels[combo]||combo) + '</span>';
+    if (combo === 'ss' || combo === 'sm' || combo === 'ms') {
+      warning = 'With small path coefficients, mediation requires very large samples. Consider whether the manipulation (a-path) can be strengthened, or whether a mediator with a stronger relationship to Y (b-path) is available.';
+    }
+  }
+  else if (design === 'moderation') {
+    // Moderation — power based on ΔR² of interaction term
+    // n ≈ (za + zb)² × (1 - ΔR²) / ΔR² + number of predictors + 1
+    var dr2 = parseFloat(document.getElementById('pwr-effect').value) || 0.03;
+    var numPredictors = 3; // X, W, X×W
+    totalN = Math.ceil(Math.pow(za + zb, 2) * (1 - dr2) / dr2 + numPredictors + 1);
+    detail = '<strong>' + totalN + ' participants</strong> total<br><span style="font-size:12px;color:var(--text-3)">Interaction ΔR² = ' + dr2.toFixed(3) + '</span>';
+    if (dr2 <= 0.01) {
+      warning = 'ΔR² ≤ .01 is common for field-measured moderators (McClelland & Judd, 1993). If the moderator is measured rather than manipulated, this is realistic but will require a large sample.';
+    }
+  }
+  else if (design === 'multicell') {
+    // One-way ANOVA with k groups — proper non-central F power
+    var f = parseFloat(document.getElementById('pwr-effect').value) || 0.25;
+    perCell = findAnovaN(k, f, alpha, power);
+    totalN = perCell * k;
+    detail = '<strong>' + perCell + ' per condition</strong> × ' + k + ' conditions';
+  }
+
+  totalN = Math.max(totalN, 4);
+
+  // Update display
+  document.getElementById('pwr-result-n').textContent = totalN;
+  document.getElementById('pwr-result-detail').innerHTML = detail;
+  document.getElementById('pwr-use-n').textContent = totalN;
+
+  // Warning
+  var warnEl = document.getElementById('pwr-warning');
+  if (warning) {
+    warnEl.style.display = '';
+    warnEl.innerHTML = '⚠️ ' + warning;
+  } else {
+    warnEl.style.display = 'none';
+  }
+
+  // Attrition note
+  document.getElementById('pwr-note').innerHTML =
+    'The timeline already accounts for no-shows (~2 per session). If data exclusions are also expected (e.g., failed attention checks), consider adding 10–15% to the target N.';
+
+  // Enable the Use N button
+  btn.disabled = false;
+  btn.style.opacity = '';
+  btn.style.cursor = '';
+
+  window._powerN = totalN;
+}
+
+function setPwrEffect(btn, val) {
+  document.querySelectorAll('.power-preset').forEach(function(b) { b.classList.remove('active'); });
+  btn.classList.add('active');
+  document.getElementById('pwr-effect').value = val;
+  calcPowerN();
+}
+
+function updateDesignUI() {
+  var design = document.getElementById('pwr-design').value;
+  var info = DESIGN_INFO[design];
+
+  // Handle empty/unselected state
+  if (!design || !info) {
+    document.getElementById('pwr-design-hint').textContent = 'Select a design to see effect size benchmarks and calculate required N.';
+    document.getElementById('pwr-k-wrap').style.display = 'none';
+    document.getElementById('pwr-med-wrap').style.display = 'none';
+    document.getElementById('pwr-effect-wrap').style.display = 'none';
+    document.getElementById('pwr-reference').textContent = 'Select a study design above to see relevant effect size benchmarks and references.';
+    calcPowerN();
+    return;
+  }
+
+  // Hint under design dropdown
+  document.getElementById('pwr-design-hint').textContent = info.hint;
+
+  // Show/hide conditional fields
+  document.getElementById('pwr-k-wrap').style.display = design === 'multicell' ? '' : 'none';
+  document.getElementById('pwr-med-wrap').style.display = design === 'mediation' ? '' : 'none';
+  document.getElementById('pwr-effect-wrap').style.display = design === 'mediation' ? 'none' : '';
+
+  // Update effect size presets — clear any previous selection
+  if (info.presets.length) {
+    var presetsHtml = '';
+    info.presets.forEach(function(p) {
+      presetsHtml += '<button class="power-preset" onclick="setPwrEffect(this,' + p.v + ')">' + p.l + '</button>';
+    });
+    document.getElementById('pwr-presets').innerHTML = presetsHtml;
+    document.getElementById('pwr-effect').value = '';
+    document.getElementById('pwr-effect').placeholder = '—';
+    document.getElementById('pwr-effect-label').textContent = info.effectLabel;
+    document.getElementById('pwr-effect-hint').textContent = info.effectHint;
+  }
+
+  // Reference text
+  document.getElementById('pwr-reference').innerHTML = info.reference;
+
+  calcPowerN();
+}
+
+function usePowerN() {
+  if (!window._powerN) return;
+  var n = window._powerN;
+  var targetInput = document.getElementById('calc-target');
+  n = Math.ceil(n / 10) * 10;
+  targetInput.value = n;
+  document.getElementById('calc-target-badge').innerHTML =
+    '<span class="power-linked-badge">From power analysis</span>';
+  // Collapse the power helper
+  document.getElementById('power-helper-wrap').classList.remove('open');
+  updateStepStates();
+  updateSummaryStrip();
+  updateCalc();
+  renderAllLayouts();
+  updateInlineEstimate();
+  updateCalendarMeters();
+  // Brief highlight on the N input
+  targetInput.style.borderColor = 'var(--cardinal)';
+  targetInput.style.boxShadow = '0 0 0 3px rgba(153,0,0,0.12)';
+  setTimeout(function() {
+    targetInput.style.borderColor = '';
+    targetInput.style.boxShadow = '';
+  }, 2000);
+}
+
+// Wire events
+document.getElementById('pwr-design').addEventListener('change', updateDesignUI);
+document.getElementById('pwr-effect').addEventListener('input', function() {
+  document.querySelectorAll('.power-preset').forEach(function(b) { b.classList.remove('active'); });
+  calcPowerN();
+});
+document.getElementById('pwr-alpha').addEventListener('change', calcPowerN);
+document.getElementById('pwr-power').addEventListener('change', calcPowerN);
+document.getElementById('pwr-k').addEventListener('change', calcPowerN);
+document.getElementById('pwr-med-paths').addEventListener('change', calcPowerN);
+
+document.getElementById('calc-target').addEventListener('input', function() {
+  document.getElementById('calc-target-badge').innerHTML = '';
+});
+
+// Initial render — start in empty state, no calculations until user picks
+updateDesignUI();
+
+// ═══ DYNAMIC CAPACITY BAR ═══
+// renderAllLayouts() defined after ll102Weeks initialization below
+
+// ═══ THROUGHPUT CALCULATOR ═══
+function updateCalc() {
+  var durEl = document.getElementById('calc-dur');
+  var targetEl = document.getElementById('calc-target');
+  var dur = parseInt(durEl.value);
+  var customN = parseInt(targetEl.value);
+  var slots = SESSIONS_PER_DAY;
+  var effective = EFFECTIVE_PER_SESSION;
+  var noshows = 16 - effective;
+
+  if (!dur || dur <= 0 || !customN || customN <= 0) {
+    document.getElementById('calc-empty-state').style.display = '';
+    document.getElementById('calc-filled-state').style.display = 'none';
+    return;
+  }
+
+  document.getElementById('calc-empty-state').style.display = 'none';
+  document.getElementById('calc-filled-state').style.display = '';
+
+  var perDay = PER_DAY;
+
+  // Build flat list of open dates (use cached if available)
+  var openDates = window._capOpenDates || [];
+  if (openDates.length === 0) {
+    ll102Weeks.forEach(function(w) {
+      w.days.forEach(function(d) {
+        if (d.indexOf('open') === 0) {
+          openDates.push(d.split('|')[1] || d);
+        }
+      });
+    });
+  }
+
+  // Build day-level schedule, stop after target
+  // First, determine which days the study actually fits on
+  var cumulative = 0;
+  var schedule = [];
+  var targetDay = null;
+  var targetSession = null;
+  var skippedDays = [];
+  var firstCollectDay = null;
+
+  for (var i = 0; i < openDates.length; i++) {
+    // Check if study fits on this day
+    var comp = getSessionComposition(i);
+    if (comp.used > SESSION_CAP) {
+      skippedDays.push({ index: i, date: openDates[i], labNum: i + 1 });
+      continue;
+    }
+
+    if (firstCollectDay === null) firstCollectDay = i;
+    var dayStart = cumulative;
+    // Check if target is hit within this day's sessions
+    var hitThisDay = false;
+    var hitSession = 0;
+    for (var s = 1; s <= slots; s++) {
+      cumulative += effective;
+      if (!targetDay && cumulative >= customN) {
+        targetDay = i;
+        targetSession = s;
+        hitThisDay = true;
+        hitSession = s;
+        break;
+      }
+    }
+    // If didn't hit target, fill remaining sessions
+    if (!hitThisDay) {
+      cumulative = dayStart + perDay;
+    }
+
+    schedule.push({
+      date: openDates[i],
+      labNum: i + 1,
+      collected: cumulative - dayStart,
+      cumulative: cumulative,
+      isTargetDay: hitThisDay,
+      targetSession: hitThisDay ? hitSession : null
+    });
+
+    if (hitThisDay) break;
+  }
+
+  var availableDays = openDates.length - skippedDays.length;
+  var totalCapacity = effective * slots * availableDays;
+
+  // Duration warning
+  var summaryHtml = '';
+  if (dur > 30) {
+    summaryHtml = '<div style="color:var(--amber-text);background:var(--amber-bg);border:1px solid #FDE68A;border-radius:6px;padding:10px 14px;font-size:13px">\u26a0\ufe0f At <strong>' + dur + ' min</strong>, this study exceeds the 30-min per-study guideline for stacked sessions.</div>';
+    document.getElementById('calc-schedule-summary').innerHTML = summaryHtml;
+    document.getElementById('calc-result-grid').innerHTML = '';
+    return;
+  }
+
+  // Check if study doesn't fit on any day
+  if (schedule.length === 0 && skippedDays.length > 0) {
+    summaryHtml = '<div style="color:#991B1B;background:var(--red-bg);border:1px solid #FECACA;border-radius:6px;padding:10px 14px;font-size:13px">\u26a0\ufe0f A ' + dur + '-min study doesn\u2019t fit on any available session day (the session is full on all ' + skippedDays.length + ' dates). Consider shortening the study or contacting the coordinator.</div>';
+    document.getElementById('calc-schedule-summary').innerHTML = summaryHtml;
+    document.getElementById('calc-result-grid').innerHTML = '';
+    return;
+  }
+
+  // Session cap context
+  var sessionCap = SESSION_CAP;
+  var overheadMin = OVERHEAD_CHECKIN + OVERHEAD_CHECKOUT;
+  var usableTime = sessionCap - overheadMin;
+  var capNote = '<div style="font-size:12px;color:var(--text-3);margin-bottom:10px">';
+  capNote += 'A <span class="dv">' + dur + '-min</span> study uses <strong>' + Math.round((dur/sessionCap)*100) + '%</strong> of the ' + sessionCap + '-min session cap (' + overheadMin + ' min is reserved for check-in/check-out, leaving ' + usableTime + ' min for studies and transitions). ';
+  capNote += 'Each session seats 16 with ~' + noshows + ' no-shows = <strong>' + effective + ' expected per session</strong>. ';
+  capNote += 'At ' + slots + ' sessions/day: <strong>' + perDay + ' participants/day</strong>. ';
+  capNote += '<em>No-show estimate is approximate and may vary by session.</em>';
+  capNote += '</div>';
+
+  // Skipped days note
+  var skipNote = '';
+  if (skippedDays.length > 0) {
+    var skipLabNums = skippedDays.map(function(d) { return d.labNum; });
+    var skipDateRange = skippedDays[0].date;
+    if (skippedDays.length > 1) skipDateRange += ' – ' + skippedDays[skippedDays.length - 1].date;
+    skipNote = '<div style="color:var(--blue);background:var(--blue-bg);border:1px solid #BFDBFE;border-radius:6px;padding:10px 14px;font-size:13px;margin-bottom:10px">';
+    skipNote += '\ud83d\udcc5 Collection starts on <strong>' + openDates[firstCollectDay] + '</strong>';
+    skipNote += ' — the session is at capacity on ' + skipDateRange + '.';
+    skipNote += '</div>';
+  }
+
+  if (targetDay !== null) {
+    var totalDays = schedule.length;
+    var totalSessions = (totalDays - 1) * slots + (targetSession || slots);
+    summaryHtml = capNote + skipNote;
+    summaryHtml += '<div style="font-size:15px;line-height:1.6;margin-top:4px">Projected to reach <span class="dv-lg">N\u2009=\u2009' + customN + '</span> by <span class="dv-lg">' + openDates[targetDay] + '</span>';
+    summaryHtml += ' — <span class="dv">' + totalDays + ' collection day' + (totalDays !== 1 ? 's' : '') + '</span>, <span class="dv">' + totalSessions + ' session' + (totalSessions !== 1 ? 's' : '') + '</span> total.</div>';
+  } else {
+    summaryHtml = capNote + skipNote;
+    summaryHtml += '<div style="font-size:15px;line-height:1.6;margin-top:4px"><span style="color:var(--amber-text)">\u26a0\ufe0f A target of <span class="dv-lg">N\u2009=\u2009' + customN + '</span> exceeds the available capacity of ~' + totalCapacity.toLocaleString() + ' across ' + availableDays + ' eligible session days.</span>';
+    summaryHtml += ' Supplementing with online collection may be necessary.</div>';
+  }
+  document.getElementById('calc-schedule-summary').innerHTML = summaryHtml;
+
+  // Day-level schedule table
+  var html = '';
+  html += '<div class="sched-table">';
+  html += '<div class="sched-header">';
+  html += '<div class="sched-col-date">Date</div>';
+  html += '<div class="sched-col-session">Session stack</div>';
+  html += '<div class="sched-col-num">Sess.</div>';
+  html += '<div class="sched-col-num">+New</div>';
+  html += '<div class="sched-col-num">Cumul</div>';
+  html += '<div class="sched-col-bar">Progress toward N\u2009=\u2009' + customN + '</div>';
+  html += '</div>';
+
+  schedule.forEach(function(row, idx) {
+    var pct = Math.min((row.cumulative / customN) * 100, 100);
+    var cls = row.isTargetDay ? ' sched-row-target' : '';
+    var dayBorder = idx > 0 ? ' sched-row-day-start' : '';
+    var sessionsUsed = row.isTargetDay ? row.targetSession : slots;
+    var sessLabel = row.isTargetDay ? sessionsUsed + '/' + slots : '' + slots;
+
+    // Session composition for this day (use original day index)
+    var dayIndex = row.labNum - 1;
+    var comp = getSessionComposition(dayIndex);
+    var sessionBarHtml = renderSessionBar(comp, 14, true);
+
+    html += '<div class="sched-row' + cls + dayBorder + '">';
+    html += '<div class="sched-col-date">' + row.date + '</div>';
+    html += '<div class="sched-col-session">' + sessionBarHtml + '</div>';
+    html += '<div class="sched-col-num" style="text-align:center">' + sessLabel + '</div>';
+    html += '<div class="sched-col-num">+' + row.collected + '</div>';
+    html += '<div class="sched-col-num' + (row.isTargetDay ? ' sched-cumul-hit' : '') + '">' + row.cumulative.toLocaleString() + '</div>';
+    html += '<div class="sched-col-bar">';
+    html += '<div class="sched-bar-track">';
+    html += '<div class="sched-bar-fill' + (row.isTargetDay ? ' sched-bar-done' : '') + '" style="width:' + pct + '%"></div>';
+    html += '</div>';
+    if (row.isTargetDay) html += '<div style="font-size:11px;font-weight:600;color:var(--green);margin-top:2px">\u2713 Target reached</div>';
+    html += '</div>';
+    html += '</div>';
+  });
+
+  html += '</div>';
+  document.getElementById('calc-result-grid').innerHTML = html;
+}
+
+// ═══ INPUT INTERACTION ═══
+var durSlider = document.getElementById('calc-dur-slider');
+var durInput = document.getElementById('calc-dur');
+var targetInput = document.getElementById('calc-target');
+
+// Sync slider ↔ number input
+durSlider.addEventListener('input', function() {
+  durInput.value = durSlider.value > 0 ? durSlider.value : '';
+  onDurChange();
+});
+durInput.addEventListener('input', function() {
+  var v = parseInt(durInput.value) || 0;
+  durSlider.value = Math.min(v, 30);
+  onDurChange();
+});
+targetInput.addEventListener('input', function() {
+  onTargetChange();
+});
+
+function onDurChange() {
+  updateStepStates();
+  updateLiveZones();
+  updateSummaryStrip();
+  updateCalc();
+  renderAllLayouts();
+  updateInlineEstimate();
+  updateCalendarMeters();
+}
+function onTargetChange() {
+  updateStepStates();
+  updateLiveZones();
+  updateSummaryStrip();
+  updateCalc();
+  renderAllLayouts();
+  updateInlineEstimate();
+  updateCalendarMeters();
+}
+
+// Step activation
+function updateStepStates() {
+  var dur = parseInt(durInput.value) || 0;
+  var n = parseInt(targetInput.value) || 0;
+  document.getElementById('input-step-dur').className = 'input-step' + (dur > 0 ? ' active' : '');
+  document.getElementById('input-step-n').className = 'input-step' + (n > 0 ? ' active' : '');
+}
+
+// Live zone highlighting
+function updateLiveZones() {
+  var dur = parseInt(durInput.value) || 0;
+  var n = parseInt(targetInput.value) || 0;
+
+  var estimateZone = document.getElementById('estimate-zone');
+  var fitZone = document.getElementById('fit-zone');
+  var timelineZone = document.getElementById('timeline-zone');
+
+  // Estimate zone lights up when both dur and N are set
+  if (estimateZone) estimateZone.className = 'live-zone' + (dur > 0 && n > 0 ? ' has-value' : '');
+  // Fit zone lights up when dur is set
+  if (fitZone) fitZone.className = 'live-zone' + (dur > 0 ? ' has-value' : '');
+  // Timeline zone lights up when both are set
+  if (timelineZone) timelineZone.className = 'live-zone' + (dur > 0 && n > 0 ? ' has-value' : '');
+}
+
+// Slider track fill
+function updateSliderTrack() {
+  var val = durSlider.value;
+  var pct = (val / 30) * 100;
+  durSlider.style.background = 'linear-gradient(to right, var(--cardinal) 0%, var(--cardinal) ' + pct + '%, var(--border) ' + pct + '%, var(--border) 100%)';
+}
+durSlider.addEventListener('input', updateSliderTrack);
+durInput.addEventListener('input', function() { updateSliderTrack(); });
+
+
+// Inline N estimate
+// Credit tier based on total session minutes
+function getCredit(totalMin) {
+  if (totalMin <= 30) return { credit: '0.5', tier: '\u2264\u200930 min', color: '#16A34A' };
+  if (totalMin <= 45) return { credit: '0.75', tier: '31\u201345 min', color: '#D97706' };
+  return { credit: '1.0', tier: '46\u201360 min', color: '#2563EB' };
+}
+
+function updateInlineEstimate() {
+  var dur = parseInt(durInput.value) || 0;
+  var n = parseInt(targetInput.value) || 0;
+  var estEl = document.getElementById('input-n-estimate');
+
+  if (n <= 0 || dur <= 0) {
+    estEl.innerHTML = '';
+    return;
+  }
+
+  // Count eligible days
+  var openDates = window._capOpenDates || [];
+  var eligibleDays = 0;
+  for (var i = 0; i < openDates.length; i++) {
+    var comp = getSessionComposition(i);
+    if (comp.used <= SESSION_CAP) eligibleDays++;
+  }
+
+  if (eligibleDays === 0) {
+    estEl.innerHTML = '<div style="font-size:14px;color:#991B1B;">Your study doesn\'t fit on any available session day. Consider shortening it or contacting the coordinator.</div>';
+    return;
+  }
+
+  var daysNeeded = Math.ceil(n / PER_DAY);
+  var totalSessions = daysNeeded * SESSIONS_PER_DAY;
+
+  function hl(val, large) {
+    return large
+      ? '<span class="dv-lg">' + val + '</span>'
+      : '<span class="dv">' + val + '</span>';
+  }
+
+  if (daysNeeded <= eligibleDays) {
+    // Find the target date
+    var cumul = 0, targetDate = '';
+    for (var i = 0; i < openDates.length; i++) {
+      var comp = getSessionComposition(i);
+      if (comp.used > SESSION_CAP) continue;
+      cumul += PER_DAY;
+      if (cumul >= n) { targetDate = openDates[i]; break; }
+    }
+
+    var fitComp = getSessionComposition(0);
+    var sessionMinutes = fitComp.used;
+    var creditInfo = getCredit(sessionMinutes);
+    var creditBadge = '<span style="display:inline-flex;align-items:center;gap:5px;font-size:12px;font-weight:600;color:' + creditInfo.color + ';background:' + (creditInfo.color === '#16A34A' ? 'var(--green-bg)' : creditInfo.color === '#D97706' ? 'var(--amber-bg)' : 'var(--blue-bg)') + ';border:1px solid ' + (creditInfo.color === '#16A34A' ? '#BBF7D0' : creditInfo.color === '#D97706' ? '#FDE68A' : '#BFDBFE') + ';border-radius:4px;padding:3px 10px;margin-left:4px">Each participant earns ' + creditInfo.credit + ' SONA credit (' + sessionMinutes + '-min session)</span>';
+
+    var fitHtml = '';
+    if (fitComp.used <= SESSION_CAP) {
+      var openMin = SESSION_CAP - fitComp.used;
+      fitHtml = '<div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:14px">' +
+        '<span style="display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:600;color:var(--green-text);background:var(--green-bg);border:1px solid #BBF7D0;border-radius:4px;padding:3px 10px">' +
+        '<span style="width:7px;height:7px;border-radius:50%;background:var(--green);display:inline-block"></span>' +
+        'Fits &mdash; ' + openMin + ' min open on busiest day' +
+        '</span>' + creditBadge + '</div>';
+    } else {
+      var firstFit = '';
+      for (var i = 1; i < openDates.length; i++) {
+        var c = getSessionComposition(i);
+        if (c.used <= SESSION_CAP) { firstFit = openDates[i]; break; }
+      }
+      fitHtml = '<div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:14px">' +
+        '<span style="display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:600;color:#92400E;background:var(--amber-bg);border:1px solid #FDE68A;border-radius:4px;padding:3px 10px">' +
+        '<span style="width:7px;height:7px;border-radius:50%;background:#D97706;display:inline-block"></span>' +
+        'Collection starts ' + (firstFit || 'later') + ' — earlier dates at capacity' +
+        '</span>' + creditBadge + '</div>';
+    }
+
+    var sentence = 'Projected to reach ' + hl('N\u2009=\u2009' + n.toLocaleString(), true)
+      + ' by ' + hl(targetDate, true)
+      + ' \u2014 ' + hl(daysNeeded + ' collection day' + (daysNeeded !== 1 ? 's' : ''))
+      + ', ' + hl(totalSessions + ' session' + (totalSessions !== 1 ? 's' : ''))
+      + ' total.';
+
+    estEl.innerHTML = fitHtml +
+      '<div style="font-size:13px;line-height:1.8;color:var(--text-2)">' + sentence + '</div>';
+
+  } else {
+    var maxN = (eligibleDays * PER_DAY).toLocaleString();
+    estEl.innerHTML =
+      '<div style="font-size:13px;line-height:1.8;color:var(--amber-text)">' +
+        'A target of ' + hl('N\u2009=\u2009' + n.toLocaleString(), true) + ' exceeds available capacity \u2014 the program can deliver up to ~' + hl(maxN + ' participants') + ' across ' + hl(eligibleDays + ' eligible days') + '. Consider supplementing with online collection.' +
+      '</div>';
+  }
+}
+
+// Don't call on load — start blank
+updateSliderTrack();
+
+
+// ═══ CENTRAL STUDY ROSTER ═══
+var STUDY_ROSTER = [
+  { id: 'A', dur: 7, targetN: 250, color: '#FCA5A5', label: 'A',
+    title: 'Feedback Source Credibility', researcher: 'C. Wakslak', dept: 'Management & Organization',
+    status: 'collecting', startLab: 1, endLab: 3 },
+  { id: 'B', dur: 2, targetN: 400, color: '#FCD34D', label: 'B',
+    title: 'Risk Perception Under Uncertainty', researcher: 'C. Wakslak', dept: 'Management & Organization',
+    status: 'collecting', startLab: 1, endLab: 5 },
+  { id: 'C', dur: 5, targetN: 250, color: '#93C5FD', label: 'C',
+    title: 'Status and Prosocial Behavior', researcher: 'C. Wakslak', dept: 'Management & Organization',
+    status: 'pending', startLab: 1, endLab: 3 }
+];
+var SESSION_CAP = 60;
+var OVERHEAD_CHECKIN = 5;
+var OVERHEAD_CHECKOUT = 5;
+var TRANS_PER_STUDY = 1; // ~1 min transition between each study
+var EFFECTIVE_PER_SESSION = 14; // 16 stations - 2 no-shows
+var SESSIONS_PER_DAY = 6;
+var PER_DAY = EFFECTIVE_PER_SESSION * SESSIONS_PER_DAY; // 84
+
+function getSessionComposition(dayIndex) {
+  // Which roster studies are active on this day?
+  // A study is active if dayIndex falls within its declared [startLab-1, endLab) range.
+  // startLab/endLab are the canonical source of truth; using targetN was fragile and
+  // only agreed with this by coincidence of the current data values.
+  var active = [];
+  STUDY_ROSTER.forEach(function(s) {
+    if (dayIndex >= s.startLab - 1 && dayIndex < s.endLab) active.push(s);
+  });
+
+  // Always include user's new study for capacity visualization
+  // (actual collection scheduling is handled by updateCalc separately)
+  var dur = parseInt(document.getElementById('calc-dur').value) || 0;
+  if (dur > 0) {
+    active.push({ id: 'New', dur: dur, targetN: Infinity, color: '#16A34A', label: 'New' });
+  }
+
+  var studyTime = 0;
+  active.forEach(function(s) { studyTime += s.dur; });
+  var transitions = active.length > 1 ? (active.length - 1) * TRANS_PER_STUDY : 0;
+  var overhead = OVERHEAD_CHECKIN + OVERHEAD_CHECKOUT + transitions;
+  var used = studyTime + overhead;
+  var open = Math.max(SESSION_CAP - used, 0);
+
+  return { active: active, studyTime: studyTime, overhead: overhead, open: open, used: used };
+}
+
+// Render a mini session bar as HTML string
+function renderSessionBar(comp, height, showLabels) {
+  var h = height || 16;
+  var html = '<div class="sched-session-bar" style="height:' + h + 'px">';
+  // Overhead: checkin
+  html += '<div class="sched-session-seg" style="width:' + (OVERHEAD_CHECKIN / SESSION_CAP * 100) + '%;background:#8C8C8C;opacity:0.5"></div>';
+  // Studies
+  comp.active.forEach(function(s) {
+    var pct = s.dur / SESSION_CAP * 100;
+    html += '<div class="sched-session-seg" style="width:' + pct + '%;background:' + s.color + '" title="' + s.label + ': ' + s.dur + ' min"></div>';
+  });
+  // Transitions
+  if (comp.active.length > 1) {
+    var transPct = (comp.active.length - 1) * TRANS_PER_STUDY / SESSION_CAP * 100;
+    html += '<div class="sched-session-seg" style="width:' + transPct + '%;background:#8C8C8C;opacity:0.35"></div>';
+  }
+  // Checkout
+  html += '<div class="sched-session-seg" style="width:' + (OVERHEAD_CHECKOUT / SESSION_CAP * 100) + '%;background:#8C8C8C;opacity:0.5"></div>';
+  // Open
+  if (comp.open > 0) {
+    html += '<div class="sched-session-seg sched-session-open" style="width:' + (comp.open / SESSION_CAP * 100) + '%;background:var(--green)"></div>';
+  }
+  html += '</div>';
+  if (showLabels) {
+    var labels = comp.active.map(function(s) { return s.label; }).join('+');
+    var openMin = comp.open > 0 ? ' · ' + comp.open + 'm open' : '';
+    var creditInfo = getCredit(comp.used);
+    html += '<div class="sched-session-label">' + labels + openMin + ' · <span style="font-weight:700;color:' + creditInfo.color + '">' + creditInfo.credit + ' credit/participant</span></div>';
+  }
+  return html;
+}
+
+// ═══ LL102 AVAILABILITY GRID ═══
+var ll102Weeks = [
+  { wk: 'Mar 2', dates: 'Mar 2–6', days: ['no','no','no','open|Mar 5 (Thu)','open|Mar 6 (Fri)'], current: true },
+  { wk: 'Mar 9', dates: 'Mar 9–13', days: ['no','no','no','open|Mar 12 (Thu)','open|Mar 13 (Fri)'], current: false },
+  { wk: 'Mar 16', dates: 'Mar 16–20', days: ['break','break','break','break','break'], current: false },
+  { wk: 'Mar 23', dates: 'Mar 23–27', days: ['open|Mar 23 (Mon)','open|Mar 24 (Tue)','open|Mar 25 (Wed)','no','open|Mar 27 (Fri)'], current: false },
+  { wk: 'Mar 30', dates: 'Mar 30–Apr 3', days: ['open|Mar 30 (Mon)','open|Mar 31 (Tue)','open|Apr 1 (Wed)','open|Apr 2 (Thu)','open|Apr 3 (Fri)'], current: false },
+];
+
+(function renderMiniCalendars() {
+  // Extract open dates as day numbers per month, tracking sequential index
+  var openDays = { 3: {}, 4: {} }; // month -> day -> true
+  var openDayIndex = { 3: {}, 4: {} }; // month -> day -> sequential index
+  var breakDays = { 3: {}, 4: {} };
+  var openIdx = 0;
+  ll102Weeks.forEach(function(w) {
+    w.days.forEach(function(d) {
+      if (d.indexOf('open') === 0) {
+        var label = d.split('|')[1] || '';
+        var match = label.match(/(Mar|Apr)\s+(\d+)/);
+        if (match) {
+          var m = match[1] === 'Mar' ? 3 : 4;
+          var dayNum = parseInt(match[2]);
+          openDays[m][dayNum] = true;
+          openDayIndex[m][dayNum] = openIdx;
+          openIdx++;
+        }
+      } else if (d === 'break') {
+        for (var b = 16; b <= 20; b++) breakDays[3][b] = true;
+      }
+    });
+  });
+
+  // Total open dates for summary
+  var totalOpen = openIdx;
+
+  // Month configs: March 2026 starts Sunday (0), April 2026 starts Wednesday (3)
+  var months = [
+    { name: 'March 2026', days: 31, startDow: 0, month: 3 },
+    { name: 'April 2026', days: 30, startDow: 3, month: 4 }
+  ];
+  var dows = ['Su','Mo','Tu','We','Th','Fr','Sa'];
+
+  var wrap = document.getElementById('mini-cal-wrap');
+
+  months.forEach(function(m) {
+    var html = '<div class="mini-cal">';
+    html += '<div class="mini-cal-month">' + m.name + '</div>';
+    html += '<div class="mini-cal-grid">';
+
+    dows.forEach(function(d) {
+      html += '<div class="mini-cal-dow">' + d + '</div>';
+    });
+
+    for (var e = 0; e < m.startDow; e++) {
+      html += '<div class="mini-cal-day empty">&middot;</div>';
+    }
+
+    for (var d = 1; d <= m.days; d++) {
+      var dow = (m.startDow + d - 1) % 7;
+      if (openDays[m.month][d]) {
+        var idx = openDayIndex[m.month][d];
+        // Build badges — pull from roster synchronously (STUDY_ROSTER defined above)
+        var badgesHtml = '';
+        STUDY_ROSTER.forEach(function(s) {
+          if (idx >= s.startLab - 1 && idx < s.endLab) {
+            badgesHtml += '<span class="mini-cal-badge" style="background:' + s.color + '">' + s.label + '</span>';
+          }
+        });
+        html += '<div class="mini-cal-day open">';
+        html += '<span class="mini-cal-day-num">' + d + '</span>';
+        html += '<div class="mini-cal-badges">' + badgesHtml + '</div>';
+        html += '<div class="mini-cal-meter" data-day-index="' + idx + '"></div>'; // kept for JS compat
+        html += '</div>';
+      } else if (breakDays[m.month] && breakDays[m.month][d]) {
+        html += '<div class="mini-cal-day break">' + d + '</div>';
+      } else if (dow === 0 || dow === 6) {
+        html += '<div class="mini-cal-day weekend">' + d + '</div>';
+      } else {
+        html += '<div class="mini-cal-day">' + d + '</div>';
+      }
+    }
+
+    // Pad to complete last row
+    var totalCells = m.startDow + m.days;
+    var remainder = totalCells % 7;
+    if (remainder !== 0) {
+      for (var p = remainder; p < 7; p++) {
+        html += '<div class="mini-cal-day empty">&middot;</div>';
+      }
+    }
+
+    html += '</div></div>';
+    wrap.insertAdjacentHTML('beforeend', html);
+  });
+
+  // Legend: which studies are active + overhead note
+  var aprilDates = [];
+  for (var d = 1; d <= 30; d++) {
+    if (openDays[4][d]) aprilDates.push('Apr ' + d);
+  }
+
+  // Study badge legend
+  var legEl = document.getElementById('cal-study-legend');
+  if (legEl) {
+    var legHtml = '';
+    STUDY_ROSTER.forEach(function(s) {
+      legHtml += '<span style="display:inline-flex;align-items:center;gap:4px;font-size:11px;color:var(--text-2)">';
+      legHtml += '<span style="display:inline-block;background:' + s.color + ';color:#111;font-size:8px;font-weight:800;padding:1px 4px;border-radius:2px">' + s.label + '</span>';
+      legHtml += s.title;
+      legHtml += '</span>';
+    });
+    legEl.innerHTML = legHtml;
+  }
+
+  // Summary line
+  var summary = '<strong>' + totalOpen + ' session dates</strong>';
+  if (aprilDates.length) {
+    summary += ' &nbsp;&middot;&nbsp; Includes ' + aprilDates.join(', ');
+  }
+  summary += ' &nbsp;&middot;&nbsp; 6 sessions/day &nbsp;&middot;&nbsp; 16 stations/session (~14 usable after no-shows)';
+  document.getElementById('avail-summary').innerHTML = summary;
+
+  // Initial calendar meter render (no-op since meters are hidden, but keeps JS compat)
+  updateCalendarMeters();
+})();
+
+function updateCalendarMeters() {
+  var meters = document.querySelectorAll('.mini-cal-meter');
+  meters.forEach(function(el) {
+    var dayIdx = parseInt(el.getAttribute('data-day-index'));
+    var comp = getSessionComposition(dayIdx);
+    if (comp.active.length === 0) {
+      el.innerHTML = '';
+      return;
+    }
+    var html = '';
+    // Studies as colored segments
+    comp.active.forEach(function(s) {
+      var pct = s.dur / SESSION_CAP * 100;
+      html += '<div class="mini-cal-meter-seg" style="width:' + pct + '%;background:' + s.color + '"></div>';
+    });
+    // Overhead as gray
+    var overheadPct = comp.overhead / SESSION_CAP * 100;
+    html += '<div class="mini-cal-meter-seg" style="width:' + overheadPct + '%;background:rgba(255,255,255,0.3)"></div>';
+    el.innerHTML = html;
+  });
+}
+// ═══ DYNAMIC CAPACITY BAR ═══
+// ═══ ALL LAYOUTS VIEW ═══
+function buildCapacityBarHtml(comp) {
+  var cap = SESSION_CAP;
+  var rosterStudies = comp.active.filter(function(s) { return s.id !== 'New'; });
+  var newStudy = comp.active.filter(function(s) { return s.id === 'New'; })[0] || null;
+  var numStudies = comp.active.length;
+  var transitions = numStudies > 1 ? (numStudies - 1) * TRANS_PER_STUDY : 0;
+  var overhead = OVERHEAD_CHECKIN + OVERHEAD_CHECKOUT + transitions;
+  var used = overhead + comp.studyTime;
+  var remaining = cap - used;
+
+  // Segments go inside an inner div that clips for rounded corners;
+  // tooltips are siblings positioned relative to the outer .capacity-bar-wrap (overflow:visible)
+  var inner = '';
+  var tips = '';
+
+  // Check-in bookend
+  inner += '<div class="capacity-segment transitions" style="width:' + (OVERHEAD_CHECKIN / cap * 100) + '%;border-radius:4px 0 0 4px">check in</div>';
+
+  // Roster studies
+  rosterStudies.forEach(function(s) {
+    var pct = s.dur / cap * 100;
+    var label = '<span style="display:flex;flex-direction:column;align-items:center;line-height:1.2"><span style="font-size:13px;font-weight:800">' + s.label + '</span><span style="font-size:10px;font-weight:600;opacity:0.75">' + s.dur + 'm</span></span>';
+    var isPending = s.status === 'pending';
+    var bgStyle = isPending
+      ? 'background:repeating-linear-gradient(-45deg,#D1D5DB,#D1D5DB 4px,#E5E7EB 4px,#E5E7EB 8px)'
+      : 'background:' + s.color;
+    inner += '<div class="capacity-segment" style="width:' + pct + '%;' + bgStyle + '">' + label + '</div>';
+  });
+
+  // Transitions between studies (if any)
+  if (transitions > 0) {
+    inner += '<div class="capacity-segment transitions" style="width:' + (transitions / cap * 100) + '%">~' + transitions + 'm</div>';
+  }
+
+  // New study — no inline text; floating tooltip positioned above bar
+  if (newStudy) {
+    var maxNewPct = Math.max(remaining + newStudy.dur, 0) / cap * 100;
+    var newPct = Math.min(newStudy.dur / cap * 100, maxNewPct);
+    var overClass = remaining < 0 ? ' over-session' : '';
+    inner += '<div class="capacity-segment your-study' + overClass + '" style="width:' + newPct + '%"></div>';
+
+    // Calculate left offset for the floating tooltip (sum of segments before "Yours")
+    var leftPct = (OVERHEAD_CHECKIN + rosterStudies.reduce(function(s, r) { return s + r.dur; }, 0) + transitions) / cap * 100;
+    var tooltipText = 'Your study: ' + newStudy.dur + ' min' + (remaining < 0 ? ' (' + Math.abs(remaining) + ' min over)' : '');
+    tips += '<div class="bar-float-tip" style="left:' + (leftPct + newPct / 2) + '%">' +
+            '<div class="bar-float-tip-box">' + tooltipText + '</div>' +
+            '</div>';
+  }
+
+  // Open space or overflow
+  if (remaining > 0) {
+    var openLabel = newStudy ? remaining + ' min open' : remaining + ' min available';
+    inner += '<div class="capacity-open">' + openLabel + '</div>';
+  } else if (remaining === 0 && newStudy) {
+    inner += '<div class="capacity-open" style="flex:0;min-width:0"></div>';
+  } else if (remaining < 0 && newStudy) {
+    inner += '<div class="capacity-open over-session">' + Math.abs(remaining) + ' min over</div>';
+  } else if (!newStudy && remaining >= 0) {
+    inner += '<div class="capacity-open">' + remaining + ' min available</div>';
+  }
+
+  // Check-out bookend
+  inner += '<div class="capacity-segment transitions" style="width:' + (OVERHEAD_CHECKOUT / cap * 100) + '%;border-radius:0 4px 4px 0">check out</div>';
+
+  var h = '<div class="capacity-bar-inner">' + inner + '</div>' + tips;
+
+  return { html: h, used: used, remaining: remaining, transitions: transitions, rosterStudies: rosterStudies, newStudy: newStudy, overhead: overhead };
+}
+
+function buildBarLegend(bar, hasNewStudy) {
+  var parts = [];
+  bar.rosterStudies.forEach(function(s) {
+    var dotBg = s.status === 'pending'
+      ? 'repeating-linear-gradient(-45deg,#D1D5DB,#D1D5DB 2px,#E5E7EB 2px,#E5E7EB 4px)'
+      : s.color;
+    var dot = '<span style="display:inline-block;width:8px;height:8px;border-radius:2px;background:' + dotBg + ';vertical-align:middle"></span>';
+    parts.push(dot + ' <strong>Study ' + s.label + '</strong> (' + s.dur + ' min)');
+  });
+  if (hasNewStudy) {
+    parts.push('<span style="display:inline-block;width:8px;height:8px;border-radius:2px;background:#86EFAC;vertical-align:middle"></span> <strong>Yours</strong>');
+  }
+  parts.push('<span style="display:inline-block;width:8px;height:8px;border-radius:2px;background:#8C8C8C;vertical-align:middle"></span> Overhead (check-in, transitions, check-out)');
+
+  // Credit line
+  var sessionMin = bar.used;
+  var creditInfo = getCredit(sessionMin);
+  var creditLine = '<div style="margin-top:6px;font-size:12px;color:var(--text-2);line-height:1.6">' +
+    'Each participant earns <strong style="color:' + creditInfo.color + '">' + creditInfo.credit + ' SONA credit</strong> for this session (' + sessionMin + ' min total).' +
+    '</div>';
+
+  return '<div style="font-size:11px;color:var(--text-3);line-height:1.7;margin-top:6px">' + parts.join(' &nbsp;·&nbsp; ') + '</div>' + creditLine;
+}
+
+// Format a list of dates compactly: "Mar 5, 6, 12" or "Mar 5, 6 · Apr 1, 2"
+function formatDateList(dates) {
+  // dates are like "Mar 5 (Thu)", "Mar 6 (Fri)", "Apr 1 (Wed)"
+  var byMonth = {};
+  var monthOrder = [];
+  dates.forEach(function(d) {
+    var m = d.match(/^(Mar|Apr)\s+(\d+)/);
+    if (m) {
+      var month = m[1];
+      var day = parseInt(m[2]);
+      if (!byMonth[month]) { byMonth[month] = []; monthOrder.push(month); }
+      byMonth[month].push(day);
+    }
+  });
+  var parts = [];
+  monthOrder.forEach(function(month) {
+    var days = byMonth[month];
+    parts.push(month + ' ' + days.join(', '));
+  });
+  return parts.join(' · ');
+}
+
+function renderAllLayouts() {
+  // Collect open dates
+  var openDates = [];
+  ll102Weeks.forEach(function(w) {
+    w.days.forEach(function(d) {
+      if (d.indexOf('open') === 0) openDates.push(d.split('|')[1] || d);
+    });
+  });
+  window._capOpenDates = openDates;
+  var totalDays = openDates.length;
+
+  // Group days by composition signature
+  var groupMap = {};
+  var groupOrder = [];
+  for (var di = 0; di < totalDays; di++) {
+    var comp = getSessionComposition(di);
+    var sig = comp.active.map(function(s) { return s.id; }).sort().join(',');
+    if (!groupMap[sig]) {
+      groupMap[sig] = { labs: [], dates: [], comp: comp, dayIndex: di };
+      groupOrder.push(sig);
+    }
+    groupMap[sig].labs.push(di + 1);
+    groupMap[sig].dates.push(openDates[di]);
+  }
+
+  var dur = parseInt(document.getElementById('calc-dur').value) || 0;
+  var hasNewStudy = dur > 0;
+
+  // Classify each group
+  var groupResults = [];
+  var firstFitIndex = -1;
+  var firstOverflowIndex = -1;
+  groupOrder.forEach(function(sig, gi) {
+    var g = groupMap[sig];
+    var bar = buildCapacityBarHtml(g.comp);
+    var fits = !bar.newStudy || bar.remaining >= 0;
+    if (hasNewStudy && fits && firstFitIndex === -1) firstFitIndex = gi;
+    if (hasNewStudy && !fits && firstOverflowIndex === -1) firstOverflowIndex = gi;
+    groupResults.push({ sig: sig, group: g, bar: bar, fits: fits });
+  });
+
+  var hasDelayedStart = hasNewStudy && firstOverflowIndex !== -1 && firstFitIndex > firstOverflowIndex;
+  var allOverflow = hasNewStudy && firstFitIndex === -1 && firstOverflowIndex !== -1;
+
+  // ── Render ──
+  var bannerEl = document.getElementById('fit-summary-banner');
+  var container = document.getElementById('all-layouts-container');
+  var out = '';
+
+  // Count other studies
+  var rosterCount = groupResults[0] ? groupResults[0].bar.rosterStudies.length : 0;
+  var rosterTime = groupResults[0] ? groupResults[0].bar.rosterStudies.reduce(function(sum, s) { return sum + s.dur; }, 0) : 0;
+
+  // ── EMPTY STATE ──
+  if (!hasNewStudy) {
+    bannerEl.innerHTML = '';
+    bannerEl.style.display = 'none';
+
+    var busiestBar = groupResults[0] ? groupResults[0].bar : null;
+    var rosterUsed = busiestBar ? (busiestBar.used) : 0;
+    var rosterOpen = busiestBar ? (SESSION_CAP - rosterUsed) : SESSION_CAP;
+
+    // Invitation banner
+    out += '<div style="padding:12px 16px;background:var(--blue-bg);border:1px solid #BFDBFE;border-radius:6px;margin-bottom:12px;font-size:13px;color:var(--text-2)">';
+    out += '<strong style="color:var(--blue)">This is the current session slot.</strong> ';
+    if (rosterOpen > 0) {
+      out += 'The booked studies take up <strong>' + rosterUsed + ' of 60 minutes</strong>, leaving <strong style="color:var(--green-text)">' + rosterOpen + ' min open</strong>. Enter your study duration above to see if there\'s room for you.';
+    } else {
+      out += 'The slot is fully booked at <strong>' + rosterUsed + ' of 60 minutes</strong>. Enter your duration above to see when a slot opens for your study.';
+    }
+    out += '</div>';
+
+    if (busiestBar) {
+      out += '<div style="display:flex;align-items:center;gap:8px;margin-bottom:6px"><span style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--text-3)">Most constrained session</span><span style="font-size:11px;color:var(--text-3)">·</span><span style="font-size:12px;color:var(--text-2)">' + formatDateList(groupResults[0].group.dates) + '</span><span style="font-size:11px;color:var(--text-3);font-style:italic">— if it fits here, it fits on all dates</span></div>';
+      out += '<div class="capacity-bar-wrap">' + busiestBar.html + '</div>';
+      out += buildBarLegend(busiestBar, false);
+    }
+    container.innerHTML = out;
+    return;
+  }
+
+  // ── FITS EVERYWHERE ──
+  if (firstFitIndex === 0 && firstOverflowIndex === -1) {
+    var worstBar = groupResults[0].bar;
+    bannerEl.innerHTML =
+      '<div style="padding:12px 16px;background:var(--green-bg);border:1px solid #BBF7D0;border-radius:6px;display:flex;gap:10px;align-items:center">' +
+        '<span style="font-size:18px">✓</span>' +
+        '<div style="font-size:13px;color:var(--green-text)"><strong>Yes — your ' + dur + '-min study fits.</strong> The busiest session uses ' + worstBar.used + ' of 60 min, leaving ' + worstBar.remaining + ' min open.</div>' +
+      '</div>';
+    bannerEl.style.display = '';
+
+    out += '<div style="display:flex;align-items:center;gap:8px;margin-bottom:6px"><span style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--text-3)">Most constrained session</span><span style="font-size:11px;color:var(--text-3)">·</span><span style="font-size:12px;color:var(--text-2)">' + formatDateList(groupResults[0].group.dates) + '</span><span style="font-size:11px;color:var(--text-3);font-style:italic">— if it fits here, it fits on all dates</span></div>';
+    out += '<div class="capacity-bar-wrap">' + worstBar.html + '</div>';
+    out += buildBarLegend(worstBar, true);
+    container.innerHTML = out;
+    return;
+  }
+
+  // ── DELAYED START ──
+  if (hasDelayedStart) {
+    var overflowGr = groupResults[firstOverflowIndex];
+    var fitGr = groupResults[firstFitIndex];
+
+    var overflowStudies = overflowGr.bar.rosterStudies;
+    var fitStudyIds = fitGr.bar.rosterStudies.map(function(s) { return s.id; });
+    var completedStudies = overflowStudies.filter(function(s) { return fitStudyIds.indexOf(s.id) === -1; });
+    var completedNames = completedStudies.map(function(s) { return s.label; });
+    var reason = completedNames.length > 0
+      ? ' once Study ' + completedNames.join(' and ') + ' finish' + (completedNames.length === 1 ? 'es' : '')
+      : '';
+
+    bannerEl.innerHTML =
+      '<div style="padding:12px 16px;background:var(--blue-bg);border:1px solid #BFDBFE;border-radius:6px;display:flex;gap:10px;align-items:center">' +
+        '<span style="font-size:16px;opacity:0.6">→</span>' +
+        '<div style="font-size:13px;color:var(--text)"><strong>Your ' + dur + '-min study can begin on ' + fitGr.group.dates[0] + '</strong>' + reason + '. The earlier dates are at capacity (' + overflowGr.bar.used + '/60 min used).</div>' +
+      '</div>';
+    bannerEl.style.display = '';
+
+    var overDates = formatDateList(overflowGr.group.dates);
+    out += '<div style="opacity:0.45">';
+    out += '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px"><span style="font-size:12px;color:var(--text-3)">' + overDates + '</span><span style="font-size:11px;font-weight:600;color:#991B1B">✕ ' + Math.abs(overflowGr.bar.remaining) + ' min over</span></div>';
+    out += '<div class="capacity-bar-wrap">' + overflowGr.bar.html + '</div>';
+    out += '</div>';
+
+    var fitDates = formatDateList(fitGr.group.dates);
+    out += '<div style="margin-top:14px">';
+    out += '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px"><span style="font-size:12px;font-weight:600;color:var(--blue)">' + fitDates + ' — starts here</span><span style="font-size:11px;font-weight:600;color:var(--green-text)">✓ ' + fitGr.bar.remaining + ' min open</span></div>';
+    out += '<div class="capacity-bar-wrap" style="box-shadow:0 0 0 2px var(--blue)">' + fitGr.bar.html + '</div>';
+    out += '</div>';
+    out += buildBarLegend(fitGr.bar, true);
+
+    container.innerHTML = out;
+    return;
+  }
+
+  // ── DOESN'T FIT ──
+  if (allOverflow) {
+    // Find the lightest group (least used time)
+    var lightestBar = groupResults[0].bar;
+    for (var li = 1; li < groupResults.length; li++) {
+      if (groupResults[li].bar.used < lightestBar.used) lightestBar = groupResults[li].bar;
+    }
+    bannerEl.innerHTML =
+      '<div style="padding:12px 16px;background:var(--red-bg);border:1px solid #FECACA;border-radius:6px;display:flex;gap:10px;align-items:center">' +
+        '<span style="font-size:18px">✕</span>' +
+        '<div style="font-size:13px;color:#991B1B"><strong>No — a ' + dur + '-min study doesn\u2019t fit.</strong> Even the lightest session uses ' + lightestBar.used + ' of 60 min (' + Math.abs(lightestBar.remaining) + ' min over).</div>' +
+      '</div>';
+    bannerEl.style.display = '';
+
+    out += '<div style="display:flex;align-items:center;gap:8px;margin-bottom:6px"><span style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--text-3)">Lightest available session</span><span style="font-size:11px;color:var(--text-3);font-style:italic">— even this date has no room for your study</span></div>';
+    out += '<div class="capacity-bar-wrap">' + lightestBar.html + '</div>';
+    out += buildBarLegend(lightestBar, true);
+    container.innerHTML = out;
+    return;
+  }
+
+  bannerEl.innerHTML = '';
+  bannerEl.style.display = 'none';
+  container.innerHTML = '';
+}
+renderAllLayouts();
+
+// ═══ SUMMARY STRIP ═══
+function updateSummaryStrip() {
+  var strip = document.getElementById('planner-summary-strip');
+  var dur = parseInt(document.getElementById('calc-dur').value) || 0;
+  var n = parseInt(document.getElementById('calc-target').value) || 0;
+
+  if (dur <= 0) {
+    strip.style.display = 'none';
+    return;
+  }
+
+  strip.style.display = 'flex';
+  var items = [];
+  var openDates = window._capOpenDates || [];
+
+  // Fit status — check busiest day (day 0)
+  var comp = getSessionComposition(0);
+  var creditInfo = getCredit(comp.used);
+  if (comp.used <= SESSION_CAP) {
+    var open = SESSION_CAP - comp.used;
+    items.push('<span class="strip-item"><span class="strip-dot" style="background:var(--green)"></span> <span style="color:var(--green-text)">Fits</span> <span style="color:var(--text-3)">(' + open + ' min open on busiest day)</span></span>');
+  } else {
+    var over = comp.used - SESSION_CAP;
+    // Find first fitting day
+    var firstFitDay = -1;
+    for (var i = 1; i < openDates.length; i++) {
+      var c = getSessionComposition(i);
+      if (c.used <= SESSION_CAP) { firstFitDay = i; break; }
+    }
+    if (firstFitDay >= 0) {
+      items.push('<span class="strip-item"><span class="strip-dot" style="background:var(--blue)"></span> <span style="color:var(--blue)">Starts ' + openDates[firstFitDay] + '</span> <span style="color:var(--text-3)">(over by ' + over + ' min on earlier days)</span></span>');
+    } else {
+      items.push('<span class="strip-item"><span class="strip-dot" style="background:#991B1B"></span> <span style="color:#991B1B">Doesn\u2019t fit</span> <span style="color:var(--text-3)">(over by ' + over + ' min)</span></span>');
+    }
+  }
+
+  // Credit tier
+  items.push('<span class="strip-divider"></span>');
+  items.push('<span class="strip-item"><span class="strip-dot" style="background:' + creditInfo.color + '"></span> Each participant earns <span style="color:' + creditInfo.color + ';font-weight:700">' + creditInfo.credit + ' SONA credit</span> <span style="color:var(--text-3)">(' + comp.used + '-min session)</span></span>');
+
+  // Timeline estimate (only if N entered)
+  if (n > 0) {
+    items.push('<span class="strip-divider"></span>');
+    var eligibleDays = 0;
+    for (var i = 0; i < openDates.length; i++) {
+      var c = getSessionComposition(i);
+      if (c.used <= SESSION_CAP) eligibleDays++;
+    }
+    if (eligibleDays > 0) {
+      var daysNeeded = Math.ceil(n / PER_DAY);
+      if (daysNeeded <= eligibleDays) {
+        // Find the actual target date
+        var cumul = 0, targetDate = '';
+        for (var i = 0; i < openDates.length; i++) {
+          var c = getSessionComposition(i);
+          if (c.used > SESSION_CAP) continue;
+          cumul += PER_DAY;
+          if (cumul >= n) { targetDate = openDates[i]; break; }
+        }
+        items.push('<span class="strip-item"><span class="strip-dot" style="background:var(--cardinal)"></span> <span class="dv">N\u2009=\u2009' + n + '</span> in <span class="dv">~' + daysNeeded + ' day' + (daysNeeded !== 1 ? 's' : '') + '</span>' + (targetDate ? ' (by <span class="dv">' + targetDate + '</span>)' : '') + '</span>');
+      } else {
+        items.push('<span class="strip-item"><span class="strip-dot" style="background:var(--amber-text)"></span> <span style="color:var(--amber-text)">N\u2009=\u2009' + n + ' exceeds capacity</span></span>');
+      }
+    }
+  }
+
+  strip.innerHTML = items.join('');
+}
+
+// ═══ MODAL HANDLERS ═══
+// Close modal on backdrop click
+document.getElementById('power-helper-wrap').addEventListener('click', function(e) {
+  if (e.target === this) this.classList.remove('open');
+});
+// Close on Escape
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') document.getElementById('power-helper-wrap').classList.remove('open');
+});
+
+// ═══ STACK ROSTER LEGEND ═══
+(function renderRosterLegend() {
+  var openDates = window._capOpenDates || [];
+  var container = document.getElementById('stack-roster-legend');
+  var html = '<div class="roster-legend">';
+
+  STUDY_ROSTER.forEach(function(s) {
+    // Collect individual dates for this study
+    var studyDates = [];
+    for (var di = s.startLab - 1; di < Math.min(s.endLab, openDates.length); di++) {
+      studyDates.push(openDates[di]);
+    }
+    var dateStr = formatDateList(studyDates);
+    var pendingTag = s.status === 'pending' ? ' <span style="font-size:10px;color:var(--amber-text);font-weight:600">(pending)</span>' : '';
+    var dotStyle = s.status === 'pending'
+      ? 'background:repeating-linear-gradient(-45deg,#D1D5DB,#D1D5DB 3px,#E5E7EB 3px,#E5E7EB 6px);border:1px solid #9CA3AF'
+      : 'background:' + s.color;
+    html += '<div class="roster-pill">';
+    html += '<span class="roster-pill-dot" style="' + dotStyle + '"></span>';
+    html += '<span><strong>Study ' + s.label + '</strong> · ' + s.dur + ' min' + pendingTag + '</span>';
+    html += '<span class="roster-pill-meta">' + s.researcher + ' · ' + dateStr + '</span>';
+    html += '</div>';
+  });
+
+  html += '</div>';
+
+  // Overhead summary
+  var rosterTime = 0;
+  STUDY_ROSTER.forEach(function(s) { rosterTime += s.dur; });
+  var transitions = STUDY_ROSTER.length > 1 ? (STUDY_ROSTER.length - 1) * TRANS_PER_STUDY : 0;
+  var overhead = OVERHEAD_CHECKIN + OVERHEAD_CHECKOUT + transitions;
+  var totalUsed = rosterTime + overhead;
+  var openMin = SESSION_CAP - totalUsed;
+  var rosterCredit = getCredit(totalUsed);
+  html += '<div class="roster-overhead">';
+  html += rosterTime + ' min of studies + ' + overhead + ' min overhead = <strong>' + totalUsed + ' of ' + SESSION_CAP + ' min used</strong>';
+  html += ' &nbsp;&middot;&nbsp; Each participant earns <span style="font-weight:600;color:' + rosterCredit.color + '">' + rosterCredit.credit + ' SONA credit</span> at current stack duration';
+  if (openMin > 0) html += ' &nbsp;&middot;&nbsp; <span style="color:var(--green)">' + openMin + ' min available for your study</span>';
+  html += '</div>';
+
+  container.innerHTML = html;
+})();
+
+(function() {
+  var navLinks = document.querySelectorAll('.nav-link');
+  var subLinks = document.querySelectorAll('.nav-sub-link');
+
+  // Build ordered section list from main nav links
+  var sections = [];
+  var seen = {};
+  navLinks.forEach(function(link) {
+    var id = link.getAttribute('data-section');
+    if (!seen[id]) {
+      var el = document.getElementById(id);
+      if (el) { sections.push({ id: id, el: el }); seen[id] = true; }
+    }
+  });
+
+  // Planner subsections
+  var subSections = [];
+  subLinks.forEach(function(link) {
+    var id = link.getAttribute('data-subsection');
+    var el = document.getElementById(id);
+    if (el) subSections.push({ id: id, el: el });
+  });
+
+  var topLink = document.getElementById('nav-top-link');
+
+  function updateActive() {
+    var scrollY = window.scrollY + 60;
+
+    // Show/hide back-to-top
+    if (topLink) topLink.classList.toggle('visible', window.scrollY > 300);
+
+    // Main nav active
+    var currentId = null;
+    sections.forEach(function(s) {
+      if (s.el.offsetTop <= scrollY) currentId = s.id;
+    });
+    navLinks.forEach(function(l) { l.classList.remove('active'); });
+    if (currentId) {
+      navLinks.forEach(function(l) {
+        if (l.getAttribute('data-section') === currentId) l.classList.add('active');
+      });
+    }
+
+    // Sub-link active
+    var currentSubId = null;
+    subSections.forEach(function(s) {
+      if (s.el.offsetTop <= scrollY + 20) currentSubId = s.id;
+    });
+    subLinks.forEach(function(l) {
+      l.classList.toggle('active', l.getAttribute('data-subsection') === currentSubId);
+    });
+  }
+
+  window.addEventListener('scroll', updateActive, { passive: true });
+  updateActive();
+
+  navLinks.forEach(function(link) {
+    link.addEventListener('click', function(e) {
+      e.preventDefault();
+      var id = link.getAttribute('data-section');
+      var el = document.getElementById(id);
+      if (el) {
+        el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        history.pushState(null, '', '#' + id);
+      }
+    });
+  });
+
+  subLinks.forEach(function(link) {
+    link.addEventListener('click', function(e) {
+      e.preventDefault();
+      var id = link.getAttribute('data-subsection');
+      var el = document.getElementById(id);
+      if (el) {
+        el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        history.pushState(null, '', '#' + id);
+      }
+    });
+  });
+
+})();
+</script>
+</body>
+</html>
