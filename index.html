@@ -134,7 +134,6 @@ body {
 .throughput-card {
   background: var(--surface);
   border: 1px solid var(--border);
-  border-left: 3px solid var(--cardinal);
   border-radius: var(--radius);
   overflow: hidden;
   margin-bottom: 28px;
@@ -579,7 +578,8 @@ body {
   overflow: visible;
   display: flex;
   box-shadow: inset 0 1px 3px rgba(0,0,0,0.08);
-  margin-top: 42px;
+  margin-top: 12px;
+  margin-bottom: 12px;
 }
 .capacity-segment {
   height: 100%;
@@ -760,7 +760,7 @@ body {
   padding: 0 20px;
   display: flex;
   gap: 2px;
-  overflow-x: auto;
+  overflow: visible;
   -webkit-overflow-scrolling: touch;
   scrollbar-width: none;
 }
@@ -807,34 +807,217 @@ body {
 .nav-top-link:hover { color: var(--cardinal); }
 
 /* Sub-links — always-visible indented planner subsections */
-.nav-sub-link {
-  padding: 10px 10px 10px 20px;
-  font-size: 11px;
+
+/* Nav dropdown groups */
+.nav-group {
+  position: relative;
+  display: flex;
+  align-items: stretch;
+}
+.nav-dropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+  min-width: 180px;
+  z-index: 200;
+  padding: 4px 0;
+  pointer-events: none;
+  visibility: hidden;
+  opacity: 0;
+  transform: translateY(-4px);
+  transition: opacity 0.15s, transform 0.15s, visibility 0.15s;
+}
+.nav-group:hover .nav-dropdown {
+  pointer-events: auto;
+  visibility: visible;
+  opacity: 1;
+  transform: translateY(0);
+}
+.nav-drop-item {
+  display: block;
+  padding: 7px 16px;
+  font-size: 12px;
   font-weight: 500;
-  color: var(--text-3);
+  color: var(--text-2);
   text-decoration: none;
   white-space: nowrap;
-  border-bottom: 2px solid transparent;
-  transition: color 0.15s, border-color 0.15s;
-  position: relative;
+  transition: background 0.1s, color 0.1s;
 }
-.nav-sub-link::before {
-  content: '›';
-  position: absolute;
-  left: 10px;
-  color: var(--border);
-  transition: color 0.15s;
-}
-.nav-sub-link:hover { color: var(--text-2); }
-.nav-sub-link:hover::before { color: var(--text-3); }
-.nav-sub-link.active {
+.nav-drop-item:hover {
+  background: var(--cardinal-light);
   color: var(--cardinal);
-  border-bottom-color: var(--cardinal);
 }
-.nav-sub-link.active::before { color: var(--cardinal); }
+.nav-drop-item.active {
+  color: var(--cardinal);
+  font-weight: 600;
+}
 
+/* Legacy sub-link stubs — kept for JS compat, not visible */
+.nav-sub-link { display: none; }
 
-/* Power expandable */
+/* ═══ Collection Dashboard ═══ */
+.dash-day-card {
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  overflow: hidden;
+  margin-bottom: 12px;
+}
+.dash-day-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 16px;
+  background: var(--cardinal);
+  color: white;
+}
+.dash-day-header.past { background: #555; }
+.dash-day-header.future { background: #2A2A2A; }
+.dash-day-label {
+  font-family: 'Source Serif 4', Georgia, serif;
+  font-size: 15px;
+  font-weight: 700;
+  color: white;
+}
+.dash-day-sub {
+  font-size: 11px;
+  color: rgba(255,255,255,0.55);
+  font-weight: 500;
+}
+.dash-day-badge {
+  margin-left: auto;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  padding: 3px 8px;
+  border-radius: 3px;
+  white-space: nowrap;
+}
+.dash-day-badge.live { background: rgba(74,222,128,0.2); color: #4ADE80; border: 1px solid rgba(74,222,128,0.35); }
+.dash-day-badge.next { background: rgba(250,204,21,0.2); color: #FACC15; border: 1px solid rgba(250,204,21,0.35); }
+.dash-day-badge.done { background: rgba(255,255,255,0.07); color: rgba(255,255,255,0.3); border: 1px solid rgba(255,255,255,0.1); }
+.dash-session-bar-wrap {
+  padding: 10px 16px 8px;
+  background: #F8F7F5;
+  border-bottom: 1px solid var(--border-light);
+}
+.dash-session-bar {
+  display: flex;
+  height: 14px;
+  border-radius: 4px;
+  overflow: hidden;
+  background: #E5E2DC;
+}
+.dash-session-seg { height: 100%; }
+.dash-session-label {
+  font-size: 10px;
+  color: var(--text-3);
+  margin-top: 4px;
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.dash-session-legend-dot {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 2px;
+  margin-right: 3px;
+  vertical-align: middle;
+  flex-shrink: 0;
+}
+.dash-studies-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 1px;
+  background: var(--border-light);
+}
+.dash-study-row {
+  background: var(--surface);
+  padding: 10px 16px;
+}
+.dash-study-row.inactive { background: #FAFAFA; opacity: 0.45; }
+.dash-study-name {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--text);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 5px;
+}
+.dash-study-researcher {
+  font-size: 11px;
+  color: var(--text-3);
+  font-weight: 400;
+  margin-bottom: 6px;
+}
+.dash-progress-track {
+  height: 6px;
+  background: #E5E2DC;
+  border-radius: 3px;
+  overflow: hidden;
+  margin-bottom: 4px;
+}
+.dash-progress-fill {
+  height: 100%;
+  border-radius: 3px;
+  transition: width 0.3s;
+}
+.dash-progress-labels {
+  display: flex;
+  justify-content: space-between;
+  font-size: 10px;
+  color: var(--text-3);
+}
+.dash-progress-labels .hit { color: var(--green-text); font-weight: 700; }
+@media (max-width: 640px) {
+  .dash-studies-grid { grid-template-columns: 1fr; }
+}
+
+/* Collapsible ref sections */
+.ref-collapsible {
+  border: none;
+  outline: none;
+}
+.ref-collapsible[open] .ref-comp-title::after,
+.ref-collapsible[open] .ref-cards-label::after { content: ' ▲'; font-size: 10px; opacity: 0.4; }
+.ref-collapsible:not([open]) .ref-comp-title::after,
+.ref-collapsible:not([open]) .ref-cards-label::after { content: ' ▼'; font-size: 10px; opacity: 0.4; }
+.ref-comp-title, .ref-cards-label { cursor: pointer; user-select: none; }
+.ref-comp-title:hover, .ref-cards-label:hover { color: var(--cardinal); }
+
+/* Collapsible FAQ groups */
+.faq-group-toggle {
+  cursor: pointer;
+  user-select: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.faq-group-toggle::after { content: '▼'; font-size: 9px; opacity: 0.4; margin-left: 6px; transition: transform 0.2s; }
+.faq-group-toggle.open::after { transform: rotate(180deg); opacity: 0.6; }
+.faq-group-toggle:hover { color: var(--cardinal); }
+.faq-group-body { overflow: hidden; transition: max-height 0.25s ease; }
+.faq-group-body.collapsed { max-height: 0 !important; }
+
+/* Collapsible dashboard day cards */
+.dash-day-header { cursor: pointer; user-select: none; }
+.dash-day-body { overflow: hidden; transition: max-height 0.3s ease; }
+.dash-day-body.collapsed { max-height: 0 !important; }
+.dash-day-chevron {
+  margin-left: 8px;
+  font-size: 11px;
+  opacity: 0.5;
+  transition: transform 0.2s;
+  flex-shrink: 0;
+}
+.dash-day-card.expanded .dash-day-chevron { transform: rotate(180deg); }
+
 /* Power analysis modal */
 .power-overlay {
   display: none;
@@ -917,14 +1100,38 @@ summary::marker { display: none; content: ''; }
     0 1px 4px rgba(0,0,0,0.06);
   overflow: hidden;
 }
+/* Inputs col: two steps side by side */
+.planner-inputs-col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  border-bottom: 2px solid var(--border-light);
+  background: #FDFCFB;
+}
+.planner-inputs-col .input-step {
+  border-top: none !important;
+}
+.planner-inputs-col .input-step:first-child {
+  border-right: 1px solid var(--border-light);
+}
+.planner-outputs-col {
+  background: var(--surface);
+}
+@media (max-width: 680px) {
+  .planner-inputs-col { grid-template-columns: 1fr; }
+  .planner-inputs-col .input-step:first-child { border-right: none; border-bottom: 1px solid var(--border-light); }
+}
 .input-step {
   display: flex;
-  gap: 14px;
+  gap: 16px;
   align-items: flex-start;
-  padding: 22px 24px;
+  padding: 28px 32px;
 }
 .input-step + .input-step {
   border-top: 1px solid var(--border-light);
+}
+/* Output steps need full width for capacity bars */
+.planner-outputs-col .input-step {
+  padding: 24px 24px;
 }
 .input-step-num {
   width: 26px;
@@ -1355,6 +1562,517 @@ summary::marker { display: none; content: ''; }
   border-top-color: var(--green);
 }
 
+.bar-label-cell {
+  position: absolute;
+  bottom: calc(100% + 6px);
+  padding: 0 4px;
+  pointer-events: none;
+  z-index: 10;
+  min-width: 0;
+}
+.bar-label-name {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--text);
+  white-space: nowrap;
+  overflow: visible;
+  line-height: 1.3;
+}
+.bar-label-researcher {
+  font-size: 10px;
+  font-weight: 400;
+  color: var(--text-3);
+  white-space: nowrap;
+  line-height: 1.3;
+}
+/* Thin colored tick connecting label to segment */
+.bar-label-cell::after {
+  content: '';
+  position: absolute;
+  bottom: -6px;
+  left: 4px;
+  width: 1px;
+  height: 6px;
+  background: #9CA3AF;
+}
+
+/* Planner layout — single column, inputs above outputs */
+.planner-two-col {
+  display: flex;
+  flex-direction: column;
+}
+.planner-inputs-col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  border-bottom: 2px solid var(--border-light);
+  background: #FDFCFB;
+}
+.planner-inputs-col .input-step {
+  border-top: none !important;
+}
+.planner-inputs-col .input-step:first-child {
+  border-right: 1px solid var(--border-light);
+}
+.planner-outputs-col {
+  background: var(--surface);
+}
+@media (max-width: 640px) {
+  .planner-inputs-col { grid-template-columns: 1fr; }
+  .planner-inputs-col .input-step:first-child { border-right: none; border-bottom: 1px solid var(--border-light); }
+}
+
+/* FAQ group divider */
+.faq-group-label {
+  padding: 10px 24px 8px;
+  font-size: 9.5px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: var(--text-3);
+  background: #F8F7F5;
+  border-top: 1px solid var(--border-light);
+  border-bottom: 1px solid var(--border-light);
+}
+/* First group label gets extra top breathing room from the intro paragraph */
+.faq-items > .faq-group-label:first-child {
+  padding-top: 16px;
+  padding-bottom: 10px;
+  border-top: 2px solid var(--border-light);
+}
+.ref-section {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  margin-bottom: 28px;
+  box-shadow: var(--shadow);
+}
+.ref-summary-strip {
+  background: #222222;
+  display: flex;
+  align-items: stretch;
+  flex-wrap: wrap;
+}
+.ref-summary-stat {
+  display: flex;
+  flex-direction: column;
+  padding: 12px 20px;
+  border-right: 1px solid rgba(255,255,255,0.09);
+  flex: 1;
+  min-width: 100px;
+}
+.ref-summary-stat:last-child { border-right: none; }
+.ref-summary-val {
+  font-family: 'Source Serif 4', Georgia, serif;
+  font-size: 20px;
+  font-weight: 700;
+  color: white;
+  line-height: 1.1;
+}
+.ref-summary-val.gold { color: var(--gold); }
+.ref-summary-key {
+  font-size: 9px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: rgba(255,255,255,0.35);
+  margin-top: 3px;
+}
+
+/* Composition bars */
+.ref-comp-wrap { padding: 20px 24px; border-bottom: 1px solid var(--border-light); }
+.ref-comp-title {
+  font-family: 'Source Serif 4', Georgia, serif;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--cardinal);
+  margin-bottom: 14px;
+}
+.ref-comp-group { margin-bottom: 16px; }
+.ref-comp-group:last-child { margin-bottom: 0; }
+.ref-comp-day-label {
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1.2px;
+  color: var(--text-3);
+  margin-bottom: 5px;
+}
+.ref-comp-bar {
+  display: flex;
+  height: 32px;
+  border-radius: 5px;
+  overflow: hidden;
+  background: #EDEAE5;
+  box-shadow: inset 0 1px 3px rgba(0,0,0,0.07);
+  margin-bottom: 5px;
+}
+.ref-comp-seg {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 10px;
+  font-weight: 800;
+  color: rgba(0,0,0,0.6);
+  border-right: 2px solid rgba(255,255,255,0.4);
+  overflow: hidden;
+  white-space: nowrap;
+}
+.ref-comp-seg:last-child { border-right: none; }
+.ref-comp-seg.overhead { color: white; font-size: 9px; font-weight: 600; }
+.ref-comp-open {
+  background: repeating-linear-gradient(-45deg,var(--green-bg),var(--green-bg) 5px,#D1FAE5 5px,#D1FAE5 10px);
+  border: 2px dashed var(--green);
+  color: var(--green-text);
+  font-weight: 700;
+  font-size: 11px;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.ref-comp-over {
+  background: repeating-linear-gradient(-45deg,#FEF2F2,#FEF2F2 5px,#FECACA 5px,#FECACA 10px);
+  border: 2px dashed #DC2626;
+  color: #991B1B;
+  font-weight: 700;
+  font-size: 11px;
+  padding: 0 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  white-space: nowrap;
+}
+.ref-comp-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 14px;
+  font-size: 11px;
+  color: var(--text-2);
+  margin-top: 4px;
+}
+.ref-comp-legend-item { display: inline-flex; align-items: center; gap: 4px; }
+.ref-comp-legend-dot {
+  width: 9px; height: 9px;
+  border-radius: 2px;
+  flex-shrink: 0;
+}
+
+/* Study cards grid */
+.ref-cards-wrap { padding: 20px 24px; }
+.ref-cards-label {
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: var(--cardinal);
+  margin-bottom: 14px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.ref-cards-label::before {
+  content: '';
+  width: 16px;
+  height: 2px;
+  background: var(--cardinal);
+  display: inline-block;
+}
+.ref-study-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 14px;
+}
+@media (max-width: 700px) { .ref-study-grid { grid-template-columns: 1fr; } }
+
+.ref-study-card {
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  overflow: hidden;
+  background: #FAFAF8;
+  transition: box-shadow 0.15s;
+}
+.ref-study-card:hover { box-shadow: 0 3px 12px rgba(0,0,0,0.09); }
+.ref-study-card-head {
+  display: flex;
+  align-items: stretch;
+  border-bottom: 1px solid var(--border-light);
+}
+.ref-study-color-band { width: 4px; flex-shrink: 0; }
+.ref-study-head-inner { flex: 1; padding: 12px 14px 10px; }
+.ref-study-top-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 4px;
+}
+.ref-study-badge {
+  width: 24px; height: 24px;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  font-weight: 900;
+  color: rgba(0,0,0,0.65);
+  flex-shrink: 0;
+}
+.ref-study-title {
+  font-family: 'Source Serif 4', Georgia, serif;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text);
+  flex: 1;
+  line-height: 1.3;
+}
+.ref-status-pill {
+  font-size: 9px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  padding: 2px 7px;
+  border-radius: 3px;
+  flex-shrink: 0;
+}
+.ref-status-pill.collecting { background: var(--green-bg); color: #065F46; border: 1px solid #A7F3D0; }
+.ref-status-pill.pending { background: var(--amber-bg); color: var(--amber-text); border: 1px solid #FDE68A; }
+
+.ref-study-body { padding: 12px 14px; }
+.ref-study-fields {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px 16px;
+  margin-bottom: 10px;
+}
+.ref-field { display: flex; flex-direction: column; gap: 1px; }
+.ref-field-key {
+  font-size: 9px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--text-3);
+}
+.ref-field-val {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text);
+}
+.ref-field-val.em { color: var(--cardinal); font-weight: 700; }
+
+/* pace bar */
+.ref-pace-row {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  margin-bottom: 8px;
+}
+.ref-pace-track {
+  flex: 1;
+  height: 5px;
+  background: var(--border-light);
+  border-radius: 3px;
+  overflow: hidden;
+}
+.ref-pace-fill { height: 100%; border-radius: 3px; }
+.ref-pace-label { font-size: 10px; color: var(--text-3); white-space: nowrap; flex-shrink: 0; }
+
+/* date chips */
+.ref-date-chips { display: flex; flex-wrap: wrap; gap: 3px; }
+.ref-date-chip {
+  font-size: 10px;
+  font-weight: 600;
+  padding: 1px 7px;
+  border-radius: 3px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--text-2);
+  white-space: nowrap;
+}
+/* note */
+.ref-study-note {
+  margin-top: 8px;
+  padding: 6px 10px;
+  background: var(--blue-bg);
+  border-left: 2px solid #93C5FD;
+  border-radius: 2px;
+  font-size: 11px;
+  color: #1E40AF;
+  line-height: 1.5;
+}
+.session-ticker {
+  background: #222222;
+  border-bottom: 3px solid var(--gold);
+  width: 100%;
+}
+.session-ticker-inner {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 0 32px;
+}
+
+/* ── Row 1: meta strip ── */
+.ticker-row1 {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  padding: 11px 0 10px;
+  flex-wrap: wrap;
+  row-gap: 6px;
+}
+.ticker-pulse-wrap {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+  padding-right: 18px;
+  margin-right: 4px;
+  border-right: 1px solid #444;
+}
+.ticker-pulse {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #4ADE80;
+  box-shadow: 0 0 0 0 rgba(74,222,128,0.4);
+  animation: tickerPulse 2s infinite;
+  flex-shrink: 0;
+}
+.ticker-pulse.upcoming {
+  background: var(--gold);
+  box-shadow: 0 0 0 0 rgba(255,204,0,0.4);
+  animation: tickerPulseGold 2.5s infinite;
+}
+@keyframes tickerPulse {
+  0%   { box-shadow: 0 0 0 0 rgba(74,222,128,0.4); }
+  70%  { box-shadow: 0 0 0 6px rgba(74,222,128,0); }
+  100% { box-shadow: 0 0 0 0 rgba(74,222,128,0); }
+}
+@keyframes tickerPulseGold {
+  0%   { box-shadow: 0 0 0 0 rgba(255,204,0,0.4); }
+  70%  { box-shadow: 0 0 0 6px rgba(255,204,0,0); }
+  100% { box-shadow: 0 0 0 0 rgba(255,204,0,0); }
+}
+.ticker-status-label {
+  font-size: 11px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: #4ADE80;
+  white-space: nowrap;
+}
+.ticker-status-label.upcoming { color: var(--gold); }
+
+.ticker-date-block {
+  flex-shrink: 0;
+  padding: 0 20px;
+  border-right: 1px solid #444;
+}
+.ticker-date {
+  font-family: 'Source Serif 4', Georgia, serif;
+  font-size: 17px;
+  font-weight: 700;
+  color: #FFFFFF;
+  white-space: nowrap;
+  line-height: 1.2;
+}
+.ticker-countdown {
+  font-size: 11px;
+  color: #999;
+  white-space: nowrap;
+  margin-top: 2px;
+}
+
+.ticker-meta-items {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  flex-wrap: wrap;
+  row-gap: 0;
+}
+.ticker-meta-item {
+  display: flex;
+  flex-direction: column;
+  padding: 0 18px;
+  border-right: 1px solid #3A3A3A;
+}
+.ticker-meta-item:last-child { border-right: none; }
+.ticker-meta-val {
+  font-size: 15px;
+  font-weight: 700;
+  color: #FFFFFF;
+  line-height: 1.2;
+  white-space: nowrap;
+}
+.ticker-meta-item.primary .ticker-meta-val {
+  font-size: 18px;
+  font-family: 'Source Serif 4', Georgia, serif;
+  font-weight: 700;
+}
+.ticker-meta-item.secondary .ticker-meta-val {
+  color: #CCCCCC;
+  font-size: 13px;
+  font-weight: 600;
+}
+.ticker-meta-key {
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: #888;
+  white-space: nowrap;
+  margin-top: 2px;
+}
+.ticker-meta-val.gold { color: var(--gold); }
+.ticker-meta-val.green { color: #4ADE80; }
+
+/* Ticker inline capacity bar */
+.ticker-cap-inline {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  padding: 0 18px;
+  flex: 1;
+  min-width: 140px;
+  max-width: none;
+}
+.ticker-cap-bar {
+  display: flex;
+  height: 10px;
+  border-radius: 4px;
+  overflow: hidden;
+  background: #444;
+  flex-shrink: 0;
+}
+.ticker-cap-seg { height: 100%; }
+.ticker-cap-open {
+  flex: 1;
+  background: repeating-linear-gradient(
+    -45deg,
+    rgba(74,222,128,0.15),
+    rgba(74,222,128,0.15) 3px,
+    rgba(74,222,128,0.28) 3px,
+    rgba(74,222,128,0.28) 6px
+  );
+  border: 1px dashed rgba(74,222,128,0.5);
+}
+.ticker-cap-label {
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #888;
+  white-space: nowrap;
+}
+
+@media (max-width: 900px) {
+  .session-ticker-inner { padding: 0 16px; }
+  .ticker-cap-inline { display: none; }
+}
+@media (max-width: 640px) {
+  .ticker-meta-item:nth-child(n+3) { display: none; }
+}
+
 </style>
 </head>
 <body>
@@ -1366,52 +2084,107 @@ summary::marker { display: none; content: ''; }
       <h1>Stacked Research Sessions</h1>
       <div class="subtitle">In-person proctored data collection · MOR Subject Pool · LL102</div>
     </div>
-    <a href="mailto:huhb@marshall.usc.edu?subject=Stacking%20Planner%20Bug%20Report" style="margin-left:8px;font-size:11px;font-weight:700;background:rgba(255,255,255,0.15);color:white;border:1px solid rgba(255,255,255,0.35);padding:5px 12px;border-radius:2px;letter-spacing:1px;white-space:nowrap;text-transform:uppercase;text-decoration:none;display:inline-flex;align-items:center;gap:6px">
-      <span style="display:inline-block;width:7px;height:7px;border-radius:50%;background:#FACC15;flex-shrink:0"></span>Beta — report an error
-    </a>
+    <span style="margin-left:8px;font-size:11px;font-weight:700;background:rgba(255,255,255,0.15);color:rgba(255,255,255,0.7);border:1px solid rgba(255,255,255,0.25);padding:5px 12px;border-radius:2px;letter-spacing:1px;white-space:nowrap;text-transform:uppercase;display:inline-flex;align-items:center;gap:6px">
+      <span style="display:inline-block;width:7px;height:7px;border-radius:50%;background:#FACC15;flex-shrink:0"></span>Updated Mar 5, 2026
+    </span>
   </div>
   <div class="gold-bar"></div>
 </div>
 
 <nav class="section-nav" id="section-nav">
   <div class="section-nav-inner">
-    <a href="#sec-overview" class="nav-link" data-section="sec-overview">Overview</a>
-    <a href="#sec-planner" class="nav-link" data-section="sec-planner">Planner</a>
-    <a href="#input-step-dur" class="nav-sub-link" data-subsection="input-step-dur">① Duration</a>
-    <a href="#input-step-n" class="nav-sub-link" data-subsection="input-step-n">② Target N</a>
-    <a href="#sec-fit" class="nav-sub-link" data-subsection="sec-fit">③ Slot Availability</a>
-    <a href="#sec-timeline" class="nav-sub-link" data-subsection="sec-timeline">④ Schedule</a>
-    <a href="#sec-stack" class="nav-sub-link" data-subsection="sec-stack">Session Roster</a>
-    <a href="#sec-join" class="nav-link" data-section="sec-join">Submit</a>
-    <a href="#sec-faq" class="nav-link" data-section="sec-faq">FAQ</a>
+
+    <div class="nav-group">
+      <a href="#sec-overview" class="nav-link" data-section="sec-overview">Overview</a>
+      <div class="nav-dropdown">
+        <a href="#sec-eligibility" class="nav-drop-item" data-subsection="sec-eligibility">Eligibility</a>
+        <a href="#overview-what-you-get" class="nav-drop-item" data-subsection="overview-what-you-get">What you get</a>
+        <a href="#overview-what-you-provide" class="nav-drop-item" data-subsection="overview-what-you-provide">What you provide</a>
+      </div>
+    </div>
+
+    <div class="nav-group">
+      <a href="#sec-studies" class="nav-link" data-section="sec-studies">Studies</a>
+      <div class="nav-dropdown">
+        <a href="#ref-comp-wrap" class="nav-drop-item" data-subsection="ref-comp-wrap">Session composition</a>
+        <a href="#ref-cards-wrap" class="nav-drop-item" data-subsection="ref-cards-wrap">Study cards</a>
+      </div>
+    </div>
+
+    <div class="nav-group">
+      <a href="#sec-planner" class="nav-link" data-section="sec-planner">Planner</a>
+      <div class="nav-dropdown">
+        <a href="#input-step-dur" class="nav-drop-item" data-subsection="input-step-dur">1 · Duration</a>
+        <a href="#input-step-n" class="nav-drop-item" data-subsection="input-step-n">2 · Target N</a>
+        <a href="#sec-fit" class="nav-drop-item" data-subsection="sec-fit">3 · Slot Availability</a>
+        <a href="#sec-timeline" class="nav-drop-item" data-subsection="sec-timeline">4 · Schedule</a>
+        <a href="#sec-stack" class="nav-drop-item" data-subsection="sec-stack">Session Roster</a>
+      </div>
+    </div>
+
+    <div class="nav-group">
+      <a href="#sec-dashboard" class="nav-link" data-section="sec-dashboard">Dashboard</a>
+      <div class="nav-dropdown">
+        <a href="#sec-dashboard" class="nav-drop-item" data-subsection="sec-dashboard">Day-by-day schedule</a>
+      </div>
+    </div>
+
+    <div class="nav-group">
+      <a href="#sec-join" class="nav-link" data-section="sec-join">Submit</a>
+      <div class="nav-dropdown">
+        <a href="#join-cta" class="nav-drop-item" data-subsection="join-cta">Send email</a>
+        <a href="#join-process" class="nav-drop-item" data-subsection="join-process">Process after submission</a>
+      </div>
+    </div>
+
+    <div class="nav-group">
+      <a href="#sec-faq" class="nav-link" data-section="sec-faq">FAQ</a>
+      <div class="nav-dropdown">
+        <a href="#faq-session-mechanics" class="nav-drop-item" data-subsection="faq-session-mechanics">Session mechanics</a>
+        <a href="#faq-credit-sona" class="nav-drop-item" data-subsection="faq-credit-sona">Credit &amp; SONA</a>
+        <a href="#faq-study-data" class="nav-drop-item" data-subsection="faq-study-data">Your study &amp; data</a>
+      </div>
+    </div>
+
     <a href="#" class="nav-top-link" id="nav-top-link" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;" aria-label="Back to top">↑ Top</a>
   </div>
 </nav>
 
+<!-- ═══ SESSION TICKER ═══ -->
+<div class="session-ticker" id="session-ticker">
+  <div class="session-ticker-inner" id="session-ticker-inner">
+    <!-- populated by renderSessionTicker() -->
+  </div>
+</div>
+
 <div class="main">
 
   <!-- ═══ OVERVIEW ═══ -->
-  <div id="sec-overview" style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:28px 24px 0;margin-bottom:28px;box-shadow:var(--shadow)">
+  <div id="sec-overview" style="background:#F0EDE8;border:1px solid var(--border);border-radius:var(--radius);padding:32px 24px 0;margin-bottom:28px;box-shadow:var(--shadow)">
     <div class="journey-step-label">Overview</div>
     <div class="journey-headline" style="margin-bottom:10px">Collect verified, proctored survey responses through shared lab sessions</div>
     <p style="font-size:14px;color:var(--text-2);line-height:1.65;margin:0 0 20px 0">Multiple short Qualtrics studies run back-to-back in LL102. Participants complete each study at individual workstations under RA supervision, with study order counterbalanced across days (all sessions within a day run the same order). Participants sign up for a fixed time slot and must remain for its full duration — everyone in the room starts and finishes together. You provide collaborator access to your Qualtrics survey — we handle scheduling, proctoring, SONA setup, and credit assignment.</p>
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px">
-      <div style="padding:14px 16px;background:#F8F7F5;border-radius:6px">
-        <div class="card-box-label">What you provide</div>
-        <p style="font-size:14px;color:var(--text-2);line-height:1.5;margin:0 0 10px 0">Submit the following five items by email, finalized <strong>by the day before your first session</strong>:</p>
-        <div style="display:flex;flex-direction:column;gap:5px">
-          <div style="font-size:13px;color:var(--text);display:flex;gap:8px;align-items:baseline"><span style="color:var(--cardinal);font-weight:700;flex-shrink:0">1.</span> <span><strong>Qualtrics collaborator access</strong> — the coordinator needs collaborator access (not just a link) to configure the redirect chain between studies</span></div>
-          <div style="font-size:13px;color:var(--text);display:flex;gap:8px;align-items:baseline"><span style="color:var(--cardinal);font-weight:700;flex-shrink:0">2.</span> Estimated study duration</div>
-          <div style="font-size:13px;color:var(--text);display:flex;gap:8px;align-items:baseline"><span style="color:var(--cardinal);font-weight:700;flex-shrink:0">3.</span> IRB protocol number</div>
-          <div style="font-size:13px;color:var(--text);display:flex;gap:8px;align-items:baseline"><span style="color:var(--cardinal);font-weight:700;flex-shrink:0">4.</span> Study name</div>
-          <div style="font-size:13px;color:var(--text);display:flex;gap:8px;align-items:baseline"><span style="color:var(--cardinal);font-weight:700;flex-shrink:0">5.</span> Preferred session weeks</div>
-        </div>
+
+    <!-- Eligibility — gate check first -->
+    <div id="sec-eligibility" style="padding:14px 16px;background:var(--cardinal-light);border-radius:6px;border:1px solid rgba(153,0,0,0.08);margin-bottom:12px">
+      <div class="card-box-label">Eligibility</div>
+      <div class="eligibility-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:6px 24px;font-size:14px;color:var(--text);line-height:1.5">
+        <div><span style="color:var(--green);font-weight:700">✓</span> Qualtrics-based online survey</div>
+        <div><span style="color:var(--green);font-weight:700">✓</span> Individual-level (no groups or dyads)</div>
+        <div><span style="color:var(--green);font-weight:700">✓</span> ≤ 30 minutes in duration</div>
+        <div><span style="color:var(--green);font-weight:700">✓</span> Active IRB approval</div>
+        <div style="grid-column:1/-1"><span style="color:var(--green);font-weight:700">✓</span> No deception</div>
       </div>
-      <div style="padding:14px 16px;background:#F8F7F5;border-radius:6px">
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px">
+      <!-- What you get — left column -->
+      <div id="overview-what-you-get" style="padding:14px 16px;background:#F8F7F5;border-radius:6px">
         <div class="card-box-label">What you get</div>
         <div style="display:flex;flex-direction:column;gap:7px">
           <div style="font-size:13px;color:var(--text);display:flex;gap:8px;align-items:baseline"><span style="color:var(--green);font-weight:700;flex-shrink:0">✓</span> ID-verified participants on dedicated lab computers — tab switching and external applications are disabled</div>
-          <div style="font-size:13px;color:var(--text);display:flex;gap:8px;align-items:baseline"><span style="color:var(--green);font-weight:700;flex-shrink:0">✓</span> Up to 16 seats per session, 6 sessions per day (~84 participants/day)</div>
+          <div style="font-size:13px;color:var(--text);display:flex;gap:8px;align-items:baseline"><span style="color:var(--green);font-weight:700;flex-shrink:0">✓</span> Up to 16 seats per session, 4 sessions per day (~56 participants/day)</div>
+          <div style="border-top:1px solid var(--border-light);margin:4px 0"></div>
           <div style="font-size:13px;color:var(--text);display:flex;gap:8px;align-items:baseline"><span style="color:var(--green);font-weight:700;flex-shrink:0">✓</span> Participants are required to remain for the full session duration and are dismissed simultaneously</div>
           <div style="font-size:13px;color:var(--text);display:flex;gap:8px;align-items:baseline"><span style="color:var(--green);font-weight:700;flex-shrink:0">✓</span> A brief neutral transition screen between studies reduces carryover and priming effects</div>
           <div style="font-size:13px;color:var(--text);display:flex;gap:8px;align-items:baseline"><span style="color:var(--green);font-weight:700;flex-shrink:0">✓</span> Participants who complete your study in a stacked session are automatically excluded from the online SONA version — no risk of duplicate participation</div>
@@ -1419,110 +2192,129 @@ summary::marker { display: none; content: ''; }
           <div style="font-size:13px;color:var(--text);display:flex;gap:8px;align-items:baseline"><span style="color:var(--green);font-weight:700;flex-shrink:0">✓</span> Your survey content, logic, and data are untouched — responses appear in your standard Qualtrics export</div>
         </div>
       </div>
-      <div id="sec-eligibility" style="padding:14px 16px;background:var(--cardinal-light);border-radius:6px;border:1px solid rgba(153,0,0,0.08);grid-column:1/-1">
-        <div class="card-box-label">Eligibility</div>
-        <div class="eligibility-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:4px 24px;font-size:14px;color:var(--text);line-height:1.5">
-          <div><span style="color:var(--green);font-weight:700">✓</span> Qualtrics-based online survey</div>
-          <div><span style="color:var(--green);font-weight:700">✓</span> Individual-level (no groups or dyads)</div>
-          <div><span style="color:var(--green);font-weight:700">✓</span> ≤ 30 minutes in duration</div>
-          <div><span style="color:var(--green);font-weight:700">✓</span> Active IRB approval</div>
-          <div style="grid-column:1/-1"><span style="color:var(--green);font-weight:700">✓</span> No deception</div>
+      <!-- What you provide — right column -->
+      <div id="overview-what-you-provide" style="padding:14px 16px;background:#F8F7F5;border-radius:6px">
+        <div class="card-box-label">What you provide</div>
+        <p style="font-size:14px;color:var(--text-2);line-height:1.5;margin:0 0 10px 0">Submit the following five items by email, finalized <strong>by the day before your first session</strong>:</p>
+        <div style="display:flex;flex-direction:column;gap:7px">
+          <div style="font-size:13px;color:var(--text);display:flex;gap:8px;align-items:baseline"><span style="color:var(--cardinal);font-weight:700;flex-shrink:0">1.</span> <span><strong>Qualtrics collaborator access</strong> — the coordinator needs collaborator access (not just a link) to configure the redirect chain between studies</span></div>
+          <div style="font-size:13px;color:var(--text);display:flex;gap:8px;align-items:baseline"><span style="color:var(--cardinal);font-weight:700;flex-shrink:0">2.</span> Estimated study duration</div>
+          <div style="font-size:13px;color:var(--text);display:flex;gap:8px;align-items:baseline"><span style="color:var(--cardinal);font-weight:700;flex-shrink:0">3.</span> IRB protocol number</div>
+          <div style="font-size:13px;color:var(--text);display:flex;gap:8px;align-items:baseline"><span style="color:var(--cardinal);font-weight:700;flex-shrink:0">4.</span> Study name</div>
+          <div style="font-size:13px;color:var(--text);display:flex;gap:8px;align-items:baseline"><span style="color:var(--cardinal);font-weight:700;flex-shrink:0">5.</span> Preferred session weeks</div>
         </div>
       </div>
     </div>
     <div style="padding:14px 0 20px;border-top:1px solid var(--border-light);margin-top:4px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap">
       <span style="font-size:13px;color:var(--text-3)">Use the planner to check session capacity and project your collection timeline.</span>
-      <a href="#sec-planner" onclick="document.getElementById('sec-planner').scrollIntoView({behavior:'smooth',block:'start'});return false;" style="display:inline-flex;align-items:center;gap:8px;background:var(--cardinal);color:white;padding:10px 20px;border-radius:6px;text-decoration:none;font-size:13px;font-weight:700;white-space:nowrap;transition:background 0.15s" onmouseover="this.style.background='var(--cardinal-dark)'" onmouseout="this.style.background='var(--cardinal)'">Plan data collection →</a>
+      <a href="#sec-planner" onclick="var el=document.getElementById('sec-planner');if(el)window.scrollTo({top:el.getBoundingClientRect().top+window.scrollY-72,behavior:'smooth'});return false;" style="display:inline-flex;align-items:center;gap:8px;background:var(--cardinal);color:white;padding:10px 20px;border-radius:6px;text-decoration:none;font-size:13px;font-weight:700;white-space:nowrap;transition:background 0.15s" onmouseover="this.style.background='var(--cardinal-dark)'" onmouseout="this.style.background='var(--cardinal)'">Plan data collection →</a>
     </div>
+  </div>
+
+  <!-- ═══ STUDIES REFERENCE ═══ -->
+  <div class="ref-section" id="sec-studies" style="background:#F0EDE8">
+    <div style="padding:32px 24px 20px">
+      <div class="journey-step-label">Study Reference</div>
+      <div class="journey-headline">All studies in the current stack</div>
+      <p style="font-size:14px;color:var(--text-2);line-height:1.65;margin:6px 0 0 0;max-width:720px">A complete reference for all studies currently enrolled in the stacked session program — session composition by lab day, researcher details, duration, target N, collection dates, and pace projections.</p>
+    </div>
+
+    <!-- Summary strip -->
+    <div class="ref-summary-strip" id="ref-summary-strip" style="border-top:1px solid rgba(0,0,0,0.06)"><!-- JS --></div>
+
+    <!-- Composition bars -->
+    <details class="ref-collapsible" id="ref-comp-wrap" open>
+      <summary class="ref-comp-title">Session Composition by Lab Day</summary>
+      <div id="ref-comp-bars"></div>
+    </details>
+
+    <!-- Study cards -->
+    <details class="ref-collapsible" id="ref-cards-wrap" open>
+      <summary class="ref-cards-label">Studies by researcher</summary>
+      <div id="ref-study-grid"></div>
+    </details>
   </div>
 
   <!-- ═══ PLAN DATA COLLECTION ═══ -->
   <div class="throughput-card" id="sec-planner" style="overflow:visible">
-    <div style="padding:28px 24px 20px">
+    <div style="padding:28px 24px 16px">
       <div class="journey-step-label">Planning tool</div>
       <div class="journey-headline">Plan data collection</div>
       <p style="font-size:14px;color:var(--text-2);line-height:1.65;margin:8px 0 0 0;max-width:720px">Enter your study duration and target sample size. The planner checks whether your study fits in the current session slot, shows how the 60-minute window is allocated across active studies, and projects the number of collection days required to reach your target N.</p>
+    </div>
 
-      <!-- Session dates summary -->
-      <div style="margin-top:16px;background:var(--cardinal);border-radius:8px;overflow:hidden">
-        <!-- Stat row -->
-        <div style="display:flex;align-items:stretch;border-bottom:1px solid rgba(255,255,255,0.12)">
-          <div style="flex:1;padding:14px 18px;border-right:1px solid rgba(255,255,255,0.12);text-align:center">
-            <div style="font-family:'Source Serif 4',Georgia,serif;font-size:28px;font-weight:900;color:white;line-height:1">12</div>
-            <div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:1px;color:rgba(255,255,255,0.6);margin-top:3px">Session days</div>
-          </div>
-          <div style="flex:1;padding:14px 18px;border-right:1px solid rgba(255,255,255,0.12);text-align:center">
-            <div style="font-family:'Source Serif 4',Georgia,serif;font-size:28px;font-weight:900;color:white;line-height:1">6</div>
-            <div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:1px;color:rgba(255,255,255,0.6);margin-top:3px">Sessions/day</div>
-          </div>
-          <div style="flex:1;padding:14px 18px;border-right:1px solid rgba(255,255,255,0.12);text-align:center">
-            <div style="font-family:'Source Serif 4',Georgia,serif;font-size:28px;font-weight:900;color:white;line-height:1">16</div>
-            <div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:1px;color:rgba(255,255,255,0.6);margin-top:3px">Seats/session</div>
-          </div>
-          <div style="flex:1;padding:14px 18px;text-align:center">
-            <div style="font-family:'Source Serif 4',Georgia,serif;font-size:28px;font-weight:900;color:var(--gold);line-height:1">84</div>
-            <div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:1px;color:rgba(255,255,255,0.6);margin-top:3px">Participants/day</div>
-          </div>
+    <!-- Stat bar — standalone strip -->
+    <div style="background:var(--cardinal);border-top:1px solid rgba(255,255,255,0.1)">
+      <!-- Stat row -->
+      <div style="display:flex;align-items:stretch;border-bottom:1px solid rgba(255,255,255,0.12)">
+        <div style="flex:1;padding:14px 18px;border-right:1px solid rgba(255,255,255,0.12);text-align:center">
+          <div style="font-family:'Source Serif 4',Georgia,serif;font-size:28px;font-weight:900;color:white;line-height:1">12</div>
+          <div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:1px;color:rgba(255,255,255,0.6);margin-top:3px">Session days</div>
         </div>
-        <!-- Dates row -->
-        <div style="padding:12px 18px 16px;display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:12px">
-          <div style="flex:1;min-width:0">
-            <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;flex-wrap:wrap">
-              <span style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:rgba(255,255,255,0.5);min-width:42px">March</span>
-              <span style="display:inline-block;background:rgba(255,255,255,0.15);color:white;font-size:12px;font-weight:700;padding:3px 9px;border-radius:4px">Mar 6</span>
-              <span style="display:inline-block;background:rgba(255,255,255,0.15);color:white;font-size:12px;font-weight:700;padding:3px 9px;border-radius:4px">Mar 12</span>
-              <span style="display:inline-block;background:rgba(255,255,255,0.15);color:white;font-size:12px;font-weight:700;padding:3px 9px;border-radius:4px">Mar 13</span>
-              <span style="display:inline-block;background:rgba(255,255,255,0.06);color:rgba(255,255,255,0.35);font-size:11px;font-style:italic;padding:3px 9px;border-radius:4px;border:1px dashed rgba(255,255,255,0.2)">recess Mar 16–20</span>
-              <span style="display:inline-block;background:rgba(255,255,255,0.15);color:white;font-size:12px;font-weight:700;padding:3px 9px;border-radius:4px">Mar 23</span>
-              <span style="display:inline-block;background:rgba(255,255,255,0.15);color:white;font-size:12px;font-weight:700;padding:3px 9px;border-radius:4px">Mar 24</span>
-              <span style="display:inline-block;background:rgba(255,255,255,0.15);color:white;font-size:12px;font-weight:700;padding:3px 9px;border-radius:4px">Mar 25</span>
-              <span style="display:inline-block;background:rgba(255,255,255,0.15);color:white;font-size:12px;font-weight:700;padding:3px 9px;border-radius:4px">Mar 27</span>
-              <span style="display:inline-block;background:rgba(255,255,255,0.15);color:white;font-size:12px;font-weight:700;padding:3px 9px;border-radius:4px">Mar 30</span>
-              <span style="display:inline-block;background:rgba(255,255,255,0.15);color:white;font-size:12px;font-weight:700;padding:3px 9px;border-radius:4px">Mar 31</span>
-            </div>
-            <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">
-              <span style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:rgba(255,255,255,0.5);min-width:42px">April</span>
-              <span style="display:inline-block;background:rgba(255,255,255,0.15);color:white;font-size:12px;font-weight:700;padding:3px 9px;border-radius:4px">Apr 1</span>
-              <span style="display:inline-block;background:rgba(255,255,255,0.15);color:white;font-size:12px;font-weight:700;padding:3px 9px;border-radius:4px">Apr 2</span>
-              <span style="display:inline-block;background:rgba(255,255,255,0.15);color:white;font-size:12px;font-weight:700;padding:3px 9px;border-radius:4px">Apr 3</span>
-            </div>
-          </div>
-          <a href="#sec-timeline" onclick="var d=document.querySelector('#sec-timeline details');if(d)d.open=true;document.getElementById('sec-timeline').scrollIntoView({behavior:'smooth',block:'start'});return false;" style="font-size:12px;font-weight:600;color:var(--gold);text-decoration:none;white-space:nowrap;padding-top:2px">View calendar →</a>
+        <div style="flex:1;padding:14px 18px;border-right:1px solid rgba(255,255,255,0.12);text-align:center">
+          <div style="font-family:'Source Serif 4',Georgia,serif;font-size:28px;font-weight:900;color:white;line-height:1">4</div>
+          <div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:1px;color:rgba(255,255,255,0.6);margin-top:3px">Sessions/day</div>
+        </div>
+        <div style="flex:1;padding:14px 18px;border-right:1px solid rgba(255,255,255,0.12);text-align:center">
+          <div style="font-family:'Source Serif 4',Georgia,serif;font-size:28px;font-weight:900;color:white;line-height:1">16</div>
+          <div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:1px;color:rgba(255,255,255,0.6);margin-top:3px">Seats/session</div>
+        </div>
+        <div style="flex:1;padding:14px 18px;text-align:center">
+          <div style="font-family:'Source Serif 4',Georgia,serif;font-size:28px;font-weight:900;color:var(--gold);line-height:1">56</div>
+          <div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:1px;color:rgba(255,255,255,0.6);margin-top:3px">Participants/day</div>
         </div>
       </div>
-      </div><!-- /.journey-header wrapper padding -->
+      <!-- Dates row -->
+      <div style="padding:12px 18px 16px;display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:12px">
+        <div style="flex:1;min-width:0">
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;flex-wrap:wrap">
+            <span style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:rgba(255,255,255,0.5);min-width:42px">March</span>
+            <span style="display:inline-block;background:rgba(255,255,255,0.15);color:white;font-size:12px;font-weight:700;padding:3px 9px;border-radius:4px">Mar 6</span>
+            <span style="display:inline-block;background:rgba(255,255,255,0.15);color:white;font-size:12px;font-weight:700;padding:3px 9px;border-radius:4px">Mar 12</span>
+            <span style="display:inline-block;background:rgba(255,255,255,0.15);color:white;font-size:12px;font-weight:700;padding:3px 9px;border-radius:4px">Mar 13</span>
+            <span style="display:inline-block;background:rgba(255,255,255,0.06);color:rgba(255,255,255,0.35);font-size:11px;font-style:italic;padding:3px 9px;border-radius:4px;border:1px dashed rgba(255,255,255,0.2)">recess Mar 16–20</span>
+            <span style="display:inline-block;background:rgba(255,255,255,0.15);color:white;font-size:12px;font-weight:700;padding:3px 9px;border-radius:4px">Mar 23</span>
+            <span style="display:inline-block;background:rgba(255,255,255,0.15);color:white;font-size:12px;font-weight:700;padding:3px 9px;border-radius:4px">Mar 24</span>
+            <span style="display:inline-block;background:rgba(255,255,255,0.15);color:white;font-size:12px;font-weight:700;padding:3px 9px;border-radius:4px">Mar 25</span>
+            <span style="display:inline-block;background:rgba(255,255,255,0.15);color:white;font-size:12px;font-weight:700;padding:3px 9px;border-radius:4px">Mar 27</span>
+            <span style="display:inline-block;background:rgba(255,255,255,0.15);color:white;font-size:12px;font-weight:700;padding:3px 9px;border-radius:4px">Mar 30</span>
+            <span style="display:inline-block;background:rgba(255,255,255,0.15);color:white;font-size:12px;font-weight:700;padding:3px 9px;border-radius:4px">Mar 31</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">
+            <span style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:rgba(255,255,255,0.5);min-width:42px">April</span>
+            <span style="display:inline-block;background:rgba(255,255,255,0.15);color:white;font-size:12px;font-weight:700;padding:3px 9px;border-radius:4px">Apr 1</span>
+            <span style="display:inline-block;background:rgba(255,255,255,0.15);color:white;font-size:12px;font-weight:700;padding:3px 9px;border-radius:4px">Apr 2</span>
+            <span style="display:inline-block;background:rgba(255,255,255,0.15);color:white;font-size:12px;font-weight:700;padding:3px 9px;border-radius:4px">Apr 3</span>
+          </div>
+        </div>
+        <a href="#sec-timeline" onclick="var d=document.querySelector('#sec-timeline details');if(d)d.open=true;var el=document.getElementById('sec-timeline');if(el)window.scrollTo({top:el.getBoundingClientRect().top+window.scrollY-72,behavior:'smooth'});return false;" style="font-size:12px;font-weight:600;color:var(--gold);text-decoration:none;white-space:nowrap;padding-top:2px">View calendar →</a>
+      </div>
+    </div>
 
       <!-- How to use this planner -->
-      <div style="border-top:1px solid var(--border-light)">
-        <details>
-          <summary style="cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;padding:12px 24px;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--text-3);user-select:none">
-            <span>How to use this planner</span>
-            <span class="power-expand-arrow" style="font-size:13px">▸</span>
-          </summary>
-          <div style="padding:4px 24px 20px;display:grid;grid-template-columns:repeat(4,1fr);gap:12px">
-            <div style="padding:12px 14px;background:#F8F7F5;border-radius:6px;border-top:2px solid var(--cardinal)">
-              <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--cardinal);margin-bottom:6px">① Duration</div>
-              <div style="font-size:13px;color:var(--text-2);line-height:1.5">Drag the slider or type your study duration. The capacity bar updates live to show whether your study fits within the session.</div>
-            </div>
-            <div style="padding:12px 14px;background:#F8F7F5;border-radius:6px;border-top:2px solid var(--cardinal)">
-              <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--cardinal);margin-bottom:6px">② Target N</div>
-              <div style="font-size:13px;color:var(--text-2);line-height:1.5">Enter your target sample size. The estimate below updates to show required collection days and projected completion date. Use "Calculate from design →" to derive N from your study design.</div>
-            </div>
-            <div style="padding:12px 14px;background:#F8F7F5;border-radius:6px;border-top:2px solid var(--cardinal)">
-              <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--cardinal);margin-bottom:6px">③ Review</div>
-              <div style="font-size:13px;color:var(--text-2);line-height:1.5">Review the Session Roster to see which studies are currently scheduled in the stack, the Capacity Check to confirm your study fits, and the Schedule for a day-by-day collection timeline.</div>
-            </div>
-            <div style="padding:12px 14px;background:#F8F7F5;border-radius:6px;border-top:2px solid var(--cardinal)">
-              <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--cardinal);margin-bottom:6px">④ Submit</div>
-              <div style="font-size:13px;color:var(--text-2);line-height:1.5">Email your study name, Qualtrics collaborator access, duration, preferred weeks, and IRB number. The coordinator handles SONA setup, scheduling, and proctoring.</div>
-            </div>
-          </div>
-        </details>
+      <div style="border-top:1px solid var(--border-light);padding:16px 24px 20px;display:grid;grid-template-columns:repeat(4,1fr);gap:16px">
+        <div style="padding:12px 14px;background:#F8F7F5;border-radius:6px;border-top:2px solid var(--cardinal)">
+          <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--cardinal);margin-bottom:6px">① Duration</div>
+          <div style="font-size:13px;color:var(--text-2);line-height:1.5">Drag the slider or type your study duration. The capacity bar updates live to show whether your study fits within the session.</div>
+        </div>
+        <div style="padding:12px 14px;background:#F8F7F5;border-radius:6px;border-top:2px solid var(--cardinal)">
+          <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--cardinal);margin-bottom:6px">② Target N</div>
+          <div style="font-size:13px;color:var(--text-2);line-height:1.5">Enter your target sample size. The estimate below updates to show required collection days and projected completion date. Use "Calculate from design →" to derive N from your study design.</div>
+        </div>
+        <div style="padding:12px 14px;background:#F8F7F5;border-radius:6px;border-top:2px solid var(--cardinal)">
+          <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--cardinal);margin-bottom:6px">③ Review</div>
+          <div style="font-size:13px;color:var(--text-2);line-height:1.5">Review the Session Roster to see which studies are currently scheduled in the stack, the Capacity Check to confirm your study fits, and the Schedule for a day-by-day collection timeline.</div>
+        </div>
+        <div style="padding:12px 14px;background:#F8F7F5;border-radius:6px;border-top:2px solid var(--cardinal)">
+          <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--cardinal);margin-bottom:6px">④ Submit</div>
+          <div style="font-size:13px;color:var(--text-2);line-height:1.5">Email your study name, Qualtrics collaborator access, duration, preferred weeks, and IRB number. The coordinator handles SONA setup, scheduling, and proctoring.</div>
+        </div>
       </div>
 
     
     <div class="planner-input-bar">
-      <div class="planner-input-inner">
+      <div class="planner-input-inner planner-two-col">
+        <div class="planner-inputs-col">
 
       <!-- Step 1: Duration with slider + mini capacity preview -->
       <div class="input-step" id="input-step-dur">
@@ -1562,7 +2354,10 @@ summary::marker { display: none; content: ''; }
             <div class="input-n-estimate" id="input-n-estimate"></div>
           </div>
         </div>
-      </div>
+      </div><!-- /.input-step step-2 -->
+
+        </div><!-- /.planner-inputs-col -->
+        <div class="planner-outputs-col">
 
       <!-- Step 3: Session slot availability -->
       <div class="input-step" id="input-step-fit">
@@ -1612,8 +2407,9 @@ summary::marker { display: none; content: ''; }
         </div>
       </div>
 
-      </div><!-- /.planner-input-inner -->
-    </div>
+        </div><!-- /.planner-outputs-col -->
+      </div><!-- /.planner-input-inner / .planner-two-col -->
+    </div><!-- /.planner-input-bar -->
 
     <!-- Summary strip -->
     <div class="planner-summary-strip" id="planner-summary-strip" style="display:none"></div>
@@ -1755,23 +2551,35 @@ summary::marker { display: none; content: ''; }
 
   </div>
 
+  <!-- ═══ COLLECTION DASHBOARD ═══ -->
+  <div class="optin-card" id="sec-dashboard" style="margin-bottom:28px">
+    <div style="padding:28px 24px 16px">
+      <div class="journey-step-label">Collection Dashboard</div>
+      <div class="journey-headline">Day-by-day progress &amp; session stacks</div>
+      <p style="font-size:14px;color:var(--text-2);line-height:1.65;margin:8px 0 0 0;max-width:720px">A bird's-eye view of every collection day — the session composition, how many participants each study expects to collect, and cumulative progress toward each researcher's target N.</p>
+    </div>
+    <div id="dashboard-grid" style="padding:0 24px 28px">
+      <!-- rendered by JS -->
+    </div>
+  </div>
+
 
   <!-- ═══ HOW TO JOIN ═══ -->
   <div class="optin-card" id="sec-join">
-    <div style="padding:28px 24px 20px">
+    <div style="padding:28px 24px 16px">
       <div class="journey-step-label">Submission</div>
       <div class="journey-headline">Submit your study</div>
       <p style="font-size:14px;color:var(--text-2);line-height:1.65;margin:8px 0 0 0;max-width:720px">Submit your study information by email and the coordinator will handle all remaining setup — SONA study page creation, scheduling, and proctoring logistics. No modifications to your Qualtrics survey are required.</p>
     </div>
 
     <!-- CTA -->
-    <div style="padding:20px 24px;text-align:center;background:var(--cardinal-light);border-bottom:1px solid rgba(153,0,0,0.08)">
-      <p style="font-size:14px;color:var(--text);margin:0 0 6px 0">Email the following: <strong>study name</strong>, <strong>Qualtrics collaborator access</strong>, <strong>estimated duration</strong>, <strong>preferred session weeks</strong>, and <strong>IRB protocol number</strong>.</p>
-      <a href="/cdn-cgi/l/email-protection#375f425f55775a5645445f565b5b1942445419525342" style="display:inline-block;background:var(--cardinal);color:white;padding:10px 24px;border-radius:6px;text-decoration:none;font-size:14px;font-weight:600;margin-top:8px"><span class="__cf_email__" data-cfemail="5139243933113c30232239303d3d7f2422327f343524">[email&#160;protected]</span></a>
+    <div id="join-cta" style="padding:20px 24px;background:var(--cardinal-light);border-bottom:1px solid rgba(153,0,0,0.08);display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap">
+      <p style="font-size:14px;color:var(--text);margin:0;flex:1;min-width:240px">Email the following: <strong>study name</strong>, <strong>Qualtrics collaborator access</strong>, <strong>estimated duration</strong>, <strong>preferred session weeks</strong>, and <strong>IRB protocol number</strong>.</p>
+      <a href="/cdn-cgi/l/email-protection#375f425f55775a5645445f565b5b1942445419525342" style="display:inline-block;background:var(--cardinal);color:white;padding:10px 24px;border-radius:6px;text-decoration:none;font-size:14px;font-weight:600;white-space:nowrap;flex-shrink:0"><span class="__cf_email__" data-cfemail="5139243933113c30232239303d3d7f2422327f343524">[email&#160;protected]</span></a>
     </div>
 
     <!-- What happens next -->
-    <div style="padding:18px 24px">
+    <div id="join-process" style="padding:18px 24px">
       <div class="section-overline">Process after submission</div>
       <div class="optin-steps">
         <div class="optin-step">
@@ -1801,6 +2609,8 @@ summary::marker { display: none; content: ''; }
       <p style="font-size:14px;color:var(--text-2);line-height:1.65;margin:0;max-width:720px">Common questions about how sessions work, participant flow, credit, and data quality.</p>
     </div>
     <div class="faq-items">
+      <div class="faq-group-label faq-group-toggle open" id="faq-session-mechanics" onclick="toggleFaqGroup(this)">Session mechanics</div>
+      <div class="faq-group-body">
       <details class="faq-item">
         <summary class="faq-q">How do participants move between studies — are the surveys linked?</summary>
         <div class="faq-a">Yes. Studies are connected via a <strong>Qualtrics redirect chain</strong>: when a participant finishes one study, they are automatically redirected to the next one without returning to SONA in between. The coordinator configures this redirect in the end-of-survey settings of each study — that is the only thing touched in your survey. Your content, logic, display order, and data remain completely unchanged. This is why collaborator access to your Qualtrics survey is required rather than just a link.</div>
@@ -1810,24 +2620,45 @@ summary::marker { display: none; content: ''; }
         <div class="faq-a">Participants who complete your study in a stacked session are automatically excluded from signing up for the online SONA version. This is handled at the SONA level — once they receive credit for the stacked session study, the online listing is no longer available to them. You can also run stacked sessions and online collection simultaneously without risk of overlap.</div>
       </details>
       <details class="faq-item">
+        <summary class="faq-q">Can participants leave early if they finish their studies quickly?</summary>
+        <div class="faq-a">No. Participants sign up for a fixed time slot and are required to remain for its entire duration — all participants are dismissed simultaneously by the RA. This is intentional: early departures would reveal to remaining participants that some studies are shorter than others, potentially introducing demand effects. It also ensures the credit tier accurately reflects time in the lab. Participants who complete all studies before the session ends are asked to remain seated until dismissal.</div>
+      </details>
+      <details class="faq-item">
+        <summary class="faq-q">Can a participant in Study A also be in Study B within the same session?</summary>
+        <div class="faq-a">Yes — each participant completes all studies in the stack sequentially and receives a single SONA credit award for the session based on total time in the lab. Studies within the same stack should not measure the same construct to avoid priming effects.</div>
+      </details>
+      <details class="faq-item">
+        <summary class="faq-q">How is study order determined within a session?</summary>
+        <div class="faq-a">By default, study order is counterbalanced <strong>across session days</strong> — each day uses a different ordering so that order effects wash out across your full sample. Within a single day, all sessions run in the same order. If you have a specific counterbalancing request (e.g., rotating order within the same day, or a particular position in the stack), please mention it when you submit and the coordinator will do their best to accommodate it.</div>
+      </details>
+      </div>
+
+      <div class="faq-group-label faq-group-toggle open" id="faq-credit-sona" onclick="toggleFaqGroup(this)">Credit &amp; SONA</div>
+      <div class="faq-group-body">
+      <details class="faq-item">
+        <summary class="faq-q">How much SONA credit do participants receive?</summary>
+        <div class="faq-a">Credit is awarded based on total time in the lab session — not per study. The tiers are: <strong>0.5 credit</strong> for sessions up to 30 minutes, <strong>0.75 credit</strong> for 31–45 minutes, and <strong>1.0 credit</strong> for 46–60 minutes. Participants receive one credit award per session regardless of how many studies are in the stack. The current stack duration determines which tier applies, so adding your study may move the session into a higher credit bracket.</div>
+      </details>
+      <details class="faq-item">
+        <summary class="faq-q">What if there aren't enough sessions available for my study on a given day?</summary>
+        <div class="faq-a">Each day runs 6 sessions. If some sessions are full or unavailable, your study can be scheduled in the remaining open sessions on that day, or moved to another available date. Session dates are listed in the collection planner above.</div>
+      </details>
+      <details class="faq-item">
+        <summary class="faq-q">Where does the ~2 no-shows per session estimate come from?</summary>
+        <div class="faq-a">This is a rough average based on typical SONA session attendance. Actual no-show rates vary by time of day, day of week, and point in the semester (attendance tends to drop near finals). The planner uses this estimate to give you a realistic timeline, but your actual collection pace may be faster or slower.</div>
+      </details>
+
+      </div>
+
+      <div class="faq-group-label faq-group-toggle open" id="faq-study-data" onclick="toggleFaqGroup(this)">Your study &amp; data</div>
+      <div class="faq-group-body">
+      <details class="faq-item">
         <summary class="faq-q">Can I submit multiple studies of my own to run in the same session?</summary>
         <div class="faq-a">Yes. Multiple studies from the same researcher can run back-to-back within the same stack, as long as they are on unrelated topics and the combined duration fits within the session cap. Study order will still be counterbalanced across days. If you have a preference for ordering or position in the stack, mention it at submission and the coordinator will accommodate where possible.</div>
       </details>
       <details class="faq-item">
         <summary class="faq-q">When does my study need to be finalized before a session?</summary>
         <div class="faq-a">Your Qualtrics survey should be fully finalized — content, logic, and flow — by <strong>the day before your first session</strong>. This gives the coordinator time to configure the redirect chain, test the full session flow end-to-end, and resolve any issues before participants arrive. Changes to survey content after this point cannot be guaranteed to make it into the session.</div>
-      </details>
-      <details class="faq-item">
-        <summary class="faq-q">Can participants leave early if they finish their studies quickly?</summary>
-        <div class="faq-a">No. Participants sign up for a fixed time slot and are required to remain for its entire duration — all participants are dismissed simultaneously by the RA. This is intentional: early departures would reveal to remaining participants that some studies are shorter than others, potentially introducing demand effects. It also ensures the credit tier accurately reflects time in the lab. Participants who complete all studies before the session ends are asked to remain seated until dismissal.</div>
-      </details>
-      <details class="faq-item">
-        <summary class="faq-q">How much SONA credit do participants receive?</summary>
-        <div class="faq-a">Credit is awarded based on total time in the lab session — not per study. The tiers are: <strong>0.5 credit</strong> for sessions up to 30 minutes, <strong>0.75 credit</strong> for 31–45 minutes, and <strong>1.0 credit</strong> for 46–60 minutes. Participants receive one credit award per session regardless of how many studies are in the stack. The current stack duration determines which tier applies, so adding your study may move the session into a higher credit bracket.</div>
-      </details>
-      <details class="faq-item">
-        <summary class="faq-q">Can a participant in Study A also be in Study B within the same session?</summary>
-        <div class="faq-a">Yes — each participant completes all studies in the stack sequentially and receives a single SONA credit award for the session based on total time in the lab. Studies within the same stack should not measure the same construct to avoid priming effects.</div>
       </details>
       <details class="faq-item">
         <summary class="faq-q">What if my study has exclusion criteria that conflict with another study?</summary>
@@ -1838,25 +2669,14 @@ summary::marker { display: none; content: ''; }
         <div class="faq-a">No. Each participant works independently at their own station, and your survey runs as designed in Qualtrics. The RA proctor handles session logistics (seating, timing, credit assignment) but does not interact with the study content.</div>
       </details>
       <details class="faq-item">
-        <summary class="faq-q">How is study order determined within a session?</summary>
-        <div class="faq-a">By default, study order is counterbalanced <strong>across session days</strong> — each day uses a different ordering so that order effects wash out across your full sample. Within a single day, all sessions run in the same order. If you have a specific counterbalancing request (e.g., rotating order within the same day, or a particular position in the stack), please mention it when you submit and the coordinator will do their best to accommodate it.</div>
-      </details>
-      <details class="faq-item">
         <summary class="faq-q">Can I run stacked sessions alongside online collection for the same study?</summary>
         <div class="faq-a">Yes. Stacked sessions create an additional in-person collection channel. Your Qualtrics link remains active for online participants as well. You can include a question in your survey to identify which responses came from stacked sessions versus online.</div>
-      </details>
-      <details class="faq-item">
-        <summary class="faq-q">What if there aren't enough sessions available for my study on a given day?</summary>
-        <div class="faq-a">Each day runs 6 sessions. If some sessions are full or unavailable, your study can be scheduled in the remaining open sessions on that day, or moved to another available date. Session dates are listed in the collection planner above.</div>
       </details>
       <details class="faq-item">
         <summary class="faq-q">Should I still include attention checks in a proctored session?</summary>
         <div class="faq-a">Attention checks remain useful as a data quality measure. However, failure rates in proctored settings are typically lower than in unsupervised online completion, so the effective sample size after exclusions should be closer to the raw N collected.</div>
       </details>
-      <details class="faq-item">
-        <summary class="faq-q">Where does the ~2 no-shows per session estimate come from?</summary>
-        <div class="faq-a">This is a rough average based on typical SONA session attendance. Actual no-show rates vary by time of day, day of week, and point in the semester (attendance tends to drop near finals). The planner uses this estimate to give you a realistic timeline, but your actual collection pace may be faster or slower.</div>
-      </details>
+      </div>
     </div>
   </div>
 
@@ -2352,7 +3172,7 @@ function updateCalc() {
   var overheadMin = OVERHEAD_CHECKIN + OVERHEAD_CHECKOUT;
   var usableTime = sessionCap - overheadMin;
   var capNote = '<div style="font-size:12px;color:var(--text-3);margin-bottom:10px">';
-  capNote += 'A <span class="dv">' + dur + '-min</span> study uses <strong>' + Math.round((dur/sessionCap)*100) + '%</strong> of the ' + sessionCap + '-min session cap (' + overheadMin + ' min is reserved for check-in/check-out, leaving ' + usableTime + ' min for studies and transitions). ';
+  capNote += 'A <span class="dv">' + dur + '-min</span> study uses <strong>' + Math.round((dur/sessionCap)*100) + '%</strong> of the ' + sessionCap + '-min session cap (' + overheadMin + ' min is reserved for check-in/check-out, leaving ' + usableTime + ' min for studies). ';
   capNote += 'Each session seats 16 with ~' + noshows + ' no-shows = <strong>' + effective + ' expected per session</strong>. ';
   capNote += 'At ' + slots + ' sessions/day: <strong>' + perDay + ' participants/day</strong>. ';
   capNote += '<em>No-show estimate is approximate and may vary by session.</em>';
@@ -2594,26 +3414,37 @@ updateSliderTrack();
 
 // ═══ CENTRAL STUDY ROSTER ═══
 var STUDY_ROSTER = [
-  { id: 'A', dur: 7, targetN: 250, color: '#FCA5A5', label: 'A',
-    title: 'Feedback Source Credibility', researcher: 'C. Wakslak', dept: 'Management & Organization',
-    status: 'collecting', startLab: 1, endLab: 3 },
+  { id: 'E', dur: 5, targetN: 300, color: '#6EE7B7', label: 'E',
+    title: 'Pragmatics', researcher: 'Cheryl Wakslak', dept: 'Management & Organization',
+    status: 'collecting', startLab: 1, endLab: 6 },
+  { id: 'A', dur: 4, targetN: 300, color: '#FCA5A5', label: 'A',
+    title: 'Productivity Perceptions', researcher: 'Cheryl Wakslak', dept: 'Management & Organization',
+    status: 'collecting', startLab: 1, endLab: 6 },
   { id: 'B', dur: 2, targetN: 400, color: '#FCD34D', label: 'B',
-    title: 'Risk Perception Under Uncertainty', researcher: 'C. Wakslak', dept: 'Management & Organization',
+    title: 'AI Receptivity', researcher: 'Cheryl Wakslak', dept: 'Management & Organization',
+    status: 'collecting', startLab: 1, endLab: 8 },
+  { id: 'C', dur: 7, targetN: 250, color: '#93C5FD', label: 'C',
+    title: 'Serendipity Study Pool', researcher: 'Dani Yin', dept: 'Management & Organization',
     status: 'collecting', startLab: 1, endLab: 5 },
-  { id: 'C', dur: 5, targetN: 250, color: '#93C5FD', label: 'C',
-    title: 'Status and Prosocial Behavior', researcher: 'C. Wakslak', dept: 'Management & Organization',
-    status: 'pending', startLab: 1, endLab: 3 },
   { id: 'D', dur: 15, targetN: 200, color: '#C4B5FD', label: 'D',
-    title: '', researcher: 'Andrea D.', dept: 'Management & Organization',
-    status: 'pending', startLab: 1, endLab: 3 },
+    title: 'Perceptions of Voice', researcher: 'Andrea Dittman', dept: 'Management & Organization',
+    status: 'collecting', startLab: 1, endLab: 4 },
+  { id: 'F', dur: 5, targetN: 300, color: '#F9A8D4', label: 'F',
+    title: 'Org Statements', researcher: 'Cheryl Wakslak', dept: 'Management & Organization',
+    status: 'collecting', startLab: 1, endLab: 6 },
+  { id: 'G', dur: 8, targetN: 100, color: '#FDE68A', label: 'G',
+    title: 'Entitlement 2026', researcher: 'Jacob Roberson', dept: 'Management & Organization',
+    status: 'collecting', startLab: 1, endLab: 2 },
+  { id: 'H', dur: 5, targetN: 100, color: '#67E8F9', label: 'H',
+    title: 'TBD', researcher: 'Zach Berry', dept: 'Management & Organization',
+    status: 'collecting', startLab: 1, endLab: 2 },
 ];
 var SESSION_CAP = 60;
 var OVERHEAD_CHECKIN = 5;
 var OVERHEAD_CHECKOUT = 5;
-var TRANS_PER_STUDY = 1; // ~1 min transition between each study
 var EFFECTIVE_PER_SESSION = 14; // 16 stations - 2 no-shows
-var SESSIONS_PER_DAY = 6;
-var PER_DAY = EFFECTIVE_PER_SESSION * SESSIONS_PER_DAY; // 84
+var SESSIONS_PER_DAY = 4;
+var PER_DAY = EFFECTIVE_PER_SESSION * SESSIONS_PER_DAY; // 56
 
 function getSessionComposition(dayIndex) {
   // Which roster studies are active on this day?
@@ -2634,8 +3465,7 @@ function getSessionComposition(dayIndex) {
 
   var studyTime = 0;
   active.forEach(function(s) { studyTime += s.dur; });
-  var transitions = active.length > 1 ? (active.length - 1) * TRANS_PER_STUDY : 0;
-  var overhead = OVERHEAD_CHECKIN + OVERHEAD_CHECKOUT + transitions;
+  var overhead = OVERHEAD_CHECKIN + OVERHEAD_CHECKOUT;
   var used = studyTime + overhead;
   var open = Math.max(SESSION_CAP - used, 0);
 
@@ -2653,11 +3483,6 @@ function renderSessionBar(comp, height, showLabels) {
     var pct = s.dur / SESSION_CAP * 100;
     html += '<div class="sched-session-seg" style="width:' + pct + '%;background:' + s.color + '" title="' + s.label + ': ' + s.dur + ' min"></div>';
   });
-  // Transitions
-  if (comp.active.length > 1) {
-    var transPct = (comp.active.length - 1) * TRANS_PER_STUDY / SESSION_CAP * 100;
-    html += '<div class="sched-session-seg" style="width:' + transPct + '%;background:#8C8C8C;opacity:0.35"></div>';
-  }
   // Checkout
   html += '<div class="sched-session-seg" style="width:' + (OVERHEAD_CHECKOUT / SESSION_CAP * 100) + '%;background:#8C8C8C;opacity:0.5"></div>';
   // Open
@@ -2794,7 +3619,7 @@ var ll102Weeks = [
   if (aprilDates.length) {
     summary += ' &nbsp;&middot;&nbsp; Includes ' + aprilDates.join(', ');
   }
-  summary += ' &nbsp;&middot;&nbsp; 6 sessions/day &nbsp;&middot;&nbsp; 16 stations/session (~14 usable after no-shows)';
+  summary += ' &nbsp;&middot;&nbsp; 4 sessions/day &nbsp;&middot;&nbsp; 16 stations/session (~14 usable after no-shows)';
   document.getElementById('avail-summary').innerHTML = summary;
 
   // Initial calendar meter render (no-op since meters are hidden, but keeps JS compat)
@@ -2829,8 +3654,7 @@ function buildCapacityBarHtml(comp) {
   var rosterStudies = comp.active.filter(function(s) { return s.id !== 'New'; });
   var newStudy = comp.active.filter(function(s) { return s.id === 'New'; })[0] || null;
   var numStudies = comp.active.length;
-  var transitions = numStudies > 1 ? (numStudies - 1) * TRANS_PER_STUDY : 0;
-  var overhead = OVERHEAD_CHECKIN + OVERHEAD_CHECKOUT + transitions;
+  var overhead = OVERHEAD_CHECKIN + OVERHEAD_CHECKOUT;
   var used = overhead + comp.studyTime;
   var remaining = cap - used;
 
@@ -2842,7 +3666,8 @@ function buildCapacityBarHtml(comp) {
   // Check-in bookend
   inner += '<div class="capacity-segment transitions" style="width:' + (OVERHEAD_CHECKIN / cap * 100) + '%;border-radius:4px 0 0 4px">check in</div>';
 
-  // Roster studies
+  // Roster studies — track cumulative left offset for tooltip positioning
+  var cumLeftPct = OVERHEAD_CHECKIN / cap * 100;
   rosterStudies.forEach(function(s) {
     var pct = s.dur / cap * 100;
     var label = '<span style="display:flex;flex-direction:column;align-items:center;line-height:1.2"><span style="font-size:13px;font-weight:800">' + s.label + '</span><span style="font-size:10px;font-weight:600;opacity:0.75">' + s.dur + 'm</span></span>';
@@ -2851,12 +3676,9 @@ function buildCapacityBarHtml(comp) {
       ? 'background:repeating-linear-gradient(-45deg,#D1D5DB,#D1D5DB 4px,#E5E7EB 4px,#E5E7EB 8px)'
       : 'background:' + s.color;
     inner += '<div class="capacity-segment" style="width:' + pct + '%;' + bgStyle + '">' + label + '</div>';
-  });
 
-  // Transitions between studies (if any)
-  if (transitions > 0) {
-    inner += '<div class="capacity-segment transitions" style="width:' + (transitions / cap * 100) + '%">~' + transitions + 'm</div>';
-  }
+    cumLeftPct += pct;
+  });
 
   // New study — no inline text; floating tooltip positioned above bar
   if (newStudy) {
@@ -2866,7 +3688,7 @@ function buildCapacityBarHtml(comp) {
     inner += '<div class="capacity-segment your-study' + overClass + '" style="width:' + newPct + '%"></div>';
 
     // Calculate left offset for the floating tooltip (sum of segments before "Yours")
-    var leftPct = (OVERHEAD_CHECKIN + rosterStudies.reduce(function(s, r) { return s + r.dur; }, 0) + transitions) / cap * 100;
+    var leftPct = (OVERHEAD_CHECKIN + rosterStudies.reduce(function(s, r) { return s + r.dur; }, 0)) / cap * 100;
     var tooltipText = 'Your study: ' + newStudy.dur + ' min' + (remaining < 0 ? ' (' + Math.abs(remaining) + ' min over)' : '');
     tips += '<div class="bar-float-tip" style="left:' + (leftPct + newPct / 2) + '%">' +
             '<div class="bar-float-tip-box">' + tooltipText + '</div>' +
@@ -2881,6 +3703,8 @@ function buildCapacityBarHtml(comp) {
     inner += '<div class="capacity-open" style="flex:0;min-width:0"></div>';
   } else if (remaining < 0 && newStudy) {
     inner += '<div class="capacity-open over-session">' + Math.abs(remaining) + ' min over</div>';
+  } else if (!newStudy && remaining < 0) {
+    inner += '<div class="capacity-open over-session">' + Math.abs(remaining) + ' min over cap</div>';
   } else if (!newStudy && remaining >= 0) {
     inner += '<div class="capacity-open">' + remaining + ' min available</div>';
   }
@@ -2890,7 +3714,7 @@ function buildCapacityBarHtml(comp) {
 
   var h = '<div class="capacity-bar-inner">' + inner + '</div>' + tips;
 
-  return { html: h, used: used, remaining: remaining, transitions: transitions, rosterStudies: rosterStudies, newStudy: newStudy, overhead: overhead };
+  return { html: h, used: used, remaining: remaining, rosterStudies: rosterStudies, newStudy: newStudy, overhead: overhead };
 }
 
 function buildBarLegend(bar, hasNewStudy) {
@@ -2899,13 +3723,13 @@ function buildBarLegend(bar, hasNewStudy) {
     var dotBg = s.status === 'pending'
       ? 'repeating-linear-gradient(-45deg,#D1D5DB,#D1D5DB 2px,#E5E7EB 2px,#E5E7EB 4px)'
       : s.color;
-    var dot = '<span style="display:inline-block;width:8px;height:8px;border-radius:2px;background:' + dotBg + ';vertical-align:middle"></span>';
-    parts.push(dot + ' <strong>Study ' + s.label + '</strong> (' + s.dur + ' min)');
+    var dot = '<span style="display:inline-block;width:8px;height:8px;border-radius:2px;background:' + dotBg + ';vertical-align:middle;flex-shrink:0"></span>';
+    parts.push('<span style="display:inline-flex;align-items:baseline;gap:4px">' + dot + ' <span><strong>Study ' + s.label + '</strong> · ' + s.title + ' · ' + s.dur + ' min · <span style="color:var(--text-3)">' + s.researcher + '</span></span></span>');
   });
   if (hasNewStudy) {
     parts.push('<span style="display:inline-block;width:8px;height:8px;border-radius:2px;background:#86EFAC;vertical-align:middle"></span> <strong>Yours</strong>');
   }
-  parts.push('<span style="display:inline-block;width:8px;height:8px;border-radius:2px;background:#8C8C8C;vertical-align:middle"></span> Overhead (check-in, transitions, check-out)');
+  parts.push('<span style="display:inline-block;width:8px;height:8px;border-radius:2px;background:#8C8C8C;vertical-align:middle"></span> Overhead');
 
   // Credit line
   var sessionMin = bar.used;
@@ -2914,7 +3738,7 @@ function buildBarLegend(bar, hasNewStudy) {
     'Each participant earns <strong style="color:' + creditInfo.color + '">' + creditInfo.credit + ' SONA credit</strong> for this session (' + sessionMin + ' min total).' +
     '</div>';
 
-  return '<div style="font-size:11px;color:var(--text-3);line-height:1.7;margin-top:6px">' + parts.join(' &nbsp;·&nbsp; ') + '</div>' + creditLine;
+  return '<div style="font-size:12px;color:var(--text-2);line-height:1.9;margin-top:10px;display:flex;flex-direction:column;gap:1px">' + parts.join('') + '</div>' + creditLine;
 }
 
 // Format a list of dates compactly: "Mar 5, 6, 12" or "Mar 5, 6 · Apr 1, 2"
@@ -3101,6 +3925,110 @@ function renderAllLayouts() {
 }
 renderAllLayouts();
 
+// ═══ SESSION TICKER ═══
+(function renderSessionTicker() {
+  var openDateList = [];
+  var idx = 0;
+  ll102Weeks.forEach(function(w) {
+    w.days.forEach(function(d) {
+      if (d.indexOf('open') === 0) {
+        var label = d.split('|')[1] || '';
+        var m = label.match(/(Mar|Apr)\s+(\d+)/);
+        if (m) {
+          var month = m[1] === 'Mar' ? 2 : 3;
+          var day = parseInt(m[2]);
+          openDateList.push({ label: label, dayIndex: idx, dateObj: new Date(2026, month, day) });
+          idx++;
+        }
+      }
+    });
+  });
+
+  var totalDays = openDateList.length;
+  var now = new Date();
+  var today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+
+  var target = null, isToday = false, daysAway = 0;
+  for (var i = 0; i < openDateList.length; i++) {
+    var diff = Math.round((openDateList[i].dateObj - today) / 86400000);
+    if (diff === 0) { target = openDateList[i]; isToday = true; daysAway = 0; break; }
+    if (diff > 0) { target = openDateList[i]; isToday = false; daysAway = diff; break; }
+  }
+
+  var container = document.getElementById('session-ticker-inner');
+  if (!target) {
+    container.innerHTML = '<div class="ticker-row1"><span style="font-size:12px;color:rgba(255,255,255,0.35);font-style:italic;padding:8px 0">No upcoming sessions scheduled.</span></div>';
+    return;
+  }
+
+  var labNum = target.dayIndex + 1;
+  var comp = getSessionComposition(target.dayIndex);
+  var creditInfo = getCredit(comp.used);
+  var statusText = isToday ? 'Live today' : daysAway === 1 ? 'Tomorrow' : 'In ' + daysAway + ' days';
+  var countdownSub = isToday ? 'Sessions running now' : daysAway === 1 ? 'Session tomorrow' : target.label;
+  var expectedParticipants = SESSIONS_PER_DAY * EFFECTIVE_PER_SESSION;
+  var sessionTimes = '12, 3:30, 4:30, 5:30\u202fPM';
+
+  // Studies active on this day
+  var activeStudyNames = comp.active.map(function(s) { return s.label + ' · ' + s.title; }).join('<br>');
+  var studyDots = comp.active.map(function(s) {
+    return '<span style="display:inline-block;width:8px;height:8px;border-radius:2px;background:' + s.color + ';margin-right:3px;flex-shrink:0"></span>' +
+           '<span>' + s.label + '</span>';
+  }).join('<span style="color:rgba(255,255,255,0.2);margin:0 4px">·</span>');
+
+  // Last updated badge
+  var LAST_UPDATED = 'Mar 5, 2026';
+
+  // ── Row 1: meta strip ──
+  // Build inline capacity bar segments
+  var barSegs = '';
+  barSegs += '<div class="ticker-cap-seg" style="width:' + (OVERHEAD_CHECKIN/SESSION_CAP*100).toFixed(1) + '%;background:rgba(180,180,180,0.25)"></div>';
+  comp.active.forEach(function(s) {
+    barSegs += '<div class="ticker-cap-seg" style="width:' + (s.dur/SESSION_CAP*100).toFixed(1) + '%;background:' + s.color + ';opacity:0.9"></div>';
+  });
+  barSegs += '<div class="ticker-cap-seg" style="width:' + (OVERHEAD_CHECKOUT/SESSION_CAP*100).toFixed(1) + '%;background:rgba(180,180,180,0.25)"></div>';
+  if (comp.open > 0) {
+    barSegs += '<div class="ticker-cap-open" style="width:' + (comp.open/SESSION_CAP*100).toFixed(1) + '%"></div>';
+  }
+  var capBarHtml =
+    '<div class="ticker-cap-inline">' +
+      '<div class="ticker-cap-bar">' + barSegs + '</div>' +
+      '<div class="ticker-cap-label">' +
+        comp.used + ' / ' + SESSION_CAP + ' min' +
+        (comp.open > 0 ? ' &nbsp;·&nbsp; <span style="color:#4ADE80">' + comp.open + ' open</span>' : ' &nbsp;·&nbsp; <span style="color:#F87171">full</span>') +
+      '</div>' +
+    '</div>';
+
+  var row1 =
+    '<div class="ticker-row1">' +
+      '<div class="ticker-pulse-wrap">' +
+        '<div class="ticker-pulse' + (isToday ? '' : ' upcoming') + '"></div>' +
+        '<span class="ticker-status-label' + (isToday ? '' : ' upcoming') + '">' + statusText + '</span>' +
+      '</div>' +
+      '<div class="ticker-date-block">' +
+        '<div class="ticker-date">' + target.label + '</div>' +
+        '<div class="ticker-countdown">' + countdownSub + '</div>' +
+      '</div>' +
+      '<div class="ticker-meta-items">' +
+        '<div class="ticker-meta-item secondary">' +
+          '<span class="ticker-meta-val">' + SESSIONS_PER_DAY + '</span>' +
+          '<span class="ticker-meta-key">Sessions</span>' +
+        '</div>' +
+        '<div class="ticker-meta-item primary">' +
+          '<span class="ticker-meta-val green">~' + expectedParticipants + '</span>' +
+          '<span class="ticker-meta-key">Participants expected</span>' +
+        '</div>' +
+        '<div class="ticker-meta-item secondary" style="border-right:none">' +
+          '<span class="ticker-meta-val gold">' + creditInfo.credit + ' credit</span>' +
+          '<span class="ticker-meta-key">SONA / participant</span>' +
+        '</div>' +
+      '</div>' +
+      capBarHtml +
+    '</div>';
+
+  container.innerHTML = row1;
+})();
+
 // ═══ SUMMARY STRIP ═══
 function updateSummaryStrip() {
   var strip = document.getElementById('planner-summary-strip');
@@ -3209,8 +4137,7 @@ document.addEventListener('keydown', function(e) {
   // Overhead summary
   var rosterTime = 0;
   STUDY_ROSTER.forEach(function(s) { rosterTime += s.dur; });
-  var transitions = STUDY_ROSTER.length > 1 ? (STUDY_ROSTER.length - 1) * TRANS_PER_STUDY : 0;
-  var overhead = OVERHEAD_CHECKIN + OVERHEAD_CHECKOUT + transitions;
+  var overhead = OVERHEAD_CHECKIN + OVERHEAD_CHECKOUT;
   var totalUsed = rosterTime + overhead;
   var openMin = SESSION_CAP - totalUsed;
   var rosterCredit = getCredit(totalUsed);
@@ -3223,9 +4150,186 @@ document.addEventListener('keydown', function(e) {
   container.innerHTML = html;
 })();
 
+// ═══ COLLECTION DASHBOARD ═══
+(function renderCollectionDashboard() {
+  var openDates = window._capOpenDates || [];
+  var now = new Date();
+  var today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+
+  var container = document.getElementById('dashboard-grid');
+  if (!container) return;
+
+  // Build cumulative N per study per day
+  // Each open day: each active study collects PER_DAY participants (split proportionally? No — each study gets its own full PER_DAY)
+  // Cumulative N for study S after dayIndex D = sum of PER_DAY for each day D' <= D where S is active
+
+  var html = '';
+
+  openDates.forEach(function(dateLabel, di) {
+    var comp = getSessionComposition(di);
+    // Only roster studies (no 'New')
+    var activeStudies = comp.active.filter(function(s) { return s.id !== 'New'; });
+    var creditInfo = getCredit(comp.used);
+
+    // Parse date
+    var m = dateLabel.match(/(Mar|Apr)\s+(\d+)/);
+    var monthNum = m ? (m[1] === 'Mar' ? 2 : 3) : 2;
+    var dayNum = m ? parseInt(m[2]) : 0;
+    var dateObj = new Date(2026, monthNum, dayNum);
+    var diff = Math.round((dateObj - today) / 86400000);
+    var isToday = diff === 0;
+    var isPast = diff < 0;
+    var isFuture = diff > 0;
+
+    var badgeHtml = isToday
+      ? '<span class="dash-day-badge live">Live today</span>'
+      : isPast
+        ? '<span class="dash-day-badge done">Completed</span>'
+        : diff === 1
+          ? '<span class="dash-day-badge next">Tomorrow</span>'
+          : '<span class="dash-day-badge next">In ' + diff + ' days</span>';
+
+    var headerClass = isToday ? '' : isPast ? ' past' : ' future';
+
+    // Session bar
+    var barSegs = '';
+    barSegs += '<div class="dash-session-seg" style="width:' + (OVERHEAD_CHECKIN/SESSION_CAP*100).toFixed(1) + '%;background:#9CA3AF;opacity:0.5"></div>';
+    activeStudies.forEach(function(s) {
+      barSegs += '<div class="dash-session-seg" style="width:' + (s.dur/SESSION_CAP*100).toFixed(1) + '%;background:' + s.color + '"></div>';
+    });
+    barSegs += '<div class="dash-session-seg" style="width:' + (OVERHEAD_CHECKOUT/SESSION_CAP*100).toFixed(1) + '%;background:#9CA3AF;opacity:0.5"></div>';
+    if (comp.open > 0) {
+      barSegs += '<div class="dash-session-seg" style="width:' + (comp.open/SESSION_CAP*100).toFixed(1) + '%;background:repeating-linear-gradient(-45deg,rgba(74,222,128,0.12),rgba(74,222,128,0.12) 3px,rgba(74,222,128,0.22) 3px,rgba(74,222,128,0.22) 6px);border:1px dashed rgba(74,222,128,0.3)"></div>';
+    }
+
+    var legendParts = activeStudies.map(function(s) {
+      return '<span><span class="dash-session-legend-dot" style="background:' + s.color + '"></span>' + s.label + ' ' + s.title + ' (' + s.dur + 'm)</span>';
+    });
+    legendParts.push('<span style="margin-left:auto">' + comp.used + '/' + SESSION_CAP + ' min · ' + creditInfo.credit + ' SONA credit</span>');
+
+    // Per-study progress rows
+    var studyRowsHtml = '';
+    STUDY_ROSTER.forEach(function(s) {
+      var isActive = s.startLab - 1 <= di && di < s.endLab;
+
+      // Cumulative collected up to and including this day
+      var cumCollected = 0;
+      for (var d2 = 0; d2 < openDates.length; d2++) {
+        if (d2 > di) break;
+        var isActiveOnD2 = s.startLab - 1 <= d2 && d2 < s.endLab;
+        // If past/today, count actual; if future, count projected
+        if (isActiveOnD2) {
+          cumCollected += PER_DAY;
+        }
+      }
+      // Cap at targetN
+      cumCollected = Math.min(cumCollected, s.targetN);
+
+      // For inactive days, show overall progress up to last active day
+      var displayCollected = cumCollected;
+      if (!isActive) {
+        // Still show cumulative up to this point
+        displayCollected = Math.min(cumCollected, s.targetN);
+      }
+
+      var pct = (displayCollected / s.targetN * 100).toFixed(0);
+      var pctNum = Math.min(parseFloat(pct), 100);
+      var hitTarget = displayCollected >= s.targetN;
+      var barColor = hitTarget ? '#16A34A' : isActive ? s.color : '#D1D5DB';
+
+      var dayCollected = isActive ? PER_DAY : 0;
+      var afterToday = isFuture && isActive;
+
+      studyRowsHtml += '<div class="dash-study-row' + (isActive ? '' : ' inactive') + '">';
+      studyRowsHtml += '<div class="dash-study-name">';
+      studyRowsHtml += '<span style="display:inline-block;width:10px;height:10px;border-radius:2px;background:' + s.color + ';flex-shrink:0"></span>';
+      studyRowsHtml += '<strong>' + s.label + '</strong> ' + s.title;
+      if (hitTarget) studyRowsHtml += '<span style="font-size:10px;background:#DCFCE7;color:#16A34A;padding:1px 6px;border-radius:3px;font-weight:700;margin-left:4px">✓ Done</span>';
+      studyRowsHtml += '</div>';
+      studyRowsHtml += '<div class="dash-study-researcher">' + s.researcher + '</div>';
+      studyRowsHtml += '<div class="dash-progress-track"><div class="dash-progress-fill" style="width:' + pctNum + '%;background:' + barColor + '"></div></div>';
+      studyRowsHtml += '<div class="dash-progress-labels">';
+      studyRowsHtml += '<span>' + (isActive ? (afterToday ? '+' : '') + dayCollected + ' this day' : 'not active') + '</span>';
+      studyRowsHtml += '<span class="' + (hitTarget ? 'hit' : '') + '">' + displayCollected.toLocaleString() + ' / ' + s.targetN.toLocaleString() + ' (' + pctNum + '%)</span>';
+      studyRowsHtml += '</div>';
+      studyRowsHtml += '</div>';
+    });
+
+    html += '<div class="dash-day-card" data-day-index="' + di + '" data-is-today="' + (isToday ? '1' : '0') + '" data-days-away="' + diff + '">';
+    html += '<div class="dash-day-header' + headerClass + '" onclick="toggleDashDay(this.closest(\'.dash-day-card\'))">';
+    html += '<div><div class="dash-day-label">Lab ' + (di + 1) + ' &nbsp;·&nbsp; ' + dateLabel + '</div>';
+    html += '<div class="dash-day-sub">' + SESSIONS_PER_DAY + ' sessions · ~' + (SESSIONS_PER_DAY * EFFECTIVE_PER_SESSION) + ' participants expected</div></div>';
+    html += badgeHtml;
+    html += '<span class="dash-day-chevron">▼</span>';
+    html += '</div>';
+    html += '<div class="dash-day-body">';
+    html += '<div class="dash-session-bar-wrap">';
+    html += '<div class="dash-session-bar">' + barSegs + '</div>';
+    html += '<div class="dash-session-label">' + legendParts.join('') + '</div>';
+    html += '</div>';
+    html += '<div class="dash-studies-grid">' + studyRowsHtml + '</div>';
+    html += '</div>';
+    html += '</div>';
+  });
+
+  container.innerHTML = html;
+
+  // today + next day expanded; everything else collapsed
+  container.querySelectorAll('.dash-day-card').forEach(function(card) {
+    var daysAway = parseInt(card.getAttribute('data-days-away'));
+    var isToday = card.getAttribute('data-is-today') === '1';
+    var body = card.querySelector('.dash-day-body');
+    if (isToday || daysAway === 1) {
+      card.classList.add('expanded');
+      body.style.maxHeight = body.scrollHeight + 'px';
+    } else {
+      body.classList.add('collapsed');
+      body.style.maxHeight = '0';
+    }
+  });
+})();
+
+function toggleDashDay(card) {
+  var body = card.querySelector('.dash-day-body');
+  if (card.classList.contains('expanded')) {
+    body.style.maxHeight = body.scrollHeight + 'px';
+    requestAnimationFrame(function() {
+      body.classList.add('collapsed');
+      body.style.maxHeight = '0';
+    });
+    card.classList.remove('expanded');
+  } else {
+    body.classList.remove('collapsed');
+    body.style.maxHeight = body.scrollHeight + 'px';
+    card.classList.add('expanded');
+  }
+}
+
+function toggleFaqGroup(label) {
+  var body = label.nextElementSibling;
+  var isOpen = label.classList.contains('open');
+  if (isOpen) {
+    body.style.maxHeight = body.scrollHeight + 'px';
+    requestAnimationFrame(function() {
+      body.classList.add('collapsed');
+      body.style.maxHeight = '0';
+    });
+    label.classList.remove('open');
+  } else {
+    body.classList.remove('collapsed');
+    body.style.maxHeight = body.scrollHeight + 'px';
+    label.classList.add('open');
+  }
+}
+
+// Init FAQ group bodies to their natural height so transitions work
+document.querySelectorAll('.faq-group-body').forEach(function(body) {
+  body.style.maxHeight = body.scrollHeight + 'px';
+});
+
 (function() {
   var navLinks = document.querySelectorAll('.nav-link');
-  var subLinks = document.querySelectorAll('.nav-sub-link');
+  var dropItems = document.querySelectorAll('.nav-drop-item');
 
   // Build ordered section list from main nav links
   var sections = [];
@@ -3238,9 +4342,9 @@ document.addEventListener('keydown', function(e) {
     }
   });
 
-  // Planner subsections
+  // All drop-item subsections for active-state tracking
   var subSections = [];
-  subLinks.forEach(function(link) {
+  dropItems.forEach(function(link) {
     var id = link.getAttribute('data-subsection');
     var el = document.getElementById(id);
     if (el) subSections.push({ id: id, el: el });
@@ -3254,11 +4358,12 @@ document.addEventListener('keydown', function(e) {
     // Show/hide back-to-top
     if (topLink) topLink.classList.toggle('visible', window.scrollY > 300);
 
-    // Main nav active
+    // Determine active top-level section
     var currentId = null;
     sections.forEach(function(s) {
       if (s.el.offsetTop <= scrollY) currentId = s.id;
     });
+
     navLinks.forEach(function(l) { l.classList.remove('active'); });
     if (currentId) {
       navLinks.forEach(function(l) {
@@ -3266,12 +4371,12 @@ document.addEventListener('keydown', function(e) {
       });
     }
 
-    // Sub-link active
+    // Active drop-item
     var currentSubId = null;
     subSections.forEach(function(s) {
       if (s.el.offsetTop <= scrollY + 20) currentSubId = s.id;
     });
-    subLinks.forEach(function(l) {
+    dropItems.forEach(function(l) {
       l.classList.toggle('active', l.getAttribute('data-subsection') === currentSubId);
     });
   }
@@ -3279,30 +4384,214 @@ document.addEventListener('keydown', function(e) {
   window.addEventListener('scroll', updateActive, { passive: true });
   updateActive();
 
+  function smoothScrollTo(el) {
+    var offset = 72;
+    var top = el.getBoundingClientRect().top + window.scrollY - offset;
+    window.scrollTo({ top: top, behavior: 'smooth' });
+  }
+
   navLinks.forEach(function(link) {
     link.addEventListener('click', function(e) {
       e.preventDefault();
       var id = link.getAttribute('data-section');
       var el = document.getElementById(id);
       if (el) {
-        el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        smoothScrollTo(el);
         history.pushState(null, '', '#' + id);
       }
     });
   });
 
-  subLinks.forEach(function(link) {
+  dropItems.forEach(function(link) {
     link.addEventListener('click', function(e) {
       e.preventDefault();
       var id = link.getAttribute('data-subsection');
       var el = document.getElementById(id);
       if (el) {
-        el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        smoothScrollTo(el);
         history.pushState(null, '', '#' + id);
       }
     });
   });
 
+})();
+
+// ═══ STUDY REFERENCE SECTION ═══
+(function renderStudyReference() {
+  var openDates = window._capOpenDates || [];
+
+  // ── Summary strip ──
+  var totalStudyMin = STUDY_ROSTER.reduce(function(a, s) { return a + s.dur; }, 0);
+  var comp0 = getSessionComposition(0);
+  var creditInfo0 = getCredit(comp0.used);
+  var totalN = STUDY_ROSTER.reduce(function(a, s) { return a + s.targetN; }, 0);
+  var researchers = [];
+  STUDY_ROSTER.forEach(function(s) { if (researchers.indexOf(s.researcher) < 0) researchers.push(s.researcher); });
+
+  function summStat(val, key, gold) {
+    return '<div class="ref-summary-stat"><span class="ref-summary-val' + (gold ? ' gold' : '') + '">' + val + '</span><span class="ref-summary-key">' + key + '</span></div>';
+  }
+  document.getElementById('ref-summary-strip').innerHTML =
+    summStat(STUDY_ROSTER.length, 'Studies active') +
+    summStat(researchers.length, 'Researchers') +
+    summStat(openDates.length, 'Session days') +
+    summStat(comp0.used + ' min', 'Peak session length') +
+    summStat(creditInfo0.credit, 'SONA credit / participant', true) +
+    summStat(totalN.toLocaleString(), 'Combined target N');
+
+  // ── Composition bars ──
+  // Group consecutive days with same active-study signature
+  var groups = [];
+  var prevSig = null;
+  for (var di = 0; di < openDates.length; di++) {
+    var comp = getSessionComposition(di);
+    var sig = comp.active.map(function(s) { return s.id; }).join(',');
+    if (sig !== prevSig) {
+      groups.push({ comp: comp, dates: [openDates[di]], dayIndices: [di] });
+      prevSig = sig;
+    } else {
+      groups[groups.length - 1].dates.push(openDates[di]);
+      groups[groups.length - 1].dayIndices.push(di);
+    }
+  }
+
+  var barsHtml = '';
+  groups.forEach(function(g) {
+    var comp = g.comp;
+    var cap = SESSION_CAP;
+    var overAmt = Math.max(comp.used - cap, 0);
+    var labStart = g.dayIndices[0] + 1;
+    var labEnd = g.dayIndices[g.dayIndices.length - 1] + 1;
+    var labStr = labStart === labEnd ? 'Lab ' + labStart : 'Labs ' + labStart + '–' + labEnd;
+    var dateStr = g.dates.length === 1 ? g.dates[0] : g.dates[0] + ' – ' + g.dates[g.dates.length - 1] + ' (' + g.dates.length + ' days)';
+    var creditInfo = getCredit(comp.used);
+
+    barsHtml += '<div class="ref-comp-group">';
+    barsHtml += '<div class="ref-comp-day-label">' + labStr + ' &nbsp;·&nbsp; ' + dateStr + '</div>';
+    barsHtml += '<div class="ref-comp-bar">';
+    barsHtml += compSeg('#9CA3AF', OVERHEAD_CHECKIN, cap, 'Check-in', true);
+    comp.active.forEach(function(s) { barsHtml += compSeg(s.color, s.dur, cap, s.label, false); });
+    barsHtml += compSeg('#9CA3AF', OVERHEAD_CHECKOUT, cap, 'Check-out', true);
+    if (comp.open > 0) {
+      barsHtml += '<div class="ref-comp-open" style="width:' + pct(comp.open, cap) + '">' + comp.open + ' min open</div>';
+    } else if (overAmt > 0) {
+      barsHtml += '<div class="ref-comp-over">' + overAmt + ' min over</div>';
+    }
+    barsHtml += '</div>';
+
+    barsHtml += '<div class="ref-comp-legend">';
+    comp.active.forEach(function(s) {
+      barsHtml += '<span class="ref-comp-legend-item"><span class="ref-comp-legend-dot" style="background:' + s.color + '"></span><strong>' + s.label + '</strong> ' + s.title + ' (' + s.dur + ' min)</span>';
+    });
+    barsHtml += '<span class="ref-comp-legend-item" style="color:var(--text-3)">' +
+      comp.studyTime + ' min studies + ' + comp.overhead + ' min overhead = <strong>' + comp.used + ' min</strong>' +
+      ' &nbsp;·&nbsp; <span style="font-weight:700;color:' + creditInfo.color + '">' + creditInfo.credit + ' SONA credit</span>' +
+      (comp.open > 0 ? ' &nbsp;·&nbsp; <span style="color:var(--green-text)">' + comp.open + ' min open</span>' : '') +
+      (overAmt > 0 ? ' &nbsp;·&nbsp; <span style="color:#DC2626">' + overAmt + ' min over capacity</span>' : '') +
+      '</span>';
+    barsHtml += '</div>';
+    barsHtml += '</div>';
+  });
+  document.getElementById('ref-comp-bars').innerHTML = barsHtml;
+
+  function pct(min, cap) { return (min / cap * 100).toFixed(2) + '%'; }
+  function compSeg(color, min, cap, label, isOverhead) {
+    var cls = 'ref-comp-seg' + (isOverhead ? ' overhead' : '');
+    return '<div class="' + cls + '" style="width:' + pct(min, cap) + ';background:' + color + '">' + (min >= 4 ? label : '') + '</div>';
+  }
+
+  // ── Study cards — grouped by researcher ──
+  // Build researcher groups preserving session order within each group
+  var researcherOrder = [];
+  var researcherGroups = {};
+  STUDY_ROSTER.forEach(function(s) {
+    if (!researcherGroups[s.researcher]) {
+      researcherGroups[s.researcher] = [];
+      researcherOrder.push(s.researcher);
+    }
+    researcherGroups[s.researcher].push(s);
+  });
+
+  var cardsHtml = '';
+  researcherOrder.forEach(function(researcher) {
+    var group = researcherGroups[researcher];
+    var totalN = group.reduce(function(a, s) { return a + s.targetN; }, 0);
+    cardsHtml += '<div style="margin-bottom:20px">';
+    cardsHtml += '<div style="display:flex;align-items:baseline;justify-content:space-between;margin-bottom:10px;padding-bottom:6px;border-bottom:1px solid var(--border-light)">';
+    cardsHtml += '<span style="font-size:12px;font-weight:700;color:var(--text)">' + researcher + '</span>';
+    cardsHtml += '<span style="font-size:11px;color:var(--text-3)">' + group.length + ' stud' + (group.length !== 1 ? 'ies' : 'y') + ' &nbsp;·&nbsp; N = ' + totalN.toLocaleString() + ' combined</span>';
+    cardsHtml += '</div>';
+    cardsHtml += '<div class="ref-study-grid">';
+
+    group.forEach(function(s) {
+      var studyDates = [];
+      for (var di = s.startLab - 1; di < Math.min(s.endLab, openDates.length); di++) {
+        studyDates.push(openDates[di]);
+      }
+      var daysActive = studyDates.length;
+      var daysNeeded = Math.ceil(s.targetN / PER_DAY);
+      var fillPct = Math.min(daysNeeded / Math.max(daysActive, 1) * 100, 100).toFixed(0);
+      var paceOk = daysNeeded <= daysActive;
+      var paceColor = paceOk ? '#16A34A' : '#D97706';
+      var paceLabel = paceOk
+        ? 'Reaches N=' + s.targetN + ' in ~' + daysNeeded + ' day' + (daysNeeded !== 1 ? 's' : '')
+        : 'N=' + s.targetN + ' needs ~' + daysNeeded + ' days (' + daysActive + ' scheduled)';
+
+      // Anticipated completion date
+      var completionDate, completionColor;
+      if (paceOk && studyDates[daysNeeded - 1]) {
+        var raw = studyDates[daysNeeded - 1];
+        var m = raw.match(/^(Mar|Apr)\s+(\d+)\s+\((\w+)\)/);
+        completionDate = m ? m[1] + ' ' + m[2] + ' (' + m[3] + ')' : raw.split('(')[0].trim();
+        completionColor = 'var(--green-text)';
+      } else {
+        completionDate = 'Beyond scheduled days';
+        completionColor = '#D97706';
+      }
+
+      var sessionPos = STUDY_ROSTER.indexOf(s) + 1;
+      var posNote = sessionPos === 1 ? '1st in session' : sessionPos === STUDY_ROSTER.length ? 'Last in session' : 'Position ' + sessionPos + ' of ' + STUDY_ROSTER.length;
+      var statusCls = s.status === 'collecting' ? 'collecting' : 'pending';
+      var statusLabel = s.status === 'collecting' ? 'Collecting' : 'Pending';
+      var sepNote = s.id === 'E' ? 'Separated from Study F (Org Statements) by 4 studies'
+                  : s.id === 'F' ? 'Separated from Study E (Pragmatics) by 4 studies'
+                  : '';
+
+      cardsHtml += '<div class="ref-study-card">';
+      cardsHtml += '<div class="ref-study-card-head">';
+      cardsHtml += '<div class="ref-study-color-band" style="background:' + s.color + '"></div>';
+      cardsHtml += '<div class="ref-study-head-inner">';
+      cardsHtml += '<div class="ref-study-top-row">';
+      cardsHtml += '<div class="ref-study-badge" style="background:' + s.color + '">' + s.label + '</div>';
+      cardsHtml += '<div class="ref-study-title">' + s.title + '</div>';
+      cardsHtml += '<span class="ref-status-pill ' + statusCls + '">' + statusLabel + '</span>';
+      cardsHtml += '</div>';
+      cardsHtml += '</div>';
+      cardsHtml += '</div>';
+      cardsHtml += '<div class="ref-study-body">';
+      cardsHtml += '<div class="ref-study-fields">';
+      cardsHtml += refField('Duration', s.dur + ' min', true);
+      cardsHtml += refField('Target N', s.targetN.toLocaleString(), true);
+      cardsHtml += refField('Session position', posNote);
+      cardsHtml += refField('Active', 'Labs ' + s.startLab + '–' + s.endLab + ' · ' + daysActive + ' day' + (daysActive !== 1 ? 's' : ''));
+      cardsHtml += '<div class="ref-field"><span class="ref-field-key">Est. completion</span><span class="ref-field-val" style="color:' + completionColor + ';font-weight:600">' + completionDate + '</span></div>';
+      cardsHtml += '</div>';
+      cardsHtml += '<div class="ref-pace-row"><div class="ref-pace-track"><div class="ref-pace-fill" style="width:' + fillPct + '%;background:' + paceColor + '"></div></div><span class="ref-pace-label" style="color:' + paceColor + '">' + paceLabel + '</span></div>';
+      if (sepNote) {
+        cardsHtml += '<div class="ref-study-note">🔀 ' + sepNote + '</div>';
+      }
+      cardsHtml += '</div>';
+      cardsHtml += '</div>';
+    });
+
+    cardsHtml += '</div>';
+    cardsHtml += '</div>';
+  });
+  document.getElementById('ref-study-grid').innerHTML = cardsHtml;
+
+  function refField(key, val, em) {
+    return '<div class="ref-field"><span class="ref-field-key">' + key + '</span><span class="ref-field-val' + (em ? ' em' : '') + '">' + val + '</span></div>';
+  }
 })();
 </script>
 </body>
