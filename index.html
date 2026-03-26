@@ -859,7 +859,7 @@ body {
 /* Legacy sub-link stubs — kept for JS compat, not visible */
 .nav-sub-link { display: none; }
 
-/* ═══ Collection Dashboard ═══ */
+/* ═══ Collection Dashboard / Day-by-day Timeline ═══ */
 .dash-day-card {
   border: 1px solid var(--border);
   border-radius: 8px;
@@ -1837,6 +1837,7 @@ summary::marker { display: none; content: ''; }
 }
 .ref-status-pill.collecting { background: var(--green-bg); color: #065F46; border: 1px solid #A7F3D0; }
 .ref-status-pill.pending { background: var(--amber-bg); color: var(--amber-text); border: 1px solid #FDE68A; }
+.ref-status-pill.complete { background: #F3F4F6; color: #6B7280; border: 1px solid #D1D5DB; }
 
 .ref-study-body { padding: 12px 14px; }
 .ref-study-fields {
@@ -2085,7 +2086,7 @@ summary::marker { display: none; content: ''; }
       <div class="subtitle">In-person proctored data collection · MOR Subject Pool · LL102</div>
     </div>
     <span style="margin-left:8px;font-size:11px;font-weight:700;background:rgba(255,255,255,0.15);color:rgba(255,255,255,0.7);border:1px solid rgba(255,255,255,0.25);padding:5px 12px;border-radius:2px;letter-spacing:1px;white-space:nowrap;text-transform:uppercase;display:inline-flex;align-items:center;gap:6px">
-      <span style="display:inline-block;width:7px;height:7px;border-radius:50%;background:#FACC15;flex-shrink:0"></span>Updated Mar 5, 2026
+      <span style="display:inline-block;width:7px;height:7px;border-radius:50%;background:#FACC15;flex-shrink:0"></span>Updated Mar 26, 2026
     </span>
   </div>
   <div class="gold-bar"></div>
@@ -2095,19 +2096,19 @@ summary::marker { display: none; content: ''; }
   <div class="section-nav-inner">
 
     <div class="nav-group">
-      <a href="#sec-overview" class="nav-link" data-section="sec-overview">Overview</a>
+      <a href="#sec-progress" class="nav-link" data-section="sec-progress">Progress</a>
       <div class="nav-dropdown">
-        <a href="#sec-eligibility" class="nav-drop-item" data-subsection="sec-eligibility">Eligibility</a>
-        <a href="#overview-what-you-get" class="nav-drop-item" data-subsection="overview-what-you-get">What you get</a>
-        <a href="#overview-what-you-provide" class="nav-drop-item" data-subsection="overview-what-you-provide">What you provide</a>
+        <a href="#ref-cards-wrap" class="nav-drop-item" data-subsection="ref-cards-wrap">Studies by researcher</a>
+        <a href="#ref-comp-wrap" class="nav-drop-item" data-subsection="ref-comp-wrap">Session composition</a>
+        <a href="#ref-dashboard-wrap" class="nav-drop-item" data-subsection="ref-dashboard-wrap">Day-by-day timeline</a>
       </div>
     </div>
 
     <div class="nav-group">
-      <a href="#sec-studies" class="nav-link" data-section="sec-studies">Study Reference</a>
+      <a href="#sec-today" class="nav-link" data-section="sec-today">Today</a>
       <div class="nav-dropdown">
-        <a href="#ref-comp-wrap" class="nav-drop-item" data-subsection="ref-comp-wrap">Session Composition by Lab Day</a>
-        <a href="#ref-cards-wrap" class="nav-drop-item" data-subsection="ref-cards-wrap">Studies by researcher</a>
+        <a href="#coordinator-view" class="nav-drop-item" data-subsection="coordinator-view">Session overview</a>
+        <a href="#sec-stack" class="nav-drop-item" data-subsection="sec-stack">Session roster</a>
       </div>
     </div>
 
@@ -2115,17 +2116,9 @@ summary::marker { display: none; content: ''; }
       <a href="#sec-planner" class="nav-link" data-section="sec-planner">Planner</a>
       <div class="nav-dropdown">
         <a href="#input-step-dur" class="nav-drop-item" data-subsection="input-step-dur">How long is your study?</a>
-        <a href="#input-step-n" class="nav-drop-item" data-subsection="input-step-n">How many participants do you need?</a>
-        <a href="#sec-fit" class="nav-drop-item" data-subsection="sec-fit">Does your study fit in the session?</a>
-        <a href="#sec-timeline" class="nav-drop-item" data-subsection="sec-timeline">When will you reach your target N?</a>
-        <a href="#sec-stack" class="nav-drop-item" data-subsection="sec-stack">Session roster</a>
-      </div>
-    </div>
-
-    <div class="nav-group">
-      <a href="#sec-dashboard" class="nav-link" data-section="sec-dashboard">Dashboard</a>
-      <div class="nav-dropdown">
-        <a href="#sec-dashboard" class="nav-drop-item" data-subsection="sec-dashboard">Day-by-day progress &amp; session stacks</a>
+        <a href="#input-step-n" class="nav-drop-item" data-subsection="input-step-n">How many participants?</a>
+        <a href="#sec-fit" class="nav-drop-item" data-subsection="sec-fit">Does your study fit?</a>
+        <a href="#sec-timeline" class="nav-drop-item" data-subsection="sec-timeline">Collection timeline</a>
       </div>
     </div>
 
@@ -2134,6 +2127,15 @@ summary::marker { display: none; content: ''; }
       <div class="nav-dropdown">
         <a href="#join-cta" class="nav-drop-item" data-subsection="join-cta">Submit your study</a>
         <a href="#join-process" class="nav-drop-item" data-subsection="join-process">Process after submission</a>
+      </div>
+    </div>
+
+    <div class="nav-group">
+      <a href="#sec-overview-wrap" class="nav-link" data-section="sec-overview-wrap">How it works</a>
+      <div class="nav-dropdown">
+        <a href="#sec-eligibility" class="nav-drop-item" data-subsection="sec-eligibility">Eligibility</a>
+        <a href="#overview-what-you-get" class="nav-drop-item" data-subsection="overview-what-you-get">What you get</a>
+        <a href="#overview-what-you-provide" class="nav-drop-item" data-subsection="overview-what-you-provide">What you provide</a>
       </div>
     </div>
 
@@ -2159,83 +2161,56 @@ summary::marker { display: none; content: ''; }
 
 <div class="main">
 
-  <!-- ═══ OVERVIEW ═══ -->
-  <div id="sec-overview" style="background:#F0EDE8;border:1px solid var(--border);border-radius:var(--radius);padding:32px 24px 0;margin-bottom:28px;box-shadow:var(--shadow)">
-    <div class="journey-step-label">Overview</div>
-    <div class="journey-headline" style="margin-bottom:10px">Collect verified, proctored survey responses through shared lab sessions</div>
-    <p style="font-size:14px;color:var(--text-2);line-height:1.65;margin:0 0 20px 0">Multiple short Qualtrics studies run back-to-back in LL102. Participants complete each study at individual workstations under RA supervision, with study order counterbalanced across days (all sessions within a day run the same order). Participants sign up for a fixed time slot and must remain for its full duration — everyone in the room starts and finishes together. You provide collaborator access to your Qualtrics survey — we handle scheduling, proctoring, SONA setup, and credit assignment.</p>
-
-    <!-- Eligibility — gate check first -->
-    <div id="sec-eligibility" style="padding:14px 16px;background:var(--cardinal-light);border-radius:6px;border:1px solid rgba(153,0,0,0.08);margin-bottom:12px">
-      <div class="card-box-label">Eligibility</div>
-      <div class="eligibility-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:6px 24px;font-size:14px;color:var(--text);line-height:1.5">
-        <div><span style="color:var(--green);font-weight:700">✓</span> Qualtrics-based online survey</div>
-        <div><span style="color:var(--green);font-weight:700">✓</span> Individual-level (no groups or dyads)</div>
-        <div><span style="color:var(--green);font-weight:700">✓</span> ≤ 30 minutes in duration</div>
-        <div><span style="color:var(--green);font-weight:700">✓</span> Active IRB approval</div>
-        <div style="grid-column:1/-1"><span style="color:var(--green);font-weight:700">✓</span> No deception</div>
-      </div>
-    </div>
-
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px">
-      <!-- What you get — left column -->
-      <div id="overview-what-you-get" style="padding:14px 16px;background:#F8F7F5;border-radius:6px">
-        <div class="card-box-label">What you get</div>
-        <div style="display:flex;flex-direction:column;gap:7px">
-          <div style="font-size:13px;color:var(--text);display:flex;gap:8px;align-items:baseline"><span style="color:var(--green);font-weight:700;flex-shrink:0">✓</span> ID-verified participants on dedicated lab computers — tab switching and external applications are disabled</div>
-          <div style="font-size:13px;color:var(--text);display:flex;gap:8px;align-items:baseline"><span style="color:var(--green);font-weight:700;flex-shrink:0">✓</span> Up to 16 seats per session, 4 sessions per day (~56 participants/day)</div>
-          <div style="border-top:1px solid var(--border-light);margin:4px 0"></div>
-          <div style="font-size:13px;color:var(--text);display:flex;gap:8px;align-items:baseline"><span style="color:var(--green);font-weight:700;flex-shrink:0">✓</span> Participants are required to remain for the full session duration and are dismissed simultaneously</div>
-          <div style="font-size:13px;color:var(--text);display:flex;gap:8px;align-items:baseline"><span style="color:var(--green);font-weight:700;flex-shrink:0">✓</span> A brief neutral transition screen between studies reduces carryover and priming effects</div>
-          <div style="font-size:13px;color:var(--text);display:flex;gap:8px;align-items:baseline"><span style="color:var(--green);font-weight:700;flex-shrink:0">✓</span> Participants who complete your study in a stacked session are automatically excluded from the online SONA version — no risk of duplicate participation</div>
-          <div style="font-size:13px;color:var(--text);display:flex;gap:8px;align-items:baseline"><span style="color:var(--green);font-weight:700;flex-shrink:0">✓</span> SONA credit: <strong>0.5</strong> (≤ 30 min) · <strong>0.75</strong> (31–45 min) · <strong>1.0</strong> (46–60 min)</div>
-          <div style="font-size:13px;color:var(--text);display:flex;gap:8px;align-items:baseline"><span style="color:var(--green);font-weight:700;flex-shrink:0">✓</span> Your survey content, logic, and data are untouched — responses appear in your standard Qualtrics export</div>
-        </div>
-      </div>
-      <!-- What you provide — right column -->
-      <div id="overview-what-you-provide" style="padding:14px 16px;background:#F8F7F5;border-radius:6px">
-        <div class="card-box-label">What you provide</div>
-        <p style="font-size:14px;color:var(--text-2);line-height:1.5;margin:0 0 10px 0">Submit the following five items by email, finalized <strong>by the day before your first session</strong>:</p>
-        <div style="display:flex;flex-direction:column;gap:7px">
-          <div style="font-size:13px;color:var(--text);display:flex;gap:8px;align-items:baseline"><span style="color:var(--cardinal);font-weight:700;flex-shrink:0">1.</span> <span><strong>Qualtrics collaborator access</strong> — the coordinator needs collaborator access (not just a link) to configure the redirect chain between studies</span></div>
-          <div style="font-size:13px;color:var(--text);display:flex;gap:8px;align-items:baseline"><span style="color:var(--cardinal);font-weight:700;flex-shrink:0">2.</span> Estimated study duration</div>
-          <div style="font-size:13px;color:var(--text);display:flex;gap:8px;align-items:baseline"><span style="color:var(--cardinal);font-weight:700;flex-shrink:0">3.</span> IRB protocol number</div>
-          <div style="font-size:13px;color:var(--text);display:flex;gap:8px;align-items:baseline"><span style="color:var(--cardinal);font-weight:700;flex-shrink:0">4.</span> Study name</div>
-          <div style="font-size:13px;color:var(--text);display:flex;gap:8px;align-items:baseline"><span style="color:var(--cardinal);font-weight:700;flex-shrink:0">5.</span> Preferred session weeks</div>
-        </div>
-      </div>
-    </div>
-    <div style="padding:14px 0 20px;border-top:1px solid var(--border-light);margin-top:4px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap">
-      <span style="font-size:13px;color:var(--text-3)">Use the planner to check session capacity and project your collection timeline.</span>
-      <a href="#sec-planner" onclick="var el=document.getElementById('sec-planner');if(el)window.scrollTo({top:el.getBoundingClientRect().top+window.scrollY-72,behavior:'smooth'});return false;" style="display:inline-flex;align-items:center;gap:8px;background:var(--cardinal);color:white;padding:10px 20px;border-radius:6px;text-decoration:none;font-size:13px;font-weight:700;white-space:nowrap;transition:background 0.15s" onmouseover="this.style.background='var(--cardinal-dark)'" onmouseout="this.style.background='var(--cardinal)'">Plan data collection →</a>
-    </div>
-  </div>
-
-  <!-- ═══ STUDIES REFERENCE ═══ -->
-  <div class="ref-section" id="sec-studies" style="background:#F0EDE8">
-    <div style="padding:32px 24px 20px">
-      <div class="journey-step-label">Study Reference</div>
-      <div class="journey-headline">All studies in the current stack</div>
-      <p style="font-size:14px;color:var(--text-2);line-height:1.65;margin:6px 0 0 0;max-width:720px">A complete reference for all studies currently enrolled in the stacked session program — session composition by lab day, researcher details, duration, target N, collection dates, and pace projections.</p>
+  <!-- ═══ PROGRESS & SCHEDULE ═══ -->
+  <div class="ref-section" id="sec-progress" style="background:#F0EDE8;margin-bottom:28px">
+    <div style="padding:32px 24px 16px">
+      <div class="journey-step-label">Progress &amp; Schedule</div>
+      <div class="journey-headline">Collection status — all studies</div>
+      <p style="font-size:14px;color:var(--text-2);line-height:1.65;margin:6px 0 0 0;max-width:720px">Quota progress, session composition, and day-by-day collection timeline for every study currently in the stack.</p>
     </div>
 
     <!-- Summary strip -->
     <div class="ref-summary-strip" id="ref-summary-strip" style="border-top:1px solid rgba(0,0,0,0.06)"><!-- JS --></div>
 
-    <!-- Composition bars -->
-    <details class="ref-collapsible" id="ref-comp-wrap" open>
-      <summary class="ref-comp-title">Session Composition by Lab Day</summary>
-      <div id="ref-comp-bars"></div>
-    </details>
-
-    <!-- Study cards -->
+    <!-- Study cards with quota progress -->
     <details class="ref-collapsible" id="ref-cards-wrap" open>
       <summary class="ref-cards-label">Studies by researcher</summary>
       <div id="ref-study-grid"></div>
     </details>
+
+    <!-- Composition bars -->
+    <details class="ref-collapsible" id="ref-comp-wrap">
+      <summary class="ref-comp-title">Session composition by lab day</summary>
+      <div id="ref-comp-bars"></div>
+    </details>
+
+    <!-- Day-by-day dashboard -->
+    <details class="ref-collapsible" id="ref-dashboard-wrap" open>
+      <summary class="ref-comp-title">Day-by-day timeline</summary>
+      <div id="dashboard-grid" style="padding:0 0 8px"><!-- rendered by JS --></div>
+    </details>
   </div>
 
-  <!-- ═══ PLAN DATA COLLECTION ═══ -->
+<!-- ═══ TODAY'S SESSION ═══ -->
+  <div class="optin-card" id="sec-today" style="margin-bottom:28px">
+    <div style="padding:28px 24px 16px">
+      <div class="journey-step-label">Coordinator</div>
+      <div class="journey-headline">Today&#x2019;s session</div>
+      <p style="font-size:14px;color:var(--text-2);line-height:1.65;margin:8px 0 0 0;max-width:720px">At-a-glance ops view for the RA and coordinator — which studies are running, session times, credit tier, and the full stack roster.</p>
+    </div>
+    <div id="coordinator-view" style="padding:0 24px 8px"><!-- rendered by JS --></div>
+
+    <!-- Session roster (moved from Planner) -->
+    <div class="planner-section" id="sec-stack" style="border-top:1px solid var(--border-light);margin-top:8px">
+      <div class="planner-section-header">
+        <div class="planner-section-label">Session roster</div>
+        <div class="planner-section-desc">Studies currently sharing the session slot. Each participant completes all of them back-to-back. Credit is based on total time in the lab: <strong>0.5 credit</strong> (≤ 30 min), <strong>0.75 credit</strong> (31–45 min), or <strong>1.0 credit</strong> (46–60 min). Participants receive one credit award per session, not per study.</div>
+      </div>
+      <div id="stack-roster-legend" style="padding:8px 24px 16px"><!-- rendered by JS --></div>
+    </div>
+  </div>
+
+<!-- ═══ PLAN DATA COLLECTION ═══ -->
   <div class="throughput-card" id="sec-planner" style="overflow:visible">
     <div style="padding:28px 24px 16px">
       <div class="journey-step-label">Planner</div>
@@ -2536,35 +2511,8 @@ summary::marker { display: none; content: ''; }
       </div>
     </div>
 
-    <!-- ═══ SECTION: Current Stack ═══ -->
-    <div class="planner-section" id="sec-stack">
-      <div class="planner-section-header">
-        <div class="planner-section-label">Session roster</div>
-        <div class="planner-section-desc">Studies currently sharing the session slot. Each participant completes all of them back-to-back. Credit is based on total time in the lab: <strong>0.5 credit</strong> (≤ 30 min), <strong>0.75 credit</strong> (31–45 min), or <strong>1.0 credit</strong> (46–60 min). Participants receive one credit award per session, not per study.</div>
-      </div>
-      <div id="stack-roster-legend" style="padding:8px 24px 16px">
-        <!-- rendered by JS -->
-      </div>
-    </div>
-
-    <!-- ═══ SECTION: Collection Timeline moved into input card above ═══ -->
-
   </div>
-
-  <!-- ═══ COLLECTION DASHBOARD ═══ -->
-  <div class="optin-card" id="sec-dashboard" style="margin-bottom:28px">
-    <div style="padding:28px 24px 16px">
-      <div class="journey-step-label">Collection Dashboard</div>
-      <div class="journey-headline">Day-by-day progress &amp; session stacks</div>
-      <p style="font-size:14px;color:var(--text-2);line-height:1.65;margin:8px 0 0 0;max-width:720px">A bird's-eye view of every collection day — the session composition, how many participants each study expects to collect, and cumulative progress toward each researcher's target N.</p>
-    </div>
-    <div id="dashboard-grid" style="padding:0 24px 28px">
-      <!-- rendered by JS -->
-    </div>
-  </div>
-
-
-  <!-- ═══ HOW TO JOIN ═══ -->
+<!-- ═══ HOW TO JOIN ═══ -->
   <div class="optin-card" id="sec-join">
     <div style="padding:28px 24px 16px">
       <div class="journey-step-label">Submit</div>
@@ -2601,7 +2549,67 @@ summary::marker { display: none; content: ''; }
     </div>
   </div>
 
-  <!-- ═══ FAQ ═══ -->
+  <!-- ═══ OVERVIEW ═══ -->
+  <details id="sec-overview-wrap" style="margin-bottom:28px">
+    <summary style="cursor:pointer;list-style:none;display:flex;align-items:center;justify-content:space-between;padding:20px 24px;background:#F0EDE8;border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow);font-size:15px;font-weight:600;color:var(--text)">
+      <span>How it works &nbsp;<span style="font-size:12px;font-weight:400;color:var(--text-3)">Overview, eligibility &amp; what to provide</span></span>
+      <span style="font-size:13px;color:var(--text-3)">▸</span>
+    </summary>
+    <div id="sec-overview" style="background:#F0EDE8;border:1px solid var(--border);border-top:none;border-radius:0 0 var(--radius) var(--radius);padding:0 24px 0;box-shadow:var(--shadow)">
+
+    <div class="journey-step-label">Overview</div>
+    <div class="journey-headline" style="margin-bottom:10px">Collect verified, proctored survey responses through shared lab sessions</div>
+    <p style="font-size:14px;color:var(--text-2);line-height:1.65;margin:0 0 20px 0">Multiple short Qualtrics studies run back-to-back in LL102. Participants complete each study at individual workstations under RA supervision, with study order counterbalanced across days (all sessions within a day run the same order). Participants sign up for a fixed time slot and must remain for its full duration — everyone in the room starts and finishes together. You provide collaborator access to your Qualtrics survey — we handle scheduling, proctoring, SONA setup, and credit assignment.</p>
+
+    <!-- Eligibility — gate check first -->
+    <div id="sec-eligibility" style="padding:14px 16px;background:var(--cardinal-light);border-radius:6px;border:1px solid rgba(153,0,0,0.08);margin-bottom:12px">
+      <div class="card-box-label">Eligibility</div>
+      <div class="eligibility-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:6px 24px;font-size:14px;color:var(--text);line-height:1.5">
+        <div><span style="color:var(--green);font-weight:700">✓</span> Qualtrics-based online survey</div>
+        <div><span style="color:var(--green);font-weight:700">✓</span> Individual-level (no groups or dyads)</div>
+        <div><span style="color:var(--green);font-weight:700">✓</span> ≤ 30 minutes in duration</div>
+        <div><span style="color:var(--green);font-weight:700">✓</span> Active IRB approval</div>
+        <div style="grid-column:1/-1"><span style="color:var(--green);font-weight:700">✓</span> No deception</div>
+      </div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px">
+      <!-- What you get — left column -->
+      <div id="overview-what-you-get" style="padding:14px 16px;background:#F8F7F5;border-radius:6px">
+        <div class="card-box-label">What you get</div>
+        <div style="display:flex;flex-direction:column;gap:7px">
+          <div style="font-size:13px;color:var(--text);display:flex;gap:8px;align-items:baseline"><span style="color:var(--green);font-weight:700;flex-shrink:0">✓</span> ID-verified participants on dedicated lab computers — tab switching and external applications are disabled</div>
+          <div style="font-size:13px;color:var(--text);display:flex;gap:8px;align-items:baseline"><span style="color:var(--green);font-weight:700;flex-shrink:0">✓</span> Up to 16 seats per session, 4 sessions per day (~56 participants/day)</div>
+          <div style="border-top:1px solid var(--border-light);margin:4px 0"></div>
+          <div style="font-size:13px;color:var(--text);display:flex;gap:8px;align-items:baseline"><span style="color:var(--green);font-weight:700;flex-shrink:0">✓</span> Participants are required to remain for the full session duration and are dismissed simultaneously</div>
+          <div style="font-size:13px;color:var(--text);display:flex;gap:8px;align-items:baseline"><span style="color:var(--green);font-weight:700;flex-shrink:0">✓</span> A brief neutral transition screen between studies reduces carryover and priming effects</div>
+          <div style="font-size:13px;color:var(--text);display:flex;gap:8px;align-items:baseline"><span style="color:var(--green);font-weight:700;flex-shrink:0">✓</span> Participants who complete your study in a stacked session are automatically excluded from the online SONA version — no risk of duplicate participation</div>
+          <div style="font-size:13px;color:var(--text);display:flex;gap:8px;align-items:baseline"><span style="color:var(--green);font-weight:700;flex-shrink:0">✓</span> SONA credit: <strong>0.5</strong> (≤ 30 min) · <strong>0.75</strong> (31–45 min) · <strong>1.0</strong> (46–60 min)</div>
+          <div style="font-size:13px;color:var(--text);display:flex;gap:8px;align-items:baseline"><span style="color:var(--green);font-weight:700;flex-shrink:0">✓</span> Your survey content, logic, and data are untouched — responses appear in your standard Qualtrics export</div>
+        </div>
+      </div>
+      <!-- What you provide — right column -->
+      <div id="overview-what-you-provide" style="padding:14px 16px;background:#F8F7F5;border-radius:6px">
+        <div class="card-box-label">What you provide</div>
+        <p style="font-size:14px;color:var(--text-2);line-height:1.5;margin:0 0 10px 0">Submit the following five items by email, finalized <strong>by the day before your first session</strong>:</p>
+        <div style="display:flex;flex-direction:column;gap:7px">
+          <div style="font-size:13px;color:var(--text);display:flex;gap:8px;align-items:baseline"><span style="color:var(--cardinal);font-weight:700;flex-shrink:0">1.</span> <span><strong>Qualtrics collaborator access</strong> — the coordinator needs collaborator access (not just a link) to configure the redirect chain between studies</span></div>
+          <div style="font-size:13px;color:var(--text);display:flex;gap:8px;align-items:baseline"><span style="color:var(--cardinal);font-weight:700;flex-shrink:0">2.</span> Estimated study duration</div>
+          <div style="font-size:13px;color:var(--text);display:flex;gap:8px;align-items:baseline"><span style="color:var(--cardinal);font-weight:700;flex-shrink:0">3.</span> IRB protocol number</div>
+          <div style="font-size:13px;color:var(--text);display:flex;gap:8px;align-items:baseline"><span style="color:var(--cardinal);font-weight:700;flex-shrink:0">4.</span> Study name</div>
+          <div style="font-size:13px;color:var(--text);display:flex;gap:8px;align-items:baseline"><span style="color:var(--cardinal);font-weight:700;flex-shrink:0">5.</span> Preferred session weeks</div>
+        </div>
+      </div>
+    </div>
+    <div style="padding:14px 0 20px;border-top:1px solid var(--border-light);margin-top:4px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap">
+      <span style="font-size:13px;color:var(--text-3)">Use the planner to check session capacity and project your collection timeline.</span>
+      <a href="#sec-planner" onclick="var el=document.getElementById('sec-planner');if(el)window.scrollTo({top:el.getBoundingClientRect().top+window.scrollY-72,behavior:'smooth'});return false;" style="display:inline-flex;align-items:center;gap:8px;background:var(--cardinal);color:white;padding:10px 20px;border-radius:6px;text-decoration:none;font-size:13px;font-weight:700;white-space:nowrap;transition:background 0.15s" onmouseover="this.style.background='var(--cardinal-dark)'" onmouseout="this.style.background='var(--cardinal)'">Plan data collection →</a>
+    </div>
+  
+    </div>
+  </details>
+
+<!-- ═══ FAQ ═══ -->
   <div class="faq-card" id="sec-faq">
     <div style="padding:28px 24px 16px">
       <div class="journey-step-label">FAQ</div>
@@ -3071,7 +3079,6 @@ function updateCalc() {
   var targetEl = document.getElementById('calc-target');
   var dur = parseInt(durEl.value);
   var customN = parseInt(targetEl.value);
-  var slots = SESSIONS_PER_DAY;
   var effective = EFFECTIVE_PER_SESSION;
   var noshows = 16 - effective;
 
@@ -3083,8 +3090,6 @@ function updateCalc() {
 
   document.getElementById('calc-empty-state').style.display = 'none';
   document.getElementById('calc-filled-state').style.display = '';
-
-  var perDay = PER_DAY;
 
   // Build flat list of open dates (use cached if available)
   var openDates = window._capOpenDates || [];
@@ -3117,10 +3122,11 @@ function updateCalc() {
 
     if (firstCollectDay === null) firstCollectDay = i;
     var dayStart = cumulative;
+    var daySlots = getSlotsForDay(i);
     // Check if target is hit within this day's sessions
     var hitThisDay = false;
     var hitSession = 0;
-    for (var s = 1; s <= slots; s++) {
+    for (var s = 1; s <= daySlots; s++) {
       cumulative += effective;
       if (!targetDay && cumulative >= customN) {
         targetDay = i;
@@ -3132,7 +3138,7 @@ function updateCalc() {
     }
     // If didn't hit target, fill remaining sessions
     if (!hitThisDay) {
-      cumulative = dayStart + perDay;
+      cumulative = dayStart + getPerDayForDay(i);
     }
 
     schedule.push({
@@ -3141,14 +3147,19 @@ function updateCalc() {
       collected: cumulative - dayStart,
       cumulative: cumulative,
       isTargetDay: hitThisDay,
-      targetSession: hitThisDay ? hitSession : null
+      targetSession: hitThisDay ? hitSession : null,
+      daySlots: daySlots
     });
 
     if (hitThisDay) break;
   }
 
   var availableDays = openDates.length - skippedDays.length;
-  var totalCapacity = effective * slots * availableDays;
+  var totalCapacity = 0;
+  for (var ci = 0; ci < openDates.length; ci++) {
+    var cComp = getSessionComposition(ci);
+    if (cComp.used <= SESSION_CAP) totalCapacity += getPerDayForDay(ci);
+  }
 
   // Duration warning
   var summaryHtml = '';
@@ -3174,7 +3185,7 @@ function updateCalc() {
   var capNote = '<div style="font-size:12px;color:var(--text-3);margin-bottom:10px">';
   capNote += 'A <span class="dv">' + dur + '-min</span> study uses <strong>' + Math.round((dur/sessionCap)*100) + '%</strong> of the ' + sessionCap + '-min session cap (' + overheadMin + ' min is reserved for check-in/check-out, leaving ' + usableTime + ' min for studies). ';
   capNote += 'Each session seats 16 with ~' + noshows + ' no-shows = <strong>' + effective + ' expected per session</strong>. ';
-  capNote += 'At ' + slots + ' sessions/day: <strong>' + perDay + ' participants/day</strong>. ';
+  capNote += 'Sessions per day: <strong>6 on Mar 26–27</strong>, <strong>4 on all other days</strong>. ';
   capNote += '<em>No-show estimate is approximate and may vary by session.</em>';
   capNote += '</div>';
 
@@ -3192,7 +3203,9 @@ function updateCalc() {
 
   if (targetDay !== null) {
     var totalDays = schedule.length;
-    var totalSessions = (totalDays - 1) * slots + (targetSession || slots);
+    var totalSessions = schedule.reduce(function(sum, row, idx) {
+      return sum + (row.isTargetDay ? row.targetSession : row.daySlots);
+    }, 0);
     summaryHtml = capNote + skipNote;
     summaryHtml += '<div style="font-size:15px;line-height:1.6;margin-top:4px">Projected to reach <span class="dv-lg">N\u2009=\u2009' + customN + '</span> by <span class="dv-lg">' + openDates[targetDay] + '</span>';
     summaryHtml += ' — <span class="dv">' + totalDays + ' collection day' + (totalDays !== 1 ? 's' : '') + '</span>, <span class="dv">' + totalSessions + ' session' + (totalSessions !== 1 ? 's' : '') + '</span> total.</div>';
@@ -3219,8 +3232,8 @@ function updateCalc() {
     var pct = Math.min((row.cumulative / customN) * 100, 100);
     var cls = row.isTargetDay ? ' sched-row-target' : '';
     var dayBorder = idx > 0 ? ' sched-row-day-start' : '';
-    var sessionsUsed = row.isTargetDay ? row.targetSession : slots;
-    var sessLabel = row.isTargetDay ? sessionsUsed + '/' + slots : '' + slots;
+    var sessionsUsed = row.isTargetDay ? row.targetSession : row.daySlots;
+    var sessLabel = row.isTargetDay ? sessionsUsed + '/' + row.daySlots : '' + row.daySlots;
 
     // Session composition for this day (use original day index)
     var dayIndex = row.labNum - 1;
@@ -3345,8 +3358,24 @@ function updateInlineEstimate() {
     return;
   }
 
-  var daysNeeded = Math.ceil(n / PER_DAY);
-  var totalSessions = daysNeeded * SESSIONS_PER_DAY;
+  var daysNeeded = 0, cumul2 = 0;
+  for (var i = 0; i < openDates.length; i++) {
+    var comp2 = getSessionComposition(i);
+    if (comp2.used > SESSION_CAP) continue;
+    cumul2 += getPerDayForDay(i);
+    daysNeeded++;
+    if (cumul2 >= n) break;
+  }
+  var nReachable = cumul2 >= n;
+  var totalSessions = 0;
+  var cumul3 = 0;
+  for (var i = 0; i < openDates.length; i++) {
+    var comp3 = getSessionComposition(i);
+    if (comp3.used > SESSION_CAP) continue;
+    cumul3 += getPerDayForDay(i);
+    totalSessions += getSlotsForDay(i);
+    if (cumul3 >= n) break;
+  }
 
   function hl(val, large) {
     return large
@@ -3354,14 +3383,19 @@ function updateInlineEstimate() {
       : '<span class="dv">' + val + '</span>';
   }
 
-  if (daysNeeded <= eligibleDays) {
+  if (nReachable) {
     // Find the target date
     var cumul = 0, targetDate = '';
     for (var i = 0; i < openDates.length; i++) {
       var comp = getSessionComposition(i);
       if (comp.used > SESSION_CAP) continue;
-      cumul += PER_DAY;
+      cumul += getPerDayForDay(i);
       if (cumul >= n) { targetDate = openDates[i]; break; }
+    }
+    var maxN = 0;
+    for (var i = 0; i < openDates.length; i++) {
+      var comp = getSessionComposition(i);
+      if (comp.used <= SESSION_CAP) maxN += getPerDayForDay(i);
     }
 
     var fitComp = getSessionComposition(0);
@@ -3400,10 +3434,9 @@ function updateInlineEstimate() {
       '<div style="font-size:13px;line-height:1.8;color:var(--text-2)">' + sentence + '</div>';
 
   } else {
-    var maxN = (eligibleDays * PER_DAY).toLocaleString();
     estEl.innerHTML =
       '<div style="font-size:13px;line-height:1.8;color:var(--amber-text)">' +
-        'A target of ' + hl('N\u2009=\u2009' + n.toLocaleString(), true) + ' exceeds available capacity \u2014 the program can deliver up to ~' + hl(maxN + ' participants') + ' across ' + hl(eligibleDays + ' eligible days') + '. Consider supplementing with online collection.' +
+        'A target of ' + hl('N\u2009=\u2009' + n.toLocaleString(), true) + ' exceeds available capacity \u2014 the program can deliver up to ~' + hl(maxN.toLocaleString() + ' participants') + ' across ' + hl(eligibleDays + ' eligible days') + '. Consider supplementing with online collection.' +
       '</div>';
   }
 }
@@ -3428,23 +3461,34 @@ var STUDY_ROSTER = [
     status: 'collecting', startLab: 1, endLab: 5 },
   { id: 'D', dur: 15, targetN: 200, color: '#C4B5FD', label: 'D',
     title: 'Perceptions of Voice', researcher: 'Andrea Dittman', dept: 'Management & Organization',
-    status: 'collecting', startLab: 1, endLab: 4 },
+    status: 'collecting', startLab: 1, endLab: 5 },
   { id: 'F', dur: 5, targetN: 300, color: '#F9A8D4', label: 'F',
     title: 'Org Statements', researcher: 'Cheryl Wakslak', dept: 'Management & Organization',
     status: 'collecting', startLab: 1, endLab: 6 },
   { id: 'G', dur: 8, targetN: 100, color: '#FDE68A', label: 'G',
     title: 'Entitlement 2026', researcher: 'Jacob Roberson', dept: 'Management & Organization',
-    status: 'collecting', startLab: 1, endLab: 2 },
+    status: 'collecting', startLab: 1, endLab: 3 },
   { id: 'H', dur: 5, targetN: 100, color: '#67E8F9', label: 'H',
     title: 'TBD', researcher: 'Zach Berry', dept: 'Management & Organization',
     status: 'collecting', startLab: 1, endLab: 2 },
+  { id: 'H2', dur: 5, targetN: 400, color: '#A5B4FC', label: 'H2',
+    title: 'TBD', researcher: 'Zach Berry', dept: 'Management & Organization',
+    status: 'collecting', startLab: 4, endLab: 10 },
 ];
 var SESSION_CAP = 60;
 var OVERHEAD_CHECKIN = 5;
 var OVERHEAD_CHECKOUT = 5;
 var EFFECTIVE_PER_SESSION = 14; // 16 stations - 2 no-shows
 var SESSIONS_PER_DAY = 4;
-var PER_DAY = EFFECTIVE_PER_SESSION * SESSIONS_PER_DAY; // 56
+var PER_DAY = EFFECTIVE_PER_SESSION * SESSIONS_PER_DAY; // 56 (default)
+
+// Day-specific session counts: Mar 26 (dayIndex 3) and Mar 27 (dayIndex 4) run 6 sessions
+function getSlotsForDay(dayIndex) {
+  return (dayIndex === 3 || dayIndex === 4) ? 6 : SESSIONS_PER_DAY;
+}
+function getPerDayForDay(dayIndex) {
+  return getSlotsForDay(dayIndex) * EFFECTIVE_PER_SESSION;
+}
 
 function getSessionComposition(dayIndex) {
   // Which roster studies are active on this day?
@@ -3501,12 +3545,32 @@ function renderSessionBar(comp, height, showLabels) {
 
 // ═══ LL102 AVAILABILITY GRID ═══
 var ll102Weeks = [
-  { wk: 'Mar 2', dates: 'Mar 2–6', days: ['no','no','no','no','open|Mar 6 (Fri)'], current: true },
-  { wk: 'Mar 9', dates: 'Mar 9–13', days: ['no','no','no','open|Mar 12 (Thu)','open|Mar 13 (Fri)'], current: false },
+  { wk: 'Mar 2', dates: 'Mar 2–6', days: ['no','no','no','no','open|Mar 6 (Fri)'], current: false },
+  { wk: 'Mar 9', dates: 'Mar 9–13', days: ['no','no','open|Mar 11 (Wed)','no','open|Mar 13 (Fri)'], current: false },
   { wk: 'Mar 16', dates: 'Mar 16–20', days: ['break','break','break','break','break'], current: false },
-  { wk: 'Mar 23', dates: 'Mar 23–27', days: ['open|Mar 23 (Mon)','open|Mar 24 (Tue)','open|Mar 25 (Wed)','no','open|Mar 27 (Fri)'], current: false },
+  { wk: 'Mar 23', dates: 'Mar 23–27', days: ['no','no','no','open|Mar 26 (Thu)','open|Mar 27 (Fri)'], current: true },
   { wk: 'Mar 30', dates: 'Mar 30–Apr 3', days: ['open|Mar 30 (Mon)','open|Mar 31 (Tue)','open|Apr 1 (Wed)','open|Apr 2 (Thu)','open|Apr 3 (Fri)'], current: false },
 ];
+
+// Globally shared: index of the first open lab that is today or in the future.
+// Used by all render functions to determine which studies are active vs complete.
+var TODAY_DAY_INDEX = (function() {
+  var openDates = [];
+  ll102Weeks.forEach(function(w) {
+    w.days.forEach(function(d) {
+      if (d.indexOf('open') === 0) openDates.push(d.split('|')[1] || '');
+    });
+  });
+  var todayMs = new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate()).getTime();
+  for (var i = 0; i < openDates.length; i++) {
+    var m = openDates[i].match(/(Mar|Apr)\s+(\d+)/);
+    if (m) {
+      var mo = m[1] === 'Mar' ? 2 : 3;
+      if (new Date(2026, mo, parseInt(m[2])).getTime() >= todayMs) return i;
+    }
+  }
+  return openDates.length; // all labs have passed
+})();
 
 (function renderMiniCalendars() {
   // Extract open dates as day numbers per month, tracking sequential index
@@ -3606,6 +3670,7 @@ var ll102Weeks = [
   if (legEl) {
     var legHtml = '';
     STUDY_ROSTER.forEach(function(s) {
+      if (s.endLab <= TODAY_DAY_INDEX) return; // skip completed studies
       legHtml += '<span style="display:inline-flex;align-items:center;gap:4px;font-size:11px;color:var(--text-2)">';
       legHtml += '<span style="display:inline-block;background:' + s.color + ';color:#111;font-size:8px;font-weight:800;padding:1px 4px;border-radius:2px">' + s.label + '</span>';
       legHtml += s.title;
@@ -3619,7 +3684,7 @@ var ll102Weeks = [
   if (aprilDates.length) {
     summary += ' &nbsp;&middot;&nbsp; Includes ' + aprilDates.join(', ');
   }
-  summary += ' &nbsp;&middot;&nbsp; 4 sessions/day &nbsp;&middot;&nbsp; 16 stations/session (~14 usable after no-shows)';
+  summary += ' &nbsp;&middot;&nbsp; 4–6 sessions/day &nbsp;&middot;&nbsp; 16 stations/session (~14 usable after no-shows)';
   document.getElementById('avail-summary').innerHTML = summary;
 
   // Initial calendar meter render (no-op since meters are hidden, but keeps JS compat)
@@ -3966,8 +4031,8 @@ renderAllLayouts();
   var creditInfo = getCredit(comp.used);
   var statusText = isToday ? 'Live today' : daysAway === 1 ? 'Tomorrow' : 'In ' + daysAway + ' days';
   var countdownSub = isToday ? 'Sessions running now' : daysAway === 1 ? 'Session tomorrow' : target.label;
-  var expectedParticipants = SESSIONS_PER_DAY * EFFECTIVE_PER_SESSION;
-  var sessionTimes = '12, 3:30, 4:30, 5:30\u202fPM';
+  var expectedParticipants = getPerDayForDay(target.dayIndex);
+  var sessionTimes = getSlotsForDay(target.dayIndex) === 6 ? '12, 1:10, 2:20, 3:30, 4:30, 5:30\u202fPM' : '12, 3:30, 4:30, 5:30\u202fPM';
 
   // Studies active on this day
   var activeStudyNames = comp.active.map(function(s) { return s.label + ' · ' + s.title; }).join('<br>');
@@ -3977,7 +4042,7 @@ renderAllLayouts();
   }).join('<span style="color:rgba(255,255,255,0.2);margin:0 4px">·</span>');
 
   // Last updated badge
-  var LAST_UPDATED = 'Mar 5, 2026';
+  var LAST_UPDATED = 'Mar 26, 2026';
 
   // ── Row 1: meta strip ──
   // Build inline capacity bar segments
@@ -4011,7 +4076,7 @@ renderAllLayouts();
       '</div>' +
       '<div class="ticker-meta-items">' +
         '<div class="ticker-meta-item secondary">' +
-          '<span class="ticker-meta-val">' + SESSIONS_PER_DAY + '</span>' +
+          '<span class="ticker-meta-val">' + getSlotsForDay(target.dayIndex) + '</span>' +
           '<span class="ticker-meta-key">Sessions</span>' +
         '</div>' +
         '<div class="ticker-meta-item primary">' +
@@ -4078,15 +4143,23 @@ function updateSummaryStrip() {
       if (c.used <= SESSION_CAP) eligibleDays++;
     }
     if (eligibleDays > 0) {
-      var daysNeeded = Math.ceil(n / PER_DAY);
-      if (daysNeeded <= eligibleDays) {
+      var daysNeeded = 0, cumul = 0;
+      for (var i = 0; i < openDates.length; i++) {
+        var c = getSessionComposition(i);
+        if (c.used > SESSION_CAP) continue;
+        cumul += getPerDayForDay(i);
+        daysNeeded++;
+        if (cumul >= n) break;
+      }
+      var reachedN = cumul >= n;
+      if (reachedN) {
         // Find the actual target date
-        var cumul = 0, targetDate = '';
+        var cumul2 = 0, targetDate = '';
         for (var i = 0; i < openDates.length; i++) {
           var c = getSessionComposition(i);
           if (c.used > SESSION_CAP) continue;
-          cumul += PER_DAY;
-          if (cumul >= n) { targetDate = openDates[i]; break; }
+          cumul2 += getPerDayForDay(i);
+          if (cumul2 >= n) { targetDate = openDates[i]; break; }
         }
         items.push('<span class="strip-item"><span class="strip-dot" style="background:var(--cardinal)"></span> <span class="dv">N\u2009=\u2009' + n + '</span> in <span class="dv">~' + daysNeeded + ' day' + (daysNeeded !== 1 ? 's' : '') + '</span>' + (targetDate ? ' (by <span class="dv">' + targetDate + '</span>)' : '') + '</span>');
       } else {
@@ -4121,10 +4194,15 @@ document.addEventListener('keydown', function(e) {
       studyDates.push(openDates[di]);
     }
     var dateStr = formatDateList(studyDates);
-    var pendingTag = s.status === 'pending' ? ' <span style="font-size:10px;color:var(--amber-text);font-weight:600">(pending)</span>' : '';
-    var dotStyle = s.status === 'pending'
+    var windowClosed = s.endLab <= TODAY_DAY_INDEX;
+    var isPending = s.startLab > TODAY_DAY_INDEX;
+    var pendingTag = isPending ? ' <span style="font-size:10px;color:var(--amber-text);font-weight:600">(pending)</span>'
+                   : windowClosed ? ' <span style="font-size:10px;color:#6B7280;font-weight:600">(complete)</span>' : '';
+    var dotStyle = isPending
       ? 'background:repeating-linear-gradient(-45deg,#D1D5DB,#D1D5DB 3px,#E5E7EB 3px,#E5E7EB 6px);border:1px solid #9CA3AF'
-      : 'background:' + s.color;
+      : windowClosed
+        ? 'background:#D1D5DB;border:1px solid #9CA3AF'
+        : 'background:' + s.color;
     html += '<div class="roster-pill">';
     html += '<span class="roster-pill-dot" style="' + dotStyle + '"></span>';
     html += '<span><strong>Study ' + s.label + '</strong> · ' + s.dur + ' min' + pendingTag + '</span>';
@@ -4134,11 +4212,11 @@ document.addEventListener('keydown', function(e) {
 
   html += '</div>';
 
-  // Overhead summary
-  var rosterTime = 0;
-  STUDY_ROSTER.forEach(function(s) { rosterTime += s.dur; });
+  // Overhead summary — use today's (or next upcoming) session composition, not the full roster
+  var activeComp = getSessionComposition(TODAY_DAY_INDEX < openDates.length ? TODAY_DAY_INDEX : openDates.length - 1);
+  var rosterTime = activeComp.studyTime;
   var overhead = OVERHEAD_CHECKIN + OVERHEAD_CHECKOUT;
-  var totalUsed = rosterTime + overhead;
+  var totalUsed = activeComp.used;
   var openMin = SESSION_CAP - totalUsed;
   var rosterCredit = getCredit(totalUsed);
   html += '<div class="roster-overhead">';
@@ -4219,7 +4297,7 @@ document.addEventListener('keydown', function(e) {
         var isActiveOnD2 = s.startLab - 1 <= d2 && d2 < s.endLab;
         // If past/today, count actual; if future, count projected
         if (isActiveOnD2) {
-          cumCollected += PER_DAY;
+          cumCollected += getPerDayForDay(d2);
         }
       }
       // Cap at targetN
@@ -4237,7 +4315,7 @@ document.addEventListener('keydown', function(e) {
       var hitTarget = displayCollected >= s.targetN;
       var barColor = hitTarget ? '#16A34A' : isActive ? s.color : '#D1D5DB';
 
-      var dayCollected = isActive ? PER_DAY : 0;
+      var dayCollected = isActive ? getPerDayForDay(di) : 0;
       var afterToday = isFuture && isActive;
 
       studyRowsHtml += '<div class="dash-study-row' + (isActive ? '' : ' inactive') + '">';
@@ -4258,7 +4336,7 @@ document.addEventListener('keydown', function(e) {
     html += '<div class="dash-day-card" data-day-index="' + di + '" data-is-today="' + (isToday ? '1' : '0') + '" data-days-away="' + diff + '">';
     html += '<div class="dash-day-header' + headerClass + '" onclick="toggleDashDay(this.closest(\'.dash-day-card\'))">';
     html += '<div><div class="dash-day-label">Lab ' + (di + 1) + ' &nbsp;·&nbsp; ' + dateLabel + '</div>';
-    html += '<div class="dash-day-sub">' + SESSIONS_PER_DAY + ' sessions · ~' + (SESSIONS_PER_DAY * EFFECTIVE_PER_SESSION) + ' participants expected</div></div>';
+    html += '<div class="dash-day-sub">' + getSlotsForDay(di) + ' sessions · ~' + getPerDayForDay(di) + ' participants expected</div></div>';
     html += badgeHtml;
     html += '<span class="dash-day-chevron">▼</span>';
     html += '</div>';
@@ -4420,23 +4498,34 @@ document.querySelectorAll('.faq-group-body').forEach(function(body) {
 (function renderStudyReference() {
   var openDates = window._capOpenDates || [];
 
-  // ── Summary strip ──
-  var totalStudyMin = STUDY_ROSTER.reduce(function(a, s) { return a + s.dur; }, 0);
+  // Summary strip
   var comp0 = getSessionComposition(0);
-  var creditInfo0 = getCredit(comp0.used);
+  // Peak session = busiest day
+  var peakComp = comp0;
+  for (var di = 1; di < openDates.length; di++) {
+    var c = getSessionComposition(di);
+    if (c.used > peakComp.used) peakComp = c;
+  }
+  var activeStudyCount = STUDY_ROSTER.filter(function(s) { return s.endLab > TODAY_DAY_INDEX; }).length;
   var totalN = STUDY_ROSTER.reduce(function(a, s) { return a + s.targetN; }, 0);
   var researchers = [];
   STUDY_ROSTER.forEach(function(s) { if (researchers.indexOf(s.researcher) < 0) researchers.push(s.researcher); });
+
+  // Compute credit range across all open days
+  var allCredits = openDates.map(function(_, di) { return parseFloat(getCredit(getSessionComposition(di).used).credit); });
+  var minCredit = Math.min.apply(null, allCredits);
+  var maxCredit = Math.max.apply(null, allCredits);
+  var creditDisplay = minCredit === maxCredit ? String(maxCredit) : minCredit + '\u2013' + maxCredit;
 
   function summStat(val, key, gold) {
     return '<div class="ref-summary-stat"><span class="ref-summary-val' + (gold ? ' gold' : '') + '">' + val + '</span><span class="ref-summary-key">' + key + '</span></div>';
   }
   document.getElementById('ref-summary-strip').innerHTML =
-    summStat(STUDY_ROSTER.length, 'Studies active') +
+    summStat(activeStudyCount, 'Studies active') +
     summStat(researchers.length, 'Researchers') +
     summStat(openDates.length, 'Session days') +
-    summStat(comp0.used + ' min', 'Peak session length') +
-    summStat(creditInfo0.credit, 'SONA credit / participant', true) +
+    summStat(peakComp.used + ' min', 'Peak session length') +
+    summStat(creditDisplay, 'SONA credit / participant', true) +
     summStat(totalN.toLocaleString(), 'Combined target N');
 
   // ── Composition bars ──
@@ -4529,9 +4618,19 @@ document.querySelectorAll('.faq-group-body').forEach(function(body) {
         studyDates.push(openDates[di]);
       }
       var daysActive = studyDates.length;
-      var daysNeeded = Math.ceil(s.targetN / PER_DAY);
+      var studyActiveIndices = [];
+      for (var di2 = s.startLab - 1; di2 < Math.min(s.endLab, openDates.length); di2++) {
+        studyActiveIndices.push(di2);
+      }
+      var totalStudyCap = studyActiveIndices.reduce(function(sum, di2) { return sum + getPerDayForDay(di2); }, 0);
+      var daysNeeded = 0, capSoFar = 0;
+      for (var k = 0; k < studyActiveIndices.length; k++) {
+        capSoFar += getPerDayForDay(studyActiveIndices[k]);
+        daysNeeded++;
+        if (capSoFar >= s.targetN) break;
+      }
       var fillPct = Math.min(daysNeeded / Math.max(daysActive, 1) * 100, 100).toFixed(0);
-      var paceOk = daysNeeded <= daysActive;
+      var paceOk = capSoFar >= s.targetN;
       var paceColor = paceOk ? '#16A34A' : '#D97706';
       var paceLabel = paceOk
         ? 'Reaches N=' + s.targetN + ' in ~' + daysNeeded + ' day' + (daysNeeded !== 1 ? 's' : '')
@@ -4549,10 +4648,21 @@ document.querySelectorAll('.faq-group-body').forEach(function(body) {
         completionColor = '#D97706';
       }
 
-      var sessionPos = STUDY_ROSTER.indexOf(s) + 1;
-      var posNote = sessionPos === 1 ? '1st in session' : sessionPos === STUDY_ROSTER.length ? 'Last in session' : 'Position ' + sessionPos + ' of ' + STUDY_ROSTER.length;
-      var statusCls = s.status === 'collecting' ? 'collecting' : 'pending';
-      var statusLabel = s.status === 'collecting' ? 'Collecting' : 'Pending';
+      var activeRoster = STUDY_ROSTER.filter(function(r) { return r.endLab > TODAY_DAY_INDEX; });
+      var sessionPos = activeRoster.indexOf(s) + 1;
+      var posNote = sessionPos <= 0 ? 'Window closed'
+                  : sessionPos === 1 ? '1st in session'
+                  : sessionPos === activeRoster.length ? 'Last in session'
+                  : 'Position ' + sessionPos + ' of ' + activeRoster.length;
+      var windowClosed = s.endLab <= TODAY_DAY_INDEX;
+      var statusCls, statusLabel;
+      if (windowClosed) {
+        statusCls = 'complete'; statusLabel = 'Complete';
+      } else if (s.startLab > TODAY_DAY_INDEX) {
+        statusCls = 'pending'; statusLabel = 'Pending';
+      } else {
+        statusCls = 'collecting'; statusLabel = 'Collecting';
+      }
       var sepNote = s.id === 'E' ? 'Separated from Study F (Org Statements) by 4 studies'
                   : s.id === 'F' ? 'Separated from Study E (Pragmatics) by 4 studies'
                   : '';
@@ -4591,6 +4701,111 @@ document.querySelectorAll('.faq-group-body').forEach(function(body) {
 
   function refField(key, val, em) {
     return '<div class="ref-field"><span class="ref-field-key">' + key + '</span><span class="ref-field-val' + (em ? ' em' : '') + '">' + val + '</span></div>';
+  }
+})();
+
+// ═══ COORDINATOR VIEW ═══
+(function renderCoordinatorView() {
+  var container = document.getElementById('coordinator-view');
+  if (!container) return;
+
+  var openDates = window._capOpenDates || [];
+  var now = new Date();
+  var today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+
+  // Find today or next upcoming lab
+  var target = null, isPast = false;
+  for (var i = 0; i < openDates.length; i++) {
+    var m = openDates[i].match(/(Mar|Apr)\s+(\d+)/);
+    if (!m) continue;
+    var mo = m[1] === 'Mar' ? 2 : 3;
+    var dateObj = new Date(2026, mo, parseInt(m[2]));
+    var diff = Math.round((dateObj - today) / 86400000);
+    if (diff === 0 || diff > 0) {
+      target = { label: openDates[i], dayIndex: i, diff: diff };
+      break;
+    }
+  }
+
+  if (!target) {
+    container.innerHTML = '<p style="font-size:13px;color:var(--text-3);padding:12px 0">Collection complete — no upcoming sessions.</p>';
+    return;
+  }
+
+  var isToday = target.diff === 0;
+  var comp = getSessionComposition(target.dayIndex);
+  var activeStudies = comp.active.filter(function(s) { return s.id !== 'New'; });
+  var creditInfo = getCredit(comp.used);
+  var slots = getSlotsForDay(target.dayIndex);
+  var expected = getPerDayForDay(target.dayIndex);
+  var labNum = target.dayIndex + 1;
+
+  // Session times
+  var times = slots === 6
+    ? ['12:00 PM', '1:10 PM', '2:20 PM', '3:30 PM', '4:30 PM', '5:30 PM']
+    : ['12:00 PM', '3:30 PM', '4:30 PM', '5:30 PM'];
+
+  // RA checklist items
+  var checklist = [
+    'Confirm Qualtrics redirect chain is live end-to-end',
+    'Check SONA timeslots are open and filled',
+    'Verify lab computers are logged in to first study URL',
+    'Have SONA credit-grant screen ready for end of session',
+    'Note any no-shows for experimenter log'
+  ];
+
+  var statusColor = isToday ? 'var(--green)' : 'var(--text-3)';
+  var statusLabel = isToday ? 'Live today' : (target.diff === 1 ? 'Tomorrow' : 'In ' + target.diff + ' days');
+
+  var html = '';
+
+  // Top row: lab info cards
+  html += '<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:16px">';
+  html += metaCard('Lab ' + labNum, target.label.replace(' ('+target.label.match(/\((\w+)\)/)[1]+')', ''), statusColor);
+  html += metaCard(slots + ' sessions', expected + ' participants expected', 'var(--text-2)');
+  html += metaCard(creditInfo.credit + ' credit', 'SONA / participant', creditInfo.color);
+  html += metaCard(comp.used + ' min', 'Session length', comp.used > 60 ? '#DC2626' : 'var(--text-2)');
+  html += '</div>';
+
+  // Session times
+  html += '<div style="margin-bottom:14px">';
+  html += '<div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.8px;color:var(--text-3);margin-bottom:6px">Session times</div>';
+  html += '<div style="display:flex;gap:8px;flex-wrap:wrap">';
+  times.forEach(function(t) {
+    html += '<span style="font-size:12px;font-weight:600;background:var(--surface);border:0.5px solid var(--border);border-radius:4px;padding:3px 10px;color:var(--text-2)">' + t + '</span>';
+  });
+  html += '</div></div>';
+
+  // Studies running
+  html += '<div style="margin-bottom:14px">';
+  html += '<div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.8px;color:var(--text-3);margin-bottom:6px">Studies running</div>';
+  html += '<div style="display:flex;gap:8px;flex-wrap:wrap">';
+  activeStudies.forEach(function(s) {
+    html += '<span style="display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:600;background:var(--surface);border:0.5px solid var(--border);border-radius:4px;padding:4px 10px;color:var(--text)">';
+    html += '<span style="width:8px;height:8px;border-radius:2px;background:' + s.color + ';flex-shrink:0"></span>';
+    html += s.label + ' · ' + s.title + ' <span style="color:var(--text-3);font-weight:400">(' + s.dur + ' min)</span>';
+    html += '</span>';
+  });
+  html += '</div></div>';
+
+  // RA checklist
+  html += '<div style="margin-bottom:16px">';
+  html += '<div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.8px;color:var(--text-3);margin-bottom:6px">RA prep checklist</div>';
+  html += '<div style="display:flex;flex-direction:column;gap:5px">';
+  checklist.forEach(function(item) {
+    html += '<label style="display:flex;align-items:baseline;gap:8px;font-size:13px;color:var(--text-2);cursor:pointer">';
+    html += '<input type="checkbox" style="margin-top:1px;flex-shrink:0"> ' + item;
+    html += '</label>';
+  });
+  html += '</div></div>';
+
+  container.innerHTML = html;
+
+  function metaCard(val, label, color) {
+    return '<div style="background:var(--surface);border:0.5px solid var(--border);border-radius:6px;padding:10px 12px">' +
+      '<div style="font-size:18px;font-weight:600;color:' + color + '">' + val + '</div>' +
+      '<div style="font-size:11px;color:var(--text-3);margin-top:2px">' + label + '</div>' +
+    '</div>';
   }
 })();
 </script>
