@@ -11,13 +11,15 @@
   --cardinal-dark: #7a0000;
   --cardinal-light: #FEF2F2;
   --gold: #FFCC00;
-  --bg: #FAF9F6;
+  --gold-dark: #D4A800;
+  --bg: #F6F3EE;
   --surface: #FFFFFF;
-  --text: #1A1A1A;
-  --text-2: #585858;
-  --text-3: #8C8C8C;
-  --border: #e4e0da;
-  --border-light: #f0ede8;
+  --surface-2: #FDFCFA;
+  --text: #181818;
+  --text-2: #505050;
+  --text-3: #909090;
+  --border: #E2DDD6;
+  --border-light: #EDE9E3;
   --green: #16A34A;
   --green-bg: #ECFDF5;
   --green-text: #065F46;
@@ -26,8 +28,12 @@
   --blue: #2563EB;
   --blue-bg: #EFF6FF;
   --red-bg: #FEF2F2;
-  --radius: 4px;
-  --shadow: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+  --radius: 8px;
+  --radius-sm: 5px;
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.05), 0 1px 2px rgba(0,0,0,0.04);
+  --shadow: 0 2px 8px rgba(0,0,0,0.07), 0 1px 3px rgba(0,0,0,0.05);
+  --shadow-md: 0 4px 16px rgba(0,0,0,0.08), 0 2px 6px rgba(0,0,0,0.05);
+  --shadow-lg: 0 8px 32px rgba(0,0,0,0.10), 0 2px 8px rgba(0,0,0,0.06);
 }
 
 html { scroll-behavior: smooth; scroll-padding-top: 52px; }
@@ -36,9 +42,11 @@ html { scroll-behavior: smooth; scroll-padding-top: 52px; }
 body {
   font-family: 'Source Sans 3', Arial, Helvetica, sans-serif;
   background: var(--bg);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23noise)' opacity='0.025'/%3E%3C/svg%3E");
   color: var(--text);
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 /* ═══ Journey Section Headers ═══ */
@@ -47,10 +55,11 @@ body {
 }
 .journey-step-label {
   font-size: 10px;
-  font-weight: 700;
+  font-weight: 800;
   text-transform: uppercase;
-  letter-spacing: 2px;
+  letter-spacing: 2.5px;
   color: var(--cardinal);
+  opacity: 0.8;
   margin-bottom: 6px;
   display: flex;
   align-items: center;
@@ -65,11 +74,12 @@ body {
 }
 .journey-headline {
   font-family: 'Source Serif 4', Georgia, serif;
-  font-size: 19px;
-  font-weight: 700;
+  font-size: 21px;
+  font-weight: 900;
   color: var(--cardinal);
-  line-height: 1.3;
+  line-height: 1.25;
   margin-bottom: 8px;
+  letter-spacing: -0.2px;
 }
 .journey-subtext {
   font-size: 14px;
@@ -81,48 +91,68 @@ body {
 /* ═══ Page Shell ═══ */
 .page-header {
   background: var(--cardinal);
+  background-image:
+    repeating-linear-gradient(
+      -55deg,
+      transparent,
+      transparent 18px,
+      rgba(255,255,255,0.025) 18px,
+      rgba(255,255,255,0.025) 19px
+    );
   color: white;
+  position: relative;
+}
+.page-header::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(122,0,0,0.4) 0%, transparent 60%);
+  pointer-events: none;
 }
 .page-header-inner {
   max-width: 1120px;
   margin: 0 auto;
-  padding: 18px 32px 14px;
+  padding: 22px 32px 18px;
   display: flex;
   align-items: center;
   gap: 20px;
+  position: relative;
+  z-index: 1;
 }
 .page-header h1 {
   font-family: 'Source Serif 4', Georgia, serif;
-  font-size: 22px;
+  font-size: 24px;
   font-weight: 900;
-  letter-spacing: 0.2px;
+  letter-spacing: -0.3px;
+  line-height: 1.15;
 }
 .header-brand {
   font-size: 10px;
-  font-weight: 300;
-  letter-spacing: 2.5px;
+  font-weight: 600;
+  letter-spacing: 2px;
   text-transform: uppercase;
-  opacity: 0.8;
-  margin-bottom: 6px;
+  opacity: 0.65;
+  margin-bottom: 5px;
 }
 .page-header .subtitle {
   font-size: 13px;
-  color: rgba(255,255,255,0.7);
-  margin-top: 1px;
+  color: rgba(255,255,255,0.6);
+  margin-top: 2px;
+  letter-spacing: 0.1px;
 }
 .header-pill {
   margin-left: auto;
-  font-size: 11px;
-  font-weight: 700;
+  font-size: 10px;
+  font-weight: 800;
   background: var(--gold);
   color: var(--cardinal-dark);
   padding: 5px 14px;
-  border-radius: 2px;
-  letter-spacing: 1px;
+  border-radius: 3px;
+  letter-spacing: 1.2px;
   white-space: nowrap;
   text-transform: uppercase;
 }
-.gold-bar { height: 4px; background: var(--gold); }
+.gold-bar { height: 5px; background: linear-gradient(90deg, var(--gold) 0%, #FFD740 100%); }
 
 .main {
   max-width: 1120px;
@@ -137,7 +167,7 @@ body {
   border-radius: var(--radius);
   overflow: hidden;
   margin-bottom: 28px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.08), 0 1px 2px rgba(0,0,0,0.04);
+  box-shadow: var(--shadow-md);
 }
 .calc-field label {
   display: block;
@@ -152,17 +182,18 @@ body {
   width: 100%;
   padding: 10px 14px;
   border: 1.5px solid var(--border);
-  border-radius: 6px;
+  border-radius: var(--radius-sm);
   font-family: inherit;
   font-size: 15px;
   font-weight: 600;
   color: var(--text);
   background: var(--surface);
   outline: none;
-  transition: border-color 0.15s;
+  transition: border-color 0.15s, box-shadow 0.15s;
 }
 .calc-field input:focus, .calc-field select:focus {
   border-color: var(--cardinal);
+  box-shadow: 0 0 0 3px rgba(153,0,0,0.08);
 }
 .calc-field select {
   appearance: none;
@@ -198,11 +229,12 @@ body {
 .mini-cal-month {
   font-family: 'Source Serif 4', Georgia, serif;
   font-size: 14px;
-  font-weight: 700;
+  font-weight: 900;
   color: var(--cardinal);
   padding: 10px 14px;
-  background: #F4F2EF;
-  border-bottom: 2px solid var(--gold);
+  background: #F0EDE8;
+  border-bottom: 3px solid var(--gold);
+  letter-spacing: -0.2px;
 }
 .mini-cal-grid {
   display: grid;
@@ -378,7 +410,7 @@ body {
   border: 1px solid var(--border);
   border-radius: var(--radius);
   overflow: hidden;
-  box-shadow: var(--shadow);
+  box-shadow: var(--shadow-md);
 }
 .faq-items { padding: 0; }
 .faq-items > .faq-item:first-child .faq-q { padding-top: 18px; }
@@ -391,7 +423,7 @@ body {
   font-family: 'Source Serif 4', Georgia, serif;
   font-size: 14px;
   font-weight: 700;
-  color: var(--cardinal);
+  color: var(--text);
   padding: 14px 24px;
   cursor: pointer;
   list-style: none;
@@ -399,8 +431,10 @@ body {
   align-items: center;
   justify-content: space-between;
   gap: 12px;
-  transition: color 0.15s;
+  transition: color 0.15s, background 0.12s;
 }
+.faq-item[open] .faq-q { color: var(--cardinal); background: rgba(153,0,0,0.02); }
+.faq-q:hover { background: rgba(0,0,0,0.025); }
 .faq-q::-webkit-details-marker { display: none; }
 .faq-q::marker { display: none; content: ''; }
 .faq-q::after {
@@ -486,19 +520,20 @@ body {
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  padding: 10px 22px;
+  padding: 11px 24px;
   background: var(--cardinal);
   color: white;
   border: none;
-  border-radius: 6px;
+  border-radius: var(--radius-sm);
   font-family: inherit;
   font-size: 14px;
   font-weight: 700;
   cursor: pointer;
-  transition: all 0.15s;
+  transition: all 0.2s;
   margin-top: 4px;
+  letter-spacing: 0.1px;
 }
-.power-use-btn:hover { background: var(--cardinal-dark); transform: translateY(-1px); box-shadow: 0 3px 10px rgba(153,0,0,0.2); }
+.power-use-btn:hover { background: var(--cardinal-dark); transform: translateY(-2px); box-shadow: 0 6px 16px rgba(153,0,0,0.25); }
 
 .power-note {
   font-size: 12px;
@@ -573,11 +608,11 @@ body {
 .capacity-bar-wrap {
   position: relative;
   height: 64px;
-  background: #F0F0EE;
-  border-radius: 8px;
+  background: #EDEAE5;
+  border-radius: 10px;
   overflow: visible;
   display: flex;
-  box-shadow: inset 0 1px 3px rgba(0,0,0,0.08);
+  box-shadow: inset 0 2px 4px rgba(0,0,0,0.07);
   margin-top: 12px;
   margin-bottom: 12px;
 }
@@ -750,9 +785,11 @@ body {
   position: sticky;
   top: 0;
   z-index: 100;
-  background: var(--surface);
+  background: rgba(255,255,255,0.97);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
   border-bottom: 1px solid var(--border);
-  box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+  box-shadow: 0 2px 12px rgba(0,0,0,0.06);
 }
 .section-nav-inner {
   max-width: 1120px;
@@ -766,27 +803,29 @@ body {
 }
 .section-nav-inner::-webkit-scrollbar { display: none; }
 .nav-link {
-  padding: 10px 12px;
+  padding: 11px 14px;
   font-size: 12px;
   font-weight: 600;
   color: var(--text-3);
   text-decoration: none;
   white-space: nowrap;
-  border-bottom: 2px solid transparent;
-  transition: color 0.15s, border-color 0.15s;
+  border-bottom: 2.5px solid transparent;
+  transition: color 0.15s, border-color 0.15s, background 0.15s;
+  border-radius: 0;
 }
-.nav-link:hover { color: var(--text); }
+.nav-link:hover { color: var(--text); background: rgba(0,0,0,0.03); }
 .nav-link.active {
   color: var(--cardinal);
   border-bottom-color: var(--cardinal);
+  font-weight: 700;
 }
 /* Planner is the primary destination — give it permanent visual weight */
 .nav-link[data-section="sec-planner"] {
   color: var(--cardinal);
-  font-weight: 700;
+  font-weight: 800;
 }
 .nav-link[data-section="sec-planner"]:not(.active) {
-  border-bottom-color: rgba(153,0,0,0.2);
+  border-bottom-color: rgba(153,0,0,0.25);
 }
 .nav-top-link {
   margin-left: auto;
@@ -805,6 +844,16 @@ body {
   pointer-events: auto;
 }
 .nav-top-link:hover { color: var(--cardinal); }
+.nav-divider {
+  width: 1px;
+  height: 20px;
+  background: var(--border);
+  align-self: center;
+  margin: 0 6px;
+  flex-shrink: 0;
+  display: inline-block;
+  opacity: 0.6;
+}
 
 /* Sub-links — always-visible indented planner subsections */
 
@@ -839,17 +888,20 @@ body {
 }
 .nav-drop-item {
   display: block;
-  padding: 7px 16px;
+  padding: 8px 16px;
   font-size: 12px;
   font-weight: 500;
   color: var(--text-2);
   text-decoration: none;
   white-space: nowrap;
-  transition: background 0.1s, color 0.1s;
+  transition: background 0.12s, color 0.12s;
+  border-left: 2px solid transparent;
 }
 .nav-drop-item:hover {
   background: var(--cardinal-light);
   color: var(--cardinal);
+  border-left-color: var(--cardinal);
+  padding-left: 14px;
 }
 .nav-drop-item.active {
   color: var(--cardinal);
@@ -862,10 +914,13 @@ body {
 /* ═══ Collection Dashboard / Day-by-day Timeline ═══ */
 .dash-day-card {
   border: 1px solid var(--border);
-  border-radius: 8px;
+  border-radius: var(--radius);
   overflow: hidden;
-  margin-bottom: 12px;
+  margin-bottom: 10px;
+  box-shadow: var(--shadow-sm);
+  transition: box-shadow 0.2s;
 }
+.dash-day-card.expanded { box-shadow: var(--shadow); }
 .dash-day-header {
   display: flex;
   align-items: center;
@@ -907,7 +962,7 @@ body {
 }
 .dash-session-bar {
   display: flex;
-  height: 14px;
+  height: 28px;
   border-radius: 4px;
   overflow: hidden;
   background: #E5E2DC;
@@ -1093,11 +1148,11 @@ summary::marker { display: none; content: ''; }
 .planner-input-inner {
   background: var(--surface);
   border-radius: 10px;
-  border: 1px solid rgba(153,0,0,0.12);
+  border: 1px solid rgba(153,0,0,0.15);
   box-shadow:
-    0 0 0 4px rgba(153,0,0,0.05),
-    0 4px 24px rgba(0,0,0,0.10),
-    0 1px 4px rgba(0,0,0,0.06);
+    0 0 0 5px rgba(153,0,0,0.04),
+    0 6px 32px rgba(0,0,0,0.09),
+    0 2px 6px rgba(0,0,0,0.05);
   overflow: hidden;
 }
 /* Inputs col: two steps side by side */
@@ -1240,7 +1295,7 @@ summary::marker { display: none; content: ''; }
   width: 52px;
   padding: 6px 4px;
   border: 2px solid var(--border);
-  border-radius: 6px;
+  border-radius: var(--radius-sm);
   font-family: inherit;
   font-size: 18px;
   font-weight: 800;
@@ -1248,9 +1303,9 @@ summary::marker { display: none; content: ''; }
   background: var(--surface);
   outline: none;
   text-align: center;
-  transition: border-color 0.15s;
+  transition: border-color 0.15s, box-shadow 0.15s;
 }
-.dur-num-input:focus { border-color: var(--cardinal); }
+.dur-num-input:focus { border-color: var(--cardinal); box-shadow: 0 0 0 3px rgba(153,0,0,0.08); }
 .dur-num-input::placeholder { color: var(--border); font-weight: 400; font-size: 14px; }
 .dur-unit { font-size: 14px; font-weight: 600; color: var(--text-3); }
 
@@ -1384,8 +1439,9 @@ summary::marker { display: none; content: ''; }
   display: inline-flex;
   align-items: center;
   gap: 5px;
-  font-weight: 600;
+  font-weight: 700;
   white-space: nowrap;
+  font-size: 12px;
 }
 .strip-dot {
   width: 6px;
@@ -1645,7 +1701,7 @@ summary::marker { display: none; content: ''; }
   border-radius: var(--radius);
   overflow: hidden;
   margin-bottom: 28px;
-  box-shadow: var(--shadow);
+  box-shadow: var(--shadow-md);
 }
 .ref-summary-strip {
   background: #222222;
@@ -1788,18 +1844,19 @@ summary::marker { display: none; content: ''; }
 
 .ref-study-card {
   border: 1px solid var(--border);
-  border-radius: 6px;
+  border-radius: var(--radius);
   overflow: hidden;
-  background: #FAFAF8;
-  transition: box-shadow 0.15s;
+  background: var(--surface);
+  transition: box-shadow 0.2s, transform 0.2s;
+  box-shadow: var(--shadow-sm);
 }
-.ref-study-card:hover { box-shadow: 0 3px 12px rgba(0,0,0,0.09); }
+.ref-study-card:hover { box-shadow: var(--shadow-md); transform: translateY(-1px); }
 .ref-study-card-head {
   display: flex;
   align-items: stretch;
   border-bottom: 1px solid var(--border-light);
 }
-.ref-study-color-band { width: 4px; flex-shrink: 0; }
+.ref-study-color-band { width: 5px; flex-shrink: 0; }
 .ref-study-head-inner { flex: 1; padding: 12px 14px 10px; }
 .ref-study-top-row {
   display: flex;
@@ -1808,8 +1865,8 @@ summary::marker { display: none; content: ''; }
   margin-bottom: 4px;
 }
 .ref-study-badge {
-  width: 24px; height: 24px;
-  border-radius: 4px;
+  width: 26px; height: 26px;
+  border-radius: 5px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1817,6 +1874,7 @@ summary::marker { display: none; content: ''; }
   font-weight: 900;
   color: rgba(0,0,0,0.65);
   flex-shrink: 0;
+  box-shadow: inset 0 0 0 1px rgba(0,0,0,0.1);
 }
 .ref-study-title {
   font-family: 'Source Serif 4', Georgia, serif;
@@ -1828,16 +1886,16 @@ summary::marker { display: none; content: ''; }
 }
 .ref-status-pill {
   font-size: 9px;
-  font-weight: 700;
+  font-weight: 800;
   text-transform: uppercase;
-  letter-spacing: 0.8px;
-  padding: 2px 7px;
-  border-radius: 3px;
+  letter-spacing: 1px;
+  padding: 2px 8px;
+  border-radius: 20px;
   flex-shrink: 0;
 }
 .ref-status-pill.collecting { background: var(--green-bg); color: #065F46; border: 1px solid #A7F3D0; }
 .ref-status-pill.pending { background: var(--amber-bg); color: var(--amber-text); border: 1px solid #FDE68A; }
-.ref-status-pill.complete { background: #F3F4F6; color: #6B7280; border: 1px solid #D1D5DB; }
+.ref-status-pill.complete { background: #F3F4F6; color: #9CA3AF; border: 1px solid #E5E7EB; }
 
 .ref-study-body { padding: 12px 14px; }
 .ref-study-fields {
@@ -1865,17 +1923,17 @@ summary::marker { display: none; content: ''; }
 .ref-pace-row {
   display: flex;
   align-items: center;
-  gap: 7px;
+  gap: 8px;
   margin-bottom: 8px;
 }
 .ref-pace-track {
   flex: 1;
-  height: 5px;
+  height: 7px;
   background: var(--border-light);
-  border-radius: 3px;
+  border-radius: 4px;
   overflow: hidden;
 }
-.ref-pace-fill { height: 100%; border-radius: 3px; }
+.ref-pace-fill { height: 100%; border-radius: 4px; transition: width 0.4s ease; }
 .ref-pace-label { font-size: 10px; color: var(--text-3); white-space: nowrap; flex-shrink: 0; }
 
 /* date chips */
@@ -1902,9 +1960,10 @@ summary::marker { display: none; content: ''; }
   line-height: 1.5;
 }
 .session-ticker {
-  background: #222222;
+  background: linear-gradient(135deg, #1a1a1a 0%, #242424 100%);
   border-bottom: 3px solid var(--gold);
   width: 100%;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.2);
 }
 .session-ticker-inner {
   max-width: 1120px;
@@ -2074,6 +2133,94 @@ summary::marker { display: none; content: ''; }
   .ticker-meta-item:nth-child(n+3) { display: none; }
 }
 
+
+/* ═══ Global link polish ═══ */
+a { transition: color 0.15s; }
+
+/* ═══ Smooth load animation ═══ */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.main > * {
+  animation: fadeUp 0.35s ease both;
+}
+.main > *:nth-child(1) { animation-delay: 0.05s; }
+.main > *:nth-child(2) { animation-delay: 0.10s; }
+.main > *:nth-child(3) { animation-delay: 0.15s; }
+.main > *:nth-child(4) { animation-delay: 0.20s; }
+.main > *:nth-child(5) { animation-delay: 0.25s; }
+.main > *:nth-child(6) { animation-delay: 0.30s; }
+
+/* ═══ Planner section dividers ═══ */
+.planner-section-label {
+  font-family: 'Source Serif 4', Georgia, serif;
+  font-size: 15px;
+  font-weight: 900;
+  color: var(--cardinal);
+  margin-bottom: 10px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid var(--border-light);
+  letter-spacing: -0.1px;
+}
+
+/* ═══ Optin step numbers ═══ */
+.optin-step-num {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: var(--cardinal);
+  color: white;
+  font-size: 14px;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 12px;
+  box-shadow: 0 3px 8px rgba(153,0,0,0.25);
+}
+
+/* ═══ Collapsible ref section labels ═══ */
+.ref-cards-label, .ref-comp-title {
+  padding: 14px 20px;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--text-2);
+  background: var(--surface-2);
+  border-bottom: 1px solid var(--border-light);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  user-select: none;
+  list-style: none;
+}
+.ref-cards-label:hover, .ref-comp-title:hover { color: var(--cardinal); }
+
+/* ═══ Dashboard day header hover ═══ */
+.dash-day-header:hover { opacity: 0.92; }
+
+/* ═══ Improved scroll-padding ═══ */
+html { scroll-padding-top: 56px; }
+
+/* ═══ Roster pill upgrade ═══ */
+.roster-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text);
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 7px 13px;
+  box-shadow: var(--shadow-sm);
+  transition: box-shadow 0.15s;
+}
+.roster-pill:hover { box-shadow: var(--shadow); }
 </style>
 </head>
 <body>
@@ -2086,7 +2233,7 @@ summary::marker { display: none; content: ''; }
       <div class="subtitle">In-person proctored data collection · MOR Subject Pool · LL102</div>
     </div>
     <span style="margin-left:8px;font-size:11px;font-weight:700;background:rgba(255,255,255,0.15);color:rgba(255,255,255,0.7);border:1px solid rgba(255,255,255,0.25);padding:5px 12px;border-radius:2px;letter-spacing:1px;white-space:nowrap;text-transform:uppercase;display:inline-flex;align-items:center;gap:6px">
-      <span style="display:inline-block;width:7px;height:7px;border-radius:50%;background:#FACC15;flex-shrink:0"></span>Updated Mar 26, 2026
+      <span style="display:inline-block;width:7px;height:7px;border-radius:50%;background:#FACC15;flex-shrink:0"></span>Updated Apr 2, 2026 (today)
     </span>
   </div>
   <div class="gold-bar"></div>
@@ -2096,19 +2243,30 @@ summary::marker { display: none; content: ''; }
   <div class="section-nav-inner">
 
     <div class="nav-group">
+      <a href="#sec-today" class="nav-link" data-section="sec-today">Today</a>
+      <div class="nav-dropdown">
+        <a href="#coordinator-view" class="nav-drop-item" data-subsection="coordinator-view">Session overview</a>
+        <a href="#sec-stack" class="nav-drop-item" data-subsection="sec-stack">Session roster</a>
+      </div>
+    </div>
+
+    <div class="nav-group">
       <a href="#sec-progress" class="nav-link" data-section="sec-progress">Progress</a>
       <div class="nav-dropdown">
-        <a href="#ref-cards-wrap" class="nav-drop-item" data-subsection="ref-cards-wrap">Studies by researcher</a>
+        <a href="#ref-cards-wrap" class="nav-drop-item" data-subsection="ref-cards-wrap">Studies by status</a>
         <a href="#ref-comp-wrap" class="nav-drop-item" data-subsection="ref-comp-wrap">Session composition</a>
         <a href="#ref-dashboard-wrap" class="nav-drop-item" data-subsection="ref-dashboard-wrap">Day-by-day timeline</a>
       </div>
     </div>
 
+    <span class="nav-divider" aria-hidden="true"></span>
+
     <div class="nav-group">
-      <a href="#sec-today" class="nav-link" data-section="sec-today">Today</a>
+      <a href="#sec-overview-wrap" class="nav-link" data-section="sec-overview-wrap">How it works</a>
       <div class="nav-dropdown">
-        <a href="#coordinator-view" class="nav-drop-item" data-subsection="coordinator-view">Session overview</a>
-        <a href="#sec-stack" class="nav-drop-item" data-subsection="sec-stack">Session roster</a>
+        <a href="#sec-eligibility" class="nav-drop-item" data-subsection="sec-eligibility">Eligibility</a>
+        <a href="#overview-what-you-get" class="nav-drop-item" data-subsection="overview-what-you-get">What you get</a>
+        <a href="#overview-what-you-provide" class="nav-drop-item" data-subsection="overview-what-you-provide">What you provide</a>
       </div>
     </div>
 
@@ -2127,15 +2285,6 @@ summary::marker { display: none; content: ''; }
       <div class="nav-dropdown">
         <a href="#join-cta" class="nav-drop-item" data-subsection="join-cta">Submit your study</a>
         <a href="#join-process" class="nav-drop-item" data-subsection="join-process">Process after submission</a>
-      </div>
-    </div>
-
-    <div class="nav-group">
-      <a href="#sec-overview-wrap" class="nav-link" data-section="sec-overview-wrap">How it works</a>
-      <div class="nav-dropdown">
-        <a href="#sec-eligibility" class="nav-drop-item" data-subsection="sec-eligibility">Eligibility</a>
-        <a href="#overview-what-you-get" class="nav-drop-item" data-subsection="overview-what-you-get">What you get</a>
-        <a href="#overview-what-you-provide" class="nav-drop-item" data-subsection="overview-what-you-provide">What you provide</a>
       </div>
     </div>
 
@@ -2161,6 +2310,32 @@ summary::marker { display: none; content: ''; }
 
 <div class="main">
 
+  <!-- ── Coordinator tools ── -->
+  <div style="display:flex;align-items:center;gap:12px;margin-bottom:18px;margin-top:6px">
+    <span style="font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:2.5px;color:white;background:var(--cardinal);padding:4px 12px;border-radius:3px;white-space:nowrap;opacity:0.85">Coordinator</span>
+    <div style="flex:1;height:1px;background:var(--border)"></div>
+  </div>
+
+
+<!-- ═══ TODAY'S SESSION ═══ -->
+  <div class="optin-card" id="sec-today" style="margin-bottom:28px">
+    <div style="padding:28px 24px 16px">
+      <div class="journey-step-label">Coordinator</div>
+      <div class="journey-headline">Today&#x2019;s session</div>
+      <p style="font-size:14px;color:var(--text-2);line-height:1.65;margin:8px 0 0 0;max-width:720px">At-a-glance ops view for the RA and coordinator — which studies are running, session times, credit tier, and the full stack roster.</p>
+    </div>
+    <div id="coordinator-view" style="padding:0 0 0"><!-- rendered by JS --></div>
+
+    <!-- Session roster (moved from Planner) -->
+    <div class="planner-section" id="sec-stack" style="border-top:1px solid var(--border-light);margin-top:8px">
+      <div class="planner-section-header">
+        <div class="planner-section-label">Session roster</div>
+        <div class="planner-section-desc">Studies currently sharing the session slot. Each participant completes all of them back-to-back. Credit is based on total time in the lab: <strong>0.5 credit</strong> (≤ 30 min), <strong>0.75 credit</strong> (31–45 min), or <strong>1.0 credit</strong> (46–60 min). Participants receive one credit award per session, not per study.</div>
+      </div>
+      <div id="stack-roster-legend" style="padding:8px 24px 16px"><!-- rendered by JS --></div>
+    </div>
+  </div>
+
   <!-- ═══ PROGRESS & SCHEDULE ═══ -->
   <div class="ref-section" id="sec-progress" style="background:#F0EDE8;margin-bottom:28px">
     <div style="padding:32px 24px 16px">
@@ -2174,7 +2349,7 @@ summary::marker { display: none; content: ''; }
 
     <!-- Study cards with quota progress -->
     <details class="ref-collapsible" id="ref-cards-wrap" open>
-      <summary class="ref-cards-label">Studies by researcher</summary>
+      <summary class="ref-cards-label">Studies by status</summary>
       <div id="ref-study-grid"></div>
     </details>
 
@@ -2191,24 +2366,69 @@ summary::marker { display: none; content: ''; }
     </details>
   </div>
 
-<!-- ═══ TODAY'S SESSION ═══ -->
-  <div class="optin-card" id="sec-today" style="margin-bottom:28px">
-    <div style="padding:28px 24px 16px">
-      <div class="journey-step-label">Coordinator</div>
-      <div class="journey-headline">Today&#x2019;s session</div>
-      <p style="font-size:14px;color:var(--text-2);line-height:1.65;margin:8px 0 0 0;max-width:720px">At-a-glance ops view for the RA and coordinator — which studies are running, session times, credit tier, and the full stack roster.</p>
-    </div>
-    <div id="coordinator-view" style="padding:0 24px 8px"><!-- rendered by JS --></div>
+  <!-- ── Researcher resources ── -->
+  <div style="display:flex;align-items:center;gap:12px;margin-bottom:18px;margin-top:8px">
+    <span style="font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:2.5px;color:white;background:#444;padding:4px 12px;border-radius:3px;white-space:nowrap;opacity:0.7">Researchers</span>
+    <div style="flex:1;height:1px;background:var(--border)"></div>
+  </div>
 
-    <!-- Session roster (moved from Planner) -->
-    <div class="planner-section" id="sec-stack" style="border-top:1px solid var(--border-light);margin-top:8px">
-      <div class="planner-section-header">
-        <div class="planner-section-label">Session roster</div>
-        <div class="planner-section-desc">Studies currently sharing the session slot. Each participant completes all of them back-to-back. Credit is based on total time in the lab: <strong>0.5 credit</strong> (≤ 30 min), <strong>0.75 credit</strong> (31–45 min), or <strong>1.0 credit</strong> (46–60 min). Participants receive one credit award per session, not per study.</div>
+
+  <!-- ═══ OVERVIEW ═══ -->
+  <div id="sec-overview-wrap" style="margin-bottom:28px">
+    <div id="sec-overview" style="background:#F0EDE8;border:1px solid var(--border);border-radius:var(--radius);padding:28px 24px 0;box-shadow:var(--shadow)">
+
+    <div class="journey-step-label">How it works</div>
+    <div class="journey-headline" style="margin-bottom:10px">Collect verified, proctored survey responses through shared lab sessions</div>
+    <p style="font-size:14px;color:var(--text-2);line-height:1.65;margin:0 0 20px 0">Multiple short Qualtrics studies run back-to-back in LL102. Participants complete each study at individual workstations under RA supervision, with study order counterbalanced across days (all sessions within a day run the same order). Participants sign up for a fixed time slot and must remain for its full duration — everyone in the room starts and finishes together. You provide collaborator access to your Qualtrics survey — we handle scheduling, proctoring, SONA setup, and credit assignment.</p>
+
+    <!-- Eligibility — gate check first -->
+    <div id="sec-eligibility" style="padding:14px 16px;background:var(--cardinal-light);border-radius:6px;border:1px solid rgba(153,0,0,0.08);margin-bottom:12px">
+      <div class="card-box-label">Eligibility</div>
+      <div class="eligibility-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:6px 24px;font-size:14px;color:var(--text);line-height:1.5">
+        <div><span style="color:var(--green);font-weight:700">✓</span> Qualtrics-based online survey</div>
+        <div><span style="color:var(--green);font-weight:700">✓</span> Individual-level (no groups or dyads)</div>
+        <div><span style="color:var(--green);font-weight:700">✓</span> ≤ 30 minutes in duration</div>
+        <div><span style="color:var(--green);font-weight:700">✓</span> Active IRB approval</div>
+        <div style="grid-column:1/-1"><span style="color:var(--green);font-weight:700">✓</span> No deception</div>
       </div>
-      <div id="stack-roster-legend" style="padding:8px 24px 16px"><!-- rendered by JS --></div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px">
+      <!-- What you get — left column -->
+      <div id="overview-what-you-get" style="padding:14px 16px;background:#F8F7F5;border-radius:6px">
+        <div class="card-box-label">What you get</div>
+        <div style="display:flex;flex-direction:column;gap:7px">
+          <div style="font-size:13px;color:var(--text);display:flex;gap:8px;align-items:baseline"><span style="color:var(--green);font-weight:700;flex-shrink:0">✓</span> ID-verified participants on dedicated lab computers — tab switching and external applications are disabled</div>
+          <div style="font-size:13px;color:var(--text);display:flex;gap:8px;align-items:baseline"><span style="color:var(--green);font-weight:700;flex-shrink:0">✓</span> Up to 16 seats per session, 4 sessions per day (~56 participants/day)</div>
+          <div style="border-top:1px solid var(--border-light);margin:4px 0"></div>
+          <div style="font-size:13px;color:var(--text);display:flex;gap:8px;align-items:baseline"><span style="color:var(--green);font-weight:700;flex-shrink:0">✓</span> Participants are required to remain for the full session duration and are dismissed simultaneously</div>
+          <div style="font-size:13px;color:var(--text);display:flex;gap:8px;align-items:baseline"><span style="color:var(--green);font-weight:700;flex-shrink:0">✓</span> A brief neutral transition screen between studies reduces carryover and priming effects</div>
+          <div style="font-size:13px;color:var(--text);display:flex;gap:8px;align-items:baseline"><span style="color:var(--green);font-weight:700;flex-shrink:0">✓</span> Participants who complete your study in a stacked session are automatically excluded from the online SONA version — no risk of duplicate participation</div>
+          <div style="font-size:13px;color:var(--text);display:flex;gap:8px;align-items:baseline"><span style="color:var(--green);font-weight:700;flex-shrink:0">✓</span> SONA credit: <strong>0.5</strong> (≤ 30 min) · <strong>0.75</strong> (31–45 min) · <strong>1.0</strong> (46–60 min)</div>
+          <div style="font-size:13px;color:var(--text);display:flex;gap:8px;align-items:baseline"><span style="color:var(--green);font-weight:700;flex-shrink:0">✓</span> Your survey content, logic, and data are untouched — responses appear in your standard Qualtrics export</div>
+        </div>
+      </div>
+      <!-- What you provide — right column -->
+      <div id="overview-what-you-provide" style="padding:14px 16px;background:#F8F7F5;border-radius:6px">
+        <div class="card-box-label">What you provide</div>
+        <p style="font-size:14px;color:var(--text-2);line-height:1.5;margin:0 0 10px 0">Submit the following five items by email, finalized <strong>by the day before your first session</strong>:</p>
+        <div style="display:flex;flex-direction:column;gap:7px">
+          <div style="font-size:13px;color:var(--text);display:flex;gap:8px;align-items:baseline"><span style="color:var(--cardinal);font-weight:700;flex-shrink:0">1.</span> <span><strong>Qualtrics collaborator access</strong> — the coordinator needs collaborator access (not just a link) to configure the redirect chain between studies</span></div>
+          <div style="font-size:13px;color:var(--text);display:flex;gap:8px;align-items:baseline"><span style="color:var(--cardinal);font-weight:700;flex-shrink:0">2.</span> Estimated study duration</div>
+          <div style="font-size:13px;color:var(--text);display:flex;gap:8px;align-items:baseline"><span style="color:var(--cardinal);font-weight:700;flex-shrink:0">3.</span> IRB protocol number</div>
+          <div style="font-size:13px;color:var(--text);display:flex;gap:8px;align-items:baseline"><span style="color:var(--cardinal);font-weight:700;flex-shrink:0">4.</span> Study name</div>
+          <div style="font-size:13px;color:var(--text);display:flex;gap:8px;align-items:baseline"><span style="color:var(--cardinal);font-weight:700;flex-shrink:0">5.</span> Preferred session weeks</div>
+        </div>
+      </div>
+    </div>
+    <div style="padding:14px 0 20px;border-top:1px solid var(--border-light);margin-top:4px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap">
+      <span style="font-size:13px;color:var(--text-3)">Use the planner to check session capacity and project your collection timeline.</span>
+      <a href="#sec-planner" onclick="var el=document.getElementById('sec-planner');if(el)window.scrollTo({top:el.getBoundingClientRect().top+window.scrollY-72,behavior:'smooth'});return false;" style="display:inline-flex;align-items:center;gap:8px;background:var(--cardinal);color:white;padding:10px 20px;border-radius:6px;text-decoration:none;font-size:13px;font-weight:700;white-space:nowrap;transition:background 0.15s" onmouseover="this.style.background='var(--cardinal-dark)'" onmouseout="this.style.background='var(--cardinal)'">Plan data collection →</a>
+    </div>
+  
     </div>
   </div>
+
 
 <!-- ═══ PLAN DATA COLLECTION ═══ -->
   <div class="throughput-card" id="sec-planner" style="overflow:visible">
@@ -2221,45 +2441,25 @@ summary::marker { display: none; content: ''; }
     <!-- Stat bar — standalone strip -->
     <div style="background:var(--cardinal);border-top:1px solid rgba(255,255,255,0.1)">
       <!-- Stat row -->
-      <div style="display:flex;align-items:stretch;border-bottom:1px solid rgba(255,255,255,0.12)">
-        <div style="flex:1;padding:14px 18px;border-right:1px solid rgba(255,255,255,0.12);text-align:center">
-          <div style="font-family:'Source Serif 4',Georgia,serif;font-size:28px;font-weight:900;color:white;line-height:1">12</div>
-          <div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:1px;color:rgba(255,255,255,0.6);margin-top:3px">Session days</div>
-        </div>
-        <div style="flex:1;padding:14px 18px;border-right:1px solid rgba(255,255,255,0.12);text-align:center">
-          <div style="font-family:'Source Serif 4',Georgia,serif;font-size:28px;font-weight:900;color:white;line-height:1">4</div>
-          <div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:1px;color:rgba(255,255,255,0.6);margin-top:3px">Sessions/day</div>
-        </div>
-        <div style="flex:1;padding:14px 18px;border-right:1px solid rgba(255,255,255,0.12);text-align:center">
-          <div style="font-family:'Source Serif 4',Georgia,serif;font-size:28px;font-weight:900;color:white;line-height:1">16</div>
-          <div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:1px;color:rgba(255,255,255,0.6);margin-top:3px">Seats/session</div>
-        </div>
-        <div style="flex:1;padding:14px 18px;text-align:center">
-          <div style="font-family:'Source Serif 4',Georgia,serif;font-size:28px;font-weight:900;color:var(--gold);line-height:1">56</div>
-          <div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:1px;color:rgba(255,255,255,0.6);margin-top:3px">Participants/day</div>
-        </div>
-      </div>
+      <div id="planner-stat-row" style="display:flex;align-items:stretch;border-bottom:1px solid rgba(255,255,255,0.12)"><!-- populated by JS --></div>
       <!-- Dates row -->
       <div style="padding:12px 18px 16px;display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:12px">
         <div style="flex:1;min-width:0">
           <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;flex-wrap:wrap">
             <span style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:rgba(255,255,255,0.5);min-width:42px">March</span>
-            <span style="display:inline-block;background:rgba(255,255,255,0.15);color:white;font-size:12px;font-weight:700;padding:3px 9px;border-radius:4px">Mar 6</span>
-            <span style="display:inline-block;background:rgba(255,255,255,0.15);color:white;font-size:12px;font-weight:700;padding:3px 9px;border-radius:4px">Mar 12</span>
-            <span style="display:inline-block;background:rgba(255,255,255,0.15);color:white;font-size:12px;font-weight:700;padding:3px 9px;border-radius:4px">Mar 13</span>
+            <span style="display:inline-block;background:rgba(255,255,255,0.08);color:rgba(255,255,255,0.45);font-size:12px;font-weight:600;padding:3px 9px;border-radius:4px;text-decoration:line-through">Mar 6</span>
+            <span style="display:inline-block;background:rgba(255,255,255,0.08);color:rgba(255,255,255,0.45);font-size:12px;font-weight:600;padding:3px 9px;border-radius:4px;text-decoration:line-through">Mar 11</span>
+            <span style="display:inline-block;background:rgba(255,255,255,0.08);color:rgba(255,255,255,0.45);font-size:12px;font-weight:600;padding:3px 9px;border-radius:4px;text-decoration:line-through">Mar 13</span>
             <span style="display:inline-block;background:rgba(255,255,255,0.06);color:rgba(255,255,255,0.35);font-size:11px;font-style:italic;padding:3px 9px;border-radius:4px;border:1px dashed rgba(255,255,255,0.2)">recess Mar 16–20</span>
-            <span style="display:inline-block;background:rgba(255,255,255,0.15);color:white;font-size:12px;font-weight:700;padding:3px 9px;border-radius:4px">Mar 23</span>
-            <span style="display:inline-block;background:rgba(255,255,255,0.15);color:white;font-size:12px;font-weight:700;padding:3px 9px;border-radius:4px">Mar 24</span>
-            <span style="display:inline-block;background:rgba(255,255,255,0.15);color:white;font-size:12px;font-weight:700;padding:3px 9px;border-radius:4px">Mar 25</span>
-            <span style="display:inline-block;background:rgba(255,255,255,0.15);color:white;font-size:12px;font-weight:700;padding:3px 9px;border-radius:4px">Mar 27</span>
-            <span style="display:inline-block;background:rgba(255,255,255,0.15);color:white;font-size:12px;font-weight:700;padding:3px 9px;border-radius:4px">Mar 30</span>
-            <span style="display:inline-block;background:rgba(255,255,255,0.15);color:white;font-size:12px;font-weight:700;padding:3px 9px;border-radius:4px">Mar 31</span>
+            <span style="display:inline-block;background:rgba(255,255,255,0.08);color:rgba(255,255,255,0.45);font-size:12px;font-weight:600;padding:3px 9px;border-radius:4px;text-decoration:line-through">Mar 26</span>
+            <span style="display:inline-block;background:rgba(255,255,255,0.08);color:rgba(255,255,255,0.45);font-size:12px;font-weight:600;padding:3px 9px;border-radius:4px;text-decoration:line-through">Mar 27</span>
+            <span style="display:inline-block;background:rgba(255,255,255,0.06);color:rgba(255,255,255,0.35);font-size:11px;font-style:italic;padding:3px 9px;border-radius:4px;border:1px dashed rgba(255,255,255,0.2)">no session Mar 30–Apr 1</span>
           </div>
           <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">
             <span style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:rgba(255,255,255,0.5);min-width:42px">April</span>
-            <span style="display:inline-block;background:rgba(255,255,255,0.15);color:white;font-size:12px;font-weight:700;padding:3px 9px;border-radius:4px">Apr 1</span>
-            <span style="display:inline-block;background:rgba(255,255,255,0.15);color:white;font-size:12px;font-weight:700;padding:3px 9px;border-radius:4px">Apr 2</span>
+            <span style="display:inline-block;background:rgba(255,255,255,0.08);color:rgba(255,255,255,0.45);font-size:12px;font-weight:600;padding:3px 9px;border-radius:4px;text-decoration:line-through">Apr 2</span>
             <span style="display:inline-block;background:rgba(255,255,255,0.15);color:white;font-size:12px;font-weight:700;padding:3px 9px;border-radius:4px">Apr 3</span>
+            <span style="display:inline-block;background:rgba(255,255,255,0.15);color:white;font-size:12px;font-weight:700;padding:3px 9px;border-radius:4px">Apr 6</span>
           </div>
         </div>
         <a href="#sec-timeline" onclick="var d=document.querySelector('#sec-timeline details');if(d)d.open=true;var el=document.getElementById('sec-timeline');if(el)window.scrollTo({top:el.getBoundingClientRect().top+window.scrollY-72,behavior:'smooth'});return false;" style="font-size:12px;font-weight:600;color:var(--gold);text-decoration:none;white-space:nowrap;padding-top:2px">View calendar →</a>
@@ -2518,6 +2718,7 @@ summary::marker { display: none; content: ''; }
       <div class="journey-step-label">Submit</div>
       <div class="journey-headline">Submit your study</div>
       <p style="font-size:14px;color:var(--text-2);line-height:1.65;margin:8px 0 0 0;max-width:720px">Submit your study information by email and the coordinator will handle all remaining setup — SONA study page creation, scheduling, and proctoring logistics. No modifications to your Qualtrics survey are required.</p>
+      <div style="margin-top:10px;padding:10px 14px;background:var(--amber-bg);border:1px solid #FDE68A;border-radius:6px;font-size:13px;color:var(--amber-text)">⚠️ <strong>Spring 2026 collection is wrapping up.</strong> Remaining sessions are Apr 3 and 6. New studies will be queued for the next cohort — reach out to get on the list.</div>
     </div>
 
     <!-- CTA -->
@@ -2549,66 +2750,6 @@ summary::marker { display: none; content: ''; }
     </div>
   </div>
 
-  <!-- ═══ OVERVIEW ═══ -->
-  <details id="sec-overview-wrap" style="margin-bottom:28px">
-    <summary style="cursor:pointer;list-style:none;display:flex;align-items:center;justify-content:space-between;padding:20px 24px;background:#F0EDE8;border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow);font-size:15px;font-weight:600;color:var(--text)">
-      <span>How it works &nbsp;<span style="font-size:12px;font-weight:400;color:var(--text-3)">Overview, eligibility &amp; what to provide</span></span>
-      <span style="font-size:13px;color:var(--text-3)">▸</span>
-    </summary>
-    <div id="sec-overview" style="background:#F0EDE8;border:1px solid var(--border);border-top:none;border-radius:0 0 var(--radius) var(--radius);padding:0 24px 0;box-shadow:var(--shadow)">
-
-    <div class="journey-step-label">Overview</div>
-    <div class="journey-headline" style="margin-bottom:10px">Collect verified, proctored survey responses through shared lab sessions</div>
-    <p style="font-size:14px;color:var(--text-2);line-height:1.65;margin:0 0 20px 0">Multiple short Qualtrics studies run back-to-back in LL102. Participants complete each study at individual workstations under RA supervision, with study order counterbalanced across days (all sessions within a day run the same order). Participants sign up for a fixed time slot and must remain for its full duration — everyone in the room starts and finishes together. You provide collaborator access to your Qualtrics survey — we handle scheduling, proctoring, SONA setup, and credit assignment.</p>
-
-    <!-- Eligibility — gate check first -->
-    <div id="sec-eligibility" style="padding:14px 16px;background:var(--cardinal-light);border-radius:6px;border:1px solid rgba(153,0,0,0.08);margin-bottom:12px">
-      <div class="card-box-label">Eligibility</div>
-      <div class="eligibility-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:6px 24px;font-size:14px;color:var(--text);line-height:1.5">
-        <div><span style="color:var(--green);font-weight:700">✓</span> Qualtrics-based online survey</div>
-        <div><span style="color:var(--green);font-weight:700">✓</span> Individual-level (no groups or dyads)</div>
-        <div><span style="color:var(--green);font-weight:700">✓</span> ≤ 30 minutes in duration</div>
-        <div><span style="color:var(--green);font-weight:700">✓</span> Active IRB approval</div>
-        <div style="grid-column:1/-1"><span style="color:var(--green);font-weight:700">✓</span> No deception</div>
-      </div>
-    </div>
-
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px">
-      <!-- What you get — left column -->
-      <div id="overview-what-you-get" style="padding:14px 16px;background:#F8F7F5;border-radius:6px">
-        <div class="card-box-label">What you get</div>
-        <div style="display:flex;flex-direction:column;gap:7px">
-          <div style="font-size:13px;color:var(--text);display:flex;gap:8px;align-items:baseline"><span style="color:var(--green);font-weight:700;flex-shrink:0">✓</span> ID-verified participants on dedicated lab computers — tab switching and external applications are disabled</div>
-          <div style="font-size:13px;color:var(--text);display:flex;gap:8px;align-items:baseline"><span style="color:var(--green);font-weight:700;flex-shrink:0">✓</span> Up to 16 seats per session, 4 sessions per day (~56 participants/day)</div>
-          <div style="border-top:1px solid var(--border-light);margin:4px 0"></div>
-          <div style="font-size:13px;color:var(--text);display:flex;gap:8px;align-items:baseline"><span style="color:var(--green);font-weight:700;flex-shrink:0">✓</span> Participants are required to remain for the full session duration and are dismissed simultaneously</div>
-          <div style="font-size:13px;color:var(--text);display:flex;gap:8px;align-items:baseline"><span style="color:var(--green);font-weight:700;flex-shrink:0">✓</span> A brief neutral transition screen between studies reduces carryover and priming effects</div>
-          <div style="font-size:13px;color:var(--text);display:flex;gap:8px;align-items:baseline"><span style="color:var(--green);font-weight:700;flex-shrink:0">✓</span> Participants who complete your study in a stacked session are automatically excluded from the online SONA version — no risk of duplicate participation</div>
-          <div style="font-size:13px;color:var(--text);display:flex;gap:8px;align-items:baseline"><span style="color:var(--green);font-weight:700;flex-shrink:0">✓</span> SONA credit: <strong>0.5</strong> (≤ 30 min) · <strong>0.75</strong> (31–45 min) · <strong>1.0</strong> (46–60 min)</div>
-          <div style="font-size:13px;color:var(--text);display:flex;gap:8px;align-items:baseline"><span style="color:var(--green);font-weight:700;flex-shrink:0">✓</span> Your survey content, logic, and data are untouched — responses appear in your standard Qualtrics export</div>
-        </div>
-      </div>
-      <!-- What you provide — right column -->
-      <div id="overview-what-you-provide" style="padding:14px 16px;background:#F8F7F5;border-radius:6px">
-        <div class="card-box-label">What you provide</div>
-        <p style="font-size:14px;color:var(--text-2);line-height:1.5;margin:0 0 10px 0">Submit the following five items by email, finalized <strong>by the day before your first session</strong>:</p>
-        <div style="display:flex;flex-direction:column;gap:7px">
-          <div style="font-size:13px;color:var(--text);display:flex;gap:8px;align-items:baseline"><span style="color:var(--cardinal);font-weight:700;flex-shrink:0">1.</span> <span><strong>Qualtrics collaborator access</strong> — the coordinator needs collaborator access (not just a link) to configure the redirect chain between studies</span></div>
-          <div style="font-size:13px;color:var(--text);display:flex;gap:8px;align-items:baseline"><span style="color:var(--cardinal);font-weight:700;flex-shrink:0">2.</span> Estimated study duration</div>
-          <div style="font-size:13px;color:var(--text);display:flex;gap:8px;align-items:baseline"><span style="color:var(--cardinal);font-weight:700;flex-shrink:0">3.</span> IRB protocol number</div>
-          <div style="font-size:13px;color:var(--text);display:flex;gap:8px;align-items:baseline"><span style="color:var(--cardinal);font-weight:700;flex-shrink:0">4.</span> Study name</div>
-          <div style="font-size:13px;color:var(--text);display:flex;gap:8px;align-items:baseline"><span style="color:var(--cardinal);font-weight:700;flex-shrink:0">5.</span> Preferred session weeks</div>
-        </div>
-      </div>
-    </div>
-    <div style="padding:14px 0 20px;border-top:1px solid var(--border-light);margin-top:4px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap">
-      <span style="font-size:13px;color:var(--text-3)">Use the planner to check session capacity and project your collection timeline.</span>
-      <a href="#sec-planner" onclick="var el=document.getElementById('sec-planner');if(el)window.scrollTo({top:el.getBoundingClientRect().top+window.scrollY-72,behavior:'smooth'});return false;" style="display:inline-flex;align-items:center;gap:8px;background:var(--cardinal);color:white;padding:10px 20px;border-radius:6px;text-decoration:none;font-size:13px;font-weight:700;white-space:nowrap;transition:background 0.15s" onmouseover="this.style.background='var(--cardinal-dark)'" onmouseout="this.style.background='var(--cardinal)'">Plan data collection →</a>
-    </div>
-  
-    </div>
-  </details>
-
 <!-- ═══ FAQ ═══ -->
   <div class="faq-card" id="sec-faq">
     <div style="padding:28px 24px 16px">
@@ -2637,7 +2778,7 @@ summary::marker { display: none; content: ''; }
       </details>
       <details class="faq-item">
         <summary class="faq-q">How is study order determined within a session?</summary>
-        <div class="faq-a">By default, study order is counterbalanced <strong>across session days</strong> — each day uses a different ordering so that order effects wash out across your full sample. Within a single day, all sessions run in the same order. If you have a specific counterbalancing request (e.g., rotating order within the same day, or a particular position in the stack), please mention it when you submit and the coordinator will do their best to accommodate it.</div>
+        <div class="faq-a">Study order is counterbalanced <strong>across sessions</strong> using 7 Latin-square rotations (R2–R8). Each session within a day uses a different ordering, so position effects wash out across the full sample. Labs 1–3 used a fixed order; counterbalancing began at Lab 4. If you have a specific position preference, mention it at submission.</div>
       </details>
       </div>
 
@@ -2649,7 +2790,7 @@ summary::marker { display: none; content: ''; }
       </details>
       <details class="faq-item">
         <summary class="faq-q">What if there aren't enough sessions available for my study on a given day?</summary>
-        <div class="faq-a">Each day runs 4 sessions. If some sessions are full or unavailable, your study can be scheduled in the remaining open sessions on that day, or moved to another available date. Session dates are listed in the collection planner above.</div>
+        <div class="faq-a">Standard days run 4 sessions, though some days run 6 or 8 depending on demand. If some sessions are full or unavailable, your study can be scheduled in remaining open sessions or moved to another date. Session dates are listed in the collection planner above.</div>
       </details>
       <details class="faq-item">
         <summary class="faq-q">Where does the ~2 no-shows per session estimate come from?</summary>
@@ -2694,7 +2835,7 @@ summary::marker { display: none; content: ''; }
 <footer class="site-footer">
   <div style="height:4px;background:var(--gold)"></div>
   <div class="site-footer-inner">
-    <div class="footer-cta">Ready to add your study to the stack?</div>
+    <div class="footer-cta">Spring 2026 wrapping up &nbsp;·&nbsp; Contact us for Fall 2026</div>
     <div class="footer-contact">
       <a href="mailto:huhb@marshall.usc.edu">huhb@marshall.usc.edu</a><br>
       Marshall Behavioral Research Lab &nbsp;·&nbsp; LL102 &nbsp;·&nbsp; Spring 2026
@@ -3185,7 +3326,7 @@ function updateCalc() {
   var capNote = '<div style="font-size:12px;color:var(--text-3);margin-bottom:10px">';
   capNote += 'A <span class="dv">' + dur + '-min</span> study uses <strong>' + Math.round((dur/sessionCap)*100) + '%</strong> of the ' + sessionCap + '-min session cap (' + overheadMin + ' min is reserved for check-in/check-out, leaving ' + usableTime + ' min for studies). ';
   capNote += 'Each session seats 16 with ~' + noshows + ' no-shows = <strong>' + effective + ' expected per session</strong>. ';
-  capNote += 'Sessions per day: <strong>6 on Mar 26–27</strong>, <strong>4 on all other days</strong>. ';
+  capNote += 'Sessions per day: <strong>4</strong> (standard) · <strong>6</strong> on Mar 26 · <strong>8</strong> on Mar 27 and Apr 2. ';
   capNote += '<em>No-show estimate is approximate and may vary by session.</em>';
   capNote += '</div>';
 
@@ -3455,7 +3596,7 @@ var STUDY_ROSTER = [
     status: 'collecting', startLab: 1, endLab: 6 },
   { id: 'B', dur: 2, targetN: 400, color: '#FCD34D', label: 'B',
     title: 'AI Receptivity', researcher: 'Cheryl Wakslak', dept: 'Management & Organization',
-    status: 'collecting', startLab: 1, endLab: 8 },
+    status: 'collecting', startLab: 1, endLab: 9 },
   { id: 'C', dur: 7, targetN: 250, color: '#93C5FD', label: 'C',
     title: 'Serendipity Study Pool', researcher: 'Dani Yin', dept: 'Management & Organization',
     status: 'collecting', startLab: 1, endLab: 5 },
@@ -3465,15 +3606,15 @@ var STUDY_ROSTER = [
   { id: 'F', dur: 5, targetN: 300, color: '#F9A8D4', label: 'F',
     title: 'Org Statements', researcher: 'Cheryl Wakslak', dept: 'Management & Organization',
     status: 'collecting', startLab: 1, endLab: 6 },
-  { id: 'G', dur: 8, targetN: 100, color: '#FDE68A', label: 'G',
+  { id: 'G', dur: 8, targetN: 9999, color: '#FDE68A', label: 'G',
     title: 'Entitlement 2026', researcher: 'Jacob Roberson', dept: 'Management & Organization',
-    status: 'collecting', startLab: 1, endLab: 3 },
-  { id: 'H', dur: 5, targetN: 100, color: '#67E8F9', label: 'H',
+    status: 'collecting', startLab: 5, endLab: 9, priorN: 104, openEnded: true },
+  { id: 'H', dur: 5, targetN: 75, color: '#67E8F9', label: 'H',
     title: 'TBD', researcher: 'Zach Berry', dept: 'Management & Organization',
     status: 'collecting', startLab: 1, endLab: 2 },
   { id: 'H2', dur: 5, targetN: 400, color: '#A5B4FC', label: 'H2',
     title: 'TBD', researcher: 'Zach Berry', dept: 'Management & Organization',
-    status: 'collecting', startLab: 4, endLab: 10 },
+    status: 'collecting', startLab: 4, endLab: 9 },
 ];
 var SESSION_CAP = 60;
 var OVERHEAD_CHECKIN = 5;
@@ -3482,9 +3623,61 @@ var EFFECTIVE_PER_SESSION = 14; // 16 stations - 2 no-shows
 var SESSIONS_PER_DAY = 4;
 var PER_DAY = EFFECTIVE_PER_SESSION * SESSIONS_PER_DAY; // 56 (default)
 
-// Day-specific session counts: Mar 26 (dayIndex 3) and Mar 27 (dayIndex 4) run 6 sessions
+// Actual attendance per lab day (dayIndex → participants who showed up)
+// Update after each session day concludes.
+var LAB_ACTUALS = {
+  0: 51,  // Lab 1 — Mar 6
+  1: 24,  // Lab 2 — Mar 11
+  2: 29,  // Lab 3 — Mar 13
+  3: 55,  // Lab 4 — Mar 26
+  4: 105, // Lab 5 — Mar 27
+  5: 112, // Lab 6 — Apr 2
+};
+
+function getActualOrProjected(dayIndex) {
+  return LAB_ACTUALS.hasOwnProperty(dayIndex) ? LAB_ACTUALS[dayIndex] : getPerDayForDay(dayIndex);
+}
+
+// Counterbalanced rotation schedule (Lab 4 onward)
+// Each rotation is an ordered array of study IDs for that session.
+var ROTATIONS = {
+  R2: ['G','E','B','C','F','H2','D','A'],
+  R3: ['A','G','E','D','C','F','H2','B'],
+  R4: ['B','H2','G','E','A','C','F','D'],
+  R5: ['C','D','H2','G','E','A','B','F'],
+  R6: ['F','A','B','D','G','E','C','H2'],
+  R7: ['D','F','A','H2','B','G','E','C'],
+  R8: ['H2','C','F','B','D','A','G','E'],
+};
+var ROTATION_ORDER = ['R2','R3','R4','R5','R6','R7','R8'];
+var ROTATION_START_IDX = 1;  // Lab 4 begins at R3 (index 1 in ROTATION_ORDER)
+var ROTATION_START_LAB_IDX = 3; // dayIndex of Lab 4 (Mar 26)
+
+// Returns rotation name for a given absolute session number (0-indexed from Lab 4 session 1)
+function getRotationForSession(absSessionNum) {
+  return ROTATION_ORDER[(ROTATION_START_IDX + absSessionNum) % ROTATION_ORDER.length];
+}
+
+// Returns array of {rotName, studyOrder} for each session on a given dayIndex
+function getSessionRotations(dayIndex) {
+  if (dayIndex < ROTATION_START_LAB_IDX) return null;
+  var sessionsBeforeThisDay = 0;
+  for (var d = ROTATION_START_LAB_IDX; d < dayIndex; d++) {
+    sessionsBeforeThisDay += getSlotsForDay(d);
+  }
+  var result = [];
+  for (var s = 0; s < getSlotsForDay(dayIndex); s++) {
+    var rotName = getRotationForSession(sessionsBeforeThisDay + s);
+    result.push({ rotName: rotName, order: ROTATIONS[rotName] });
+  }
+  return result;
+}
+// Day-specific session counts: Mar 26 (dayIndex 3) ran 6 sessions, Mar 27 (dayIndex 4) ran 8 sessions, Apr 2 (dayIndex 5) runs 8 sessions
 function getSlotsForDay(dayIndex) {
-  return (dayIndex === 3 || dayIndex === 4) ? 6 : SESSIONS_PER_DAY;
+  if (dayIndex === 3) return 6;
+  if (dayIndex === 4) return 8;
+  if (dayIndex === 5) return 8;
+  return SESSIONS_PER_DAY;
 }
 function getPerDayForDay(dayIndex) {
   return getSlotsForDay(dayIndex) * EFFECTIVE_PER_SESSION;
@@ -3548,8 +3741,9 @@ var ll102Weeks = [
   { wk: 'Mar 2', dates: 'Mar 2–6', days: ['no','no','no','no','open|Mar 6 (Fri)'], current: false },
   { wk: 'Mar 9', dates: 'Mar 9–13', days: ['no','no','open|Mar 11 (Wed)','no','open|Mar 13 (Fri)'], current: false },
   { wk: 'Mar 16', dates: 'Mar 16–20', days: ['break','break','break','break','break'], current: false },
-  { wk: 'Mar 23', dates: 'Mar 23–27', days: ['no','no','no','open|Mar 26 (Thu)','open|Mar 27 (Fri)'], current: true },
-  { wk: 'Mar 30', dates: 'Mar 30–Apr 3', days: ['open|Mar 30 (Mon)','open|Mar 31 (Tue)','open|Apr 1 (Wed)','open|Apr 2 (Thu)','open|Apr 3 (Fri)'], current: false },
+  { wk: 'Mar 23', dates: 'Mar 23–27', days: ['no','no','no','open|Mar 26 (Thu)','open|Mar 27 (Fri)'], current: false },
+  { wk: 'Mar 30', dates: 'Mar 30–Apr 3', days: ['no','no','no','open|Apr 2 (Thu)','open|Apr 3 (Fri)'], current: true },
+  { wk: 'Apr 6', dates: 'Apr 6', days: ['open|Apr 6 (Mon)','no','no','no','no'], current: false },
 ];
 
 // Globally shared: index of the first open lab that is today or in the future.
@@ -4032,7 +4226,7 @@ renderAllLayouts();
   var statusText = isToday ? 'Live today' : daysAway === 1 ? 'Tomorrow' : 'In ' + daysAway + ' days';
   var countdownSub = isToday ? 'Sessions running now' : daysAway === 1 ? 'Session tomorrow' : target.label;
   var expectedParticipants = getPerDayForDay(target.dayIndex);
-  var sessionTimes = getSlotsForDay(target.dayIndex) === 6 ? '12, 1:10, 2:20, 3:30, 4:30, 5:30\u202fPM' : '12, 3:30, 4:30, 5:30\u202fPM';
+  var sessionTimes = getSlotsForDay(target.dayIndex) === 8 ? '12, 1:10, 2:20, 3:30, 4:30, 5:30, 6:30, 7:30\u202fPM' : getSlotsForDay(target.dayIndex) === 6 ? '12, 1:10, 2:20, 3:30, 4:30, 5:30\u202fPM' : '12, 3:30, 4:30, 5:30\u202fPM';
 
   // Studies active on this day
   var activeStudyNames = comp.active.map(function(s) { return s.label + ' · ' + s.title; }).join('<br>');
@@ -4042,7 +4236,7 @@ renderAllLayouts();
   }).join('<span style="color:rgba(255,255,255,0.2);margin:0 4px">·</span>');
 
   // Last updated badge
-  var LAST_UPDATED = 'Mar 26, 2026';
+  var LAST_UPDATED = 'Apr 2, 2026';
 
   // ── Row 1: meta strip ──
   // Build inline capacity bar segments
@@ -4092,6 +4286,36 @@ renderAllLayouts();
     '</div>';
 
   container.innerHTML = row1;
+})();
+
+// ═══ PLANNER STAT ROW ═══
+(function renderPlannerStatRow() {
+  var el = document.getElementById('planner-stat-row');
+  if (!el) return;
+  var openDates = window._capOpenDates || [];
+  var remainingDays = openDates.filter(function(_, i) { return i >= TODAY_DAY_INDEX; }).length;
+  var totalDays = openDates.length;
+
+  // Total sessions and participants already collected
+  var totalCollected = 0;
+  Object.keys(LAB_ACTUALS).forEach(function(k) { totalCollected += LAB_ACTUALS[k]; });
+  var totalProjectedRemaining = 0;
+  for (var i = TODAY_DAY_INDEX; i < openDates.length; i++) {
+    totalProjectedRemaining += getPerDayForDay(i);
+  }
+
+  function stat(val, label, gold) {
+    return '<div style="flex:1;padding:14px 18px;border-right:1px solid rgba(255,255,255,0.12);text-align:center">' +
+      '<div style="font-family:\'Source Serif 4\',Georgia,serif;font-size:28px;font-weight:900;color:' + (gold ? 'var(--gold)' : 'white') + ';line-height:1">' + val + '</div>' +
+      '<div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:1px;color:rgba(255,255,255,0.6);margin-top:3px">' + label + '</div>' +
+      '</div>';
+  }
+
+  el.innerHTML =
+    stat(totalDays, 'Total session days') +
+    stat(remainingDays, 'Days remaining') +
+    stat(totalCollected.toLocaleString(), 'Collected so far') +
+    stat('~' + totalProjectedRemaining.toLocaleString(), 'Projected remaining', true);
 })();
 
 // ═══ SUMMARY STRIP ═══
@@ -4270,14 +4494,17 @@ document.addEventListener('keydown', function(e) {
     var headerClass = isToday ? '' : isPast ? ' past' : ' future';
 
     // Session bar
+    var segStyle = 'display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;overflow:hidden;white-space:nowrap;letter-spacing:0.3px;';
     var barSegs = '';
-    barSegs += '<div class="dash-session-seg" style="width:' + (OVERHEAD_CHECKIN/SESSION_CAP*100).toFixed(1) + '%;background:#9CA3AF;opacity:0.5"></div>';
+    barSegs += '<div class="dash-session-seg" style="' + segStyle + 'width:' + (OVERHEAD_CHECKIN/SESSION_CAP*100).toFixed(1) + '%;background:#9CA3AF;opacity:0.85;color:white">Check-in</div>';
     activeStudies.forEach(function(s) {
-      barSegs += '<div class="dash-session-seg" style="width:' + (s.dur/SESSION_CAP*100).toFixed(1) + '%;background:' + s.color + '"></div>';
+      var pct = (s.dur/SESSION_CAP*100).toFixed(1);
+      var textColor = '#111';
+      barSegs += '<div class="dash-session-seg" style="' + segStyle + 'width:' + pct + '%;background:' + s.color + ';color:' + textColor + '">' + s.label + '</div>';
     });
-    barSegs += '<div class="dash-session-seg" style="width:' + (OVERHEAD_CHECKOUT/SESSION_CAP*100).toFixed(1) + '%;background:#9CA3AF;opacity:0.5"></div>';
+    barSegs += '<div class="dash-session-seg" style="' + segStyle + 'width:' + (OVERHEAD_CHECKOUT/SESSION_CAP*100).toFixed(1) + '%;background:#9CA3AF;opacity:0.85;color:white">Check-out</div>';
     if (comp.open > 0) {
-      barSegs += '<div class="dash-session-seg" style="width:' + (comp.open/SESSION_CAP*100).toFixed(1) + '%;background:repeating-linear-gradient(-45deg,rgba(74,222,128,0.12),rgba(74,222,128,0.12) 3px,rgba(74,222,128,0.22) 3px,rgba(74,222,128,0.22) 6px);border:1px dashed rgba(74,222,128,0.3)"></div>';
+      barSegs += '<div class="dash-session-seg" style="' + segStyle + 'width:' + (comp.open/SESSION_CAP*100).toFixed(1) + '%;background:#F5F3EF;border:1px solid var(--border-light);color:var(--text-3)">' + comp.open + 'm open</div>';
     }
 
     var legendParts = activeStudies.map(function(s) {
@@ -4285,51 +4512,52 @@ document.addEventListener('keydown', function(e) {
     });
     legendParts.push('<span style="margin-left:auto">' + comp.used + '/' + SESSION_CAP + ' min · ' + creditInfo.credit + ' SONA credit</span>');
 
-    // Per-study progress rows
+    // Per-study progress rows — only show studies active on this day
     var studyRowsHtml = '';
     STUDY_ROSTER.forEach(function(s) {
       var isActive = s.startLab - 1 <= di && di < s.endLab;
+      if (!isActive) return; // skip studies not running this day
 
       // Cumulative collected up to and including this day
-      var cumCollected = 0;
+      var cumCollected = s.priorN || 0;
       for (var d2 = 0; d2 < openDates.length; d2++) {
         if (d2 > di) break;
         var isActiveOnD2 = s.startLab - 1 <= d2 && d2 < s.endLab;
-        // If past/today, count actual; if future, count projected
-        if (isActiveOnD2) {
-          cumCollected += getPerDayForDay(d2);
-        }
+        if (isActiveOnD2) cumCollected += getActualOrProjected(d2);
       }
-      // Cap at targetN
-      cumCollected = Math.min(cumCollected, s.targetN);
-
-      // For inactive days, show overall progress up to last active day
+      // Show true count — do NOT cap at targetN
       var displayCollected = cumCollected;
-      if (!isActive) {
-        // Still show cumulative up to this point
-        displayCollected = Math.min(cumCollected, s.targetN);
-      }
+      var targetN = s.openEnded ? null : s.targetN;
+      var overQuota = targetN && displayCollected > targetN;
 
-      var pct = (displayCollected / s.targetN * 100).toFixed(0);
-      var pctNum = Math.min(parseFloat(pct), 100);
-      var hitTarget = displayCollected >= s.targetN;
-      var barColor = hitTarget ? '#16A34A' : isActive ? s.color : '#D1D5DB';
+      var pctNum = targetN ? Math.min(displayCollected / targetN * 100, 100) : 100;
+      var hitTarget = targetN && displayCollected >= targetN;
+      var barColor = overQuota ? '#D97706' : hitTarget ? '#16A34A' : s.color;
 
-      var dayCollected = isActive ? getPerDayForDay(di) : 0;
-      var afterToday = isFuture && isActive;
+      var dayCollected = getActualOrProjected(di);
+      var afterToday = isFuture;
 
-      studyRowsHtml += '<div class="dash-study-row' + (isActive ? '' : ' inactive') + '">';
+      studyRowsHtml += '<div class="dash-study-row">';
       studyRowsHtml += '<div class="dash-study-name">';
       studyRowsHtml += '<span style="display:inline-block;width:10px;height:10px;border-radius:2px;background:' + s.color + ';flex-shrink:0"></span>';
       studyRowsHtml += '<strong>' + s.label + '</strong> ' + s.title;
       if (hitTarget) studyRowsHtml += '<span style="font-size:10px;background:#DCFCE7;color:#16A34A;padding:1px 6px;border-radius:3px;font-weight:700;margin-left:4px">✓ Done</span>';
       studyRowsHtml += '</div>';
       studyRowsHtml += '<div class="dash-study-researcher">' + s.researcher + '</div>';
-      studyRowsHtml += '<div class="dash-progress-track"><div class="dash-progress-fill" style="width:' + pctNum + '%;background:' + barColor + '"></div></div>';
-      studyRowsHtml += '<div class="dash-progress-labels">';
-      studyRowsHtml += '<span>' + (isActive ? (afterToday ? '+' : '') + dayCollected + ' this day' : 'not active') + '</span>';
-      studyRowsHtml += '<span class="' + (hitTarget ? 'hit' : '') + '">' + displayCollected.toLocaleString() + ' / ' + s.targetN.toLocaleString() + ' (' + pctNum + '%)</span>';
-      studyRowsHtml += '</div>';
+      if (!s.openEnded) {
+        studyRowsHtml += '<div class="dash-progress-track"><div class="dash-progress-fill" style="width:' + pctNum.toFixed(0) + '%;background:' + barColor + '"></div></div>';
+        studyRowsHtml += '<div class="dash-progress-labels">';
+        studyRowsHtml += '<span>' + (afterToday ? '+' : '') + dayCollected + ' this day</span>';
+        var rightLabel = displayCollected.toLocaleString() + ' / ' + targetN.toLocaleString() + ' (' + pctNum.toFixed(0) + '%)';
+        if (overQuota) rightLabel += ' <span style="color:#D97706;font-weight:700">+' + (displayCollected - targetN) + '</span>';
+        studyRowsHtml += '<span class="' + (hitTarget ? 'hit' : '') + '">' + rightLabel + '</span>';
+        studyRowsHtml += '</div>';
+      } else {
+        studyRowsHtml += '<div class="dash-progress-labels" style="margin-top:4px">';
+        studyRowsHtml += '<span>' + (afterToday ? '+' : '') + dayCollected + ' this day</span>';
+        studyRowsHtml += '<span style="color:var(--text-3);font-style:italic">' + displayCollected.toLocaleString() + ' total · open-ended</span>';
+        studyRowsHtml += '</div>';
+      }
       studyRowsHtml += '</div>';
     });
 
@@ -4346,18 +4574,73 @@ document.addEventListener('keydown', function(e) {
     html += '<div class="dash-session-label">' + legendParts.join('') + '</div>';
     html += '</div>';
     html += '<div class="dash-studies-grid">' + studyRowsHtml + '</div>';
+
+    // Rotation schedule (Lab 4 onward)
+    var rotations = getSessionRotations(di);
+    if (rotations) {
+      var studyColorMap = {};
+      STUDY_ROSTER.forEach(function(s) { studyColorMap[s.id] = s.color; });
+      html += '<div style="padding:10px 16px 14px;border-top:1px solid var(--border-light)">';
+      html += '<div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.8px;color:var(--text-3);margin-bottom:8px">Session order (counterbalanced)</div>';
+      html += '<div style="display:flex;flex-direction:column;gap:5px">';
+      rotations.forEach(function(rot, idx) {
+        html += '<div style="display:flex;align-items:center;gap:8px">';
+        html += '<span style="font-size:10px;font-weight:700;color:var(--text-3);min-width:24px">' + rot.rotName + '</span>';
+        html += '<div style="display:flex;align-items:center;gap:3px;flex-wrap:wrap">';
+        rot.order.forEach(function(id, i) {
+          var col = studyColorMap[id] || '#ccc';
+          // only show studies active on this day
+          var isActiveStudy = STUDY_ROSTER.some(function(s) { return s.id === id && di >= s.startLab-1 && di < s.endLab; });
+          if (!isActiveStudy) return;
+          if (i > 0) html += '<span style="color:var(--text-3);font-size:10px">→</span>';
+          html += '<span style="display:inline-flex;align-items:center;gap:3px;background:' + col + '22;border:1px solid ' + col + '66;border-radius:3px;padding:1px 6px;font-size:11px;font-weight:600;color:var(--text)">';
+          html += '<span style="width:6px;height:6px;border-radius:1px;background:' + col + ';flex-shrink:0"></span>' + id;
+          html += '</span>';
+        });
+        html += '</div></div>';
+      });
+      html += '</div></div>';
+    }
+
     html += '</div>';
     html += '</div>';
   });
 
   container.innerHTML = html;
 
-  // today + next day expanded; everything else collapsed
-  container.querySelectorAll('.dash-day-card').forEach(function(card) {
+  // Expand only the most recent lab: today if it's a lab day, otherwise the last past lab.
+  // All past and future cards are collapsed.
+  var cards = Array.from(container.querySelectorAll('.dash-day-card'));
+
+  // Find the card to expand: prefer today, else the last past day
+  var targetCard = null;
+  cards.forEach(function(card) {
     var daysAway = parseInt(card.getAttribute('data-days-away'));
     var isToday = card.getAttribute('data-is-today') === '1';
+    if (isToday) {
+      targetCard = card; // today always wins
+    } else if (daysAway < 0 && !targetCard) {
+      targetCard = card; // last past day (cards are in chronological order, so last past wins)
+    }
+  });
+  // Walk forward to find last past if today not found
+  if (!targetCard) {
+    for (var ci = cards.length - 1; ci >= 0; ci--) {
+      var daysAway = parseInt(cards[ci].getAttribute('data-days-away'));
+      if (daysAway < 0) { targetCard = cards[ci]; break; }
+    }
+  }
+  // Fall back to next upcoming if no past days at all
+  if (!targetCard) {
+    for (var ci = 0; ci < cards.length; ci++) {
+      var daysAway = parseInt(cards[ci].getAttribute('data-days-away'));
+      if (daysAway >= 0) { targetCard = cards[ci]; break; }
+    }
+  }
+
+  cards.forEach(function(card) {
     var body = card.querySelector('.dash-day-body');
-    if (isToday || daysAway === 1) {
+    if (card === targetCard) {
       card.classList.add('expanded');
       body.style.maxHeight = body.scrollHeight + 'px';
     } else {
@@ -4365,6 +4648,15 @@ document.addEventListener('keydown', function(e) {
       body.style.maxHeight = '0';
     }
   });
+
+  // Scroll the expanded card into view smoothly
+  if (targetCard) {
+    setTimeout(function() {
+      var top = targetCard.getBoundingClientRect().top + window.scrollY - 80;
+      // Only scroll if user is already in the progress section
+      if (window.scrollY > 200) window.scrollTo({ top: top, behavior: 'smooth' });
+    }, 100);
+  }
 })();
 
 function toggleDashDay(card) {
@@ -4589,26 +4881,51 @@ document.querySelectorAll('.faq-group-body').forEach(function(body) {
     return '<div class="' + cls + '" style="width:' + pct(min, cap) + ';background:' + color + '">' + (min >= 4 ? label : '') + '</div>';
   }
 
-  // ── Study cards — grouped by researcher ──
-  // Build researcher groups preserving session order within each group
-  var researcherOrder = [];
-  var researcherGroups = {};
-  STUDY_ROSTER.forEach(function(s) {
-    if (!researcherGroups[s.researcher]) {
-      researcherGroups[s.researcher] = [];
-      researcherOrder.push(s.researcher);
+  // ── Study cards — grouped by status ──
+  // Status order: Collecting → Pending → Complete
+  // Within Collecting: sorted by % remaining (most behind first)
+  // Within Pending / Complete: sorted by startLab / endLab
+
+  function getStudyStatus(s) {
+    if (s.endLab <= TODAY_DAY_INDEX) return 'complete';
+    if (!s.openEnded && getCollectedForCard(s) >= s.targetN) return 'complete';
+    if (s.startLab > TODAY_DAY_INDEX) return 'pending';
+    return 'collecting';
+  }
+
+  function getCollectedForCard(s) {
+    var c = s.priorN || 0;
+    for (var di2 = s.startLab - 1; di2 < Math.min(s.endLab, openDates.length); di2++) {
+      if (di2 <= TODAY_DAY_INDEX && LAB_ACTUALS.hasOwnProperty(di2)) c += LAB_ACTUALS[di2];
     }
-    researcherGroups[s.researcher].push(s);
+    return c;
+  }
+
+  var statusOrder = ['collecting', 'pending', 'complete'];
+  var statusLabels = { collecting: 'Collecting', pending: 'Pending', complete: 'Complete' };
+  var statusColors = { collecting: 'var(--green)', pending: 'var(--text-3)', complete: 'var(--text-3)' };
+
+  var groups = { collecting: [], pending: [], complete: [] };
+  STUDY_ROSTER.forEach(function(s) { groups[getStudyStatus(s)].push(s); });
+
+  // Sort collecting by % remaining desc (furthest behind first)
+  groups.collecting.sort(function(a, b) {
+    var remA = Math.max(0, a.targetN - getCollectedForCard(a)) / a.targetN;
+    var remB = Math.max(0, b.targetN - getCollectedForCard(b)) / b.targetN;
+    return remB - remA;
   });
+  groups.pending.sort(function(a, b) { return a.startLab - b.startLab; });
+  groups.complete.sort(function(a, b) { return a.endLab - b.endLab; });
 
   var cardsHtml = '';
-  researcherOrder.forEach(function(researcher) {
-    var group = researcherGroups[researcher];
-    var totalN = group.reduce(function(a, s) { return a + s.targetN; }, 0);
+  statusOrder.forEach(function(status) {
+    var group = groups[status];
+    if (group.length === 0) return;
     cardsHtml += '<div style="margin-bottom:20px">';
-    cardsHtml += '<div style="display:flex;align-items:baseline;justify-content:space-between;margin-bottom:10px;padding-bottom:6px;border-bottom:1px solid var(--border-light)">';
-    cardsHtml += '<span style="font-size:12px;font-weight:700;color:var(--text)">' + researcher + '</span>';
-    cardsHtml += '<span style="font-size:11px;color:var(--text-3)">' + group.length + ' stud' + (group.length !== 1 ? 'ies' : 'y') + ' &nbsp;·&nbsp; N = ' + totalN.toLocaleString() + ' combined</span>';
+    cardsHtml += '<div style="display:flex;align-items:center;gap:8px;margin-bottom:10px;padding-bottom:6px;border-bottom:1px solid var(--border-light)">';
+    cardsHtml += '<span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:' + statusColors[status] + ';flex-shrink:0"></span>';
+    cardsHtml += '<span style="font-size:12px;font-weight:700;color:var(--text)">' + statusLabels[status] + '</span>';
+    cardsHtml += '<span style="font-size:11px;color:var(--text-3)">' + group.length + ' stud' + (group.length !== 1 ? 'ies' : 'y') + '</span>';
     cardsHtml += '</div>';
     cardsHtml += '<div class="ref-study-grid">';
 
@@ -4623,23 +4940,45 @@ document.querySelectorAll('.faq-group-body').forEach(function(body) {
         studyActiveIndices.push(di2);
       }
       var totalStudyCap = studyActiveIndices.reduce(function(sum, di2) { return sum + getPerDayForDay(di2); }, 0);
+
+      // How many have already been collected (actuals for past days + priorN offset)
+      var alreadyCollected = s.priorN || 0;
+      studyActiveIndices.forEach(function(di2) {
+        if (di2 <= TODAY_DAY_INDEX && LAB_ACTUALS.hasOwnProperty(di2)) {
+          alreadyCollected += LAB_ACTUALS[di2];
+        }
+      });
+      // Do NOT cap alreadyCollected — show true count even if over target
+
+      var remainingN = Math.max(0, s.targetN - alreadyCollected);
+
+      // Project forward from today
+      var futureDayIndices = studyActiveIndices.filter(function(di2) { return di2 >= TODAY_DAY_INDEX; });
       var daysNeeded = 0, capSoFar = 0;
-      for (var k = 0; k < studyActiveIndices.length; k++) {
-        capSoFar += getPerDayForDay(studyActiveIndices[k]);
+      for (var k = 0; k < futureDayIndices.length; k++) {
+        capSoFar += getPerDayForDay(futureDayIndices[k]);
         daysNeeded++;
-        if (capSoFar >= s.targetN) break;
+        if (capSoFar >= remainingN) break;
       }
-      var fillPct = Math.min(daysNeeded / Math.max(daysActive, 1) * 100, 100).toFixed(0);
-      var paceOk = capSoFar >= s.targetN;
+      var fillPct = remainingN === 0 ? 100 : Math.min(daysNeeded / Math.max(futureDayIndices.length, 1) * 100, 100).toFixed(0);
+      var paceOk = remainingN === 0 || capSoFar >= remainingN;
       var paceColor = paceOk ? '#16A34A' : '#D97706';
       var paceLabel = paceOk
         ? 'Reaches N=' + s.targetN + ' in ~' + daysNeeded + ' day' + (daysNeeded !== 1 ? 's' : '')
         : 'N=' + s.targetN + ' needs ~' + daysNeeded + ' days (' + daysActive + ' scheduled)';
 
+      var projFuture = futureDayIndices.reduce(function(a,di2){return a+getPerDayForDay(di2);},0);
+      var projTotal = alreadyCollected + projFuture;
+      var overshootAmt = (!s.openEnded && paceOk && projTotal > s.targetN) ? projTotal - s.targetN : 0;
+      var shortfallAmt = (!s.openEnded && !paceOk) ? Math.max(0, s.targetN - projTotal) : 0;
+
       // Anticipated completion date
       var completionDate, completionColor;
-      if (paceOk && studyDates[daysNeeded - 1]) {
-        var raw = studyDates[daysNeeded - 1];
+      if (remainingN === 0) {
+        completionDate = 'Already reached';
+        completionColor = 'var(--green-text)';
+      } else if (paceOk && futureDayIndices[daysNeeded - 1] !== undefined) {
+        var raw = openDates[futureDayIndices[daysNeeded - 1]];
         var m = raw.match(/^(Mar|Apr)\s+(\d+)\s+\((\w+)\)/);
         completionDate = m ? m[1] + ' ' + m[2] + ' (' + m[3] + ')' : raw.split('(')[0].trim();
         completionColor = 'var(--green-text)';
@@ -4655,8 +4994,9 @@ document.querySelectorAll('.faq-group-body').forEach(function(body) {
                   : sessionPos === activeRoster.length ? 'Last in session'
                   : 'Position ' + sessionPos + ' of ' + activeRoster.length;
       var windowClosed = s.endLab <= TODAY_DAY_INDEX;
+      var quotaMet = !s.openEnded && alreadyCollected >= s.targetN;
       var statusCls, statusLabel;
-      if (windowClosed) {
+      if (windowClosed || quotaMet) {
         statusCls = 'complete'; statusLabel = 'Complete';
       } else if (s.startLab > TODAY_DAY_INDEX) {
         statusCls = 'pending'; statusLabel = 'Pending';
@@ -4678,15 +5018,44 @@ document.querySelectorAll('.faq-group-body').forEach(function(body) {
       cardsHtml += '</div>';
       cardsHtml += '</div>';
       cardsHtml += '</div>';
+      // Actual collected (uncapped) for display
+      var collectedRaw = s.priorN || 0;
+      studyActiveIndices.forEach(function(di2) {
+        if (di2 <= TODAY_DAY_INDEX && LAB_ACTUALS.hasOwnProperty(di2)) collectedRaw += LAB_ACTUALS[di2];
+      });
+      var overQuota = collectedRaw > s.targetN;
+      var collectedColor = overQuota ? '#D97706' : collectedRaw >= s.targetN ? 'var(--green-text)' : 'var(--text)';
+      var collectedBadge = overQuota
+        ? ' <span style="font-size:10px;font-weight:700;color:#D97706">+' + (collectedRaw - s.targetN) + ' over</span>'
+        : collectedRaw >= s.targetN ? ' <span style="font-size:10px;font-weight:700;color:var(--green-text)">✓ met</span>' : '';
+      var paceBarPct = Math.min(collectedRaw / s.targetN * 100, 100).toFixed(0);
+      var paceBarColor = overQuota ? '#D97706' : collectedRaw >= s.targetN ? '#16A34A' : paceColor;
+
       cardsHtml += '<div class="ref-study-body">';
       cardsHtml += '<div class="ref-study-fields">';
       cardsHtml += refField('Duration', s.dur + ' min', true);
-      cardsHtml += refField('Target N', s.targetN.toLocaleString(), true);
+      if (s.openEnded) {
+        cardsHtml += '<div class="ref-field"><span class="ref-field-key">Target N</span><span class="ref-field-val" style="color:var(--text-3);font-style:italic">Open-ended</span></div>';
+        cardsHtml += '<div class="ref-field"><span class="ref-field-key">Collected so far</span><span class="ref-field-val" style="font-weight:600">' + collectedRaw.toLocaleString() + '</span></div>';
+      } else {
+        cardsHtml += refField('Target N', s.targetN.toLocaleString(), true);
+        cardsHtml += '<div class="ref-field"><span class="ref-field-key">Collected so far</span><span class="ref-field-val" style="color:' + collectedColor + ';font-weight:600">' + collectedRaw.toLocaleString() + collectedBadge + '</span></div>';
+      }
       cardsHtml += refField('Session position', posNote);
       cardsHtml += refField('Active', 'Labs ' + s.startLab + '–' + s.endLab + ' · ' + daysActive + ' day' + (daysActive !== 1 ? 's' : ''));
-      cardsHtml += '<div class="ref-field"><span class="ref-field-key">Est. completion</span><span class="ref-field-val" style="color:' + completionColor + ';font-weight:600">' + completionDate + '</span></div>';
+      if (!s.openEnded) {
+        cardsHtml += '<div class="ref-field"><span class="ref-field-key">Est. completion</span><span class="ref-field-val" style="color:' + completionColor + ';font-weight:600">' + completionDate + '</span></div>';
+      }
       cardsHtml += '</div>';
-      cardsHtml += '<div class="ref-pace-row"><div class="ref-pace-track"><div class="ref-pace-fill" style="width:' + fillPct + '%;background:' + paceColor + '"></div></div><span class="ref-pace-label" style="color:' + paceColor + '">' + paceLabel + '</span></div>';
+      if (!s.openEnded) {
+        cardsHtml += '<div class="ref-pace-row"><div class="ref-pace-track"><div class="ref-pace-fill" style="width:' + paceBarPct + '%;background:' + paceBarColor + '"></div></div><span class="ref-pace-label" style="color:' + paceColor + '">' + paceLabel + '</span></div>';
+      }
+      if (overshootAmt > 0) {
+        cardsHtml += '<div style="margin:2px 14px 8px;padding:5px 10px;background:var(--amber-bg);border:1px solid #FDE68A;border-radius:4px;font-size:11px;color:var(--amber-text);font-weight:600">⚠️ Projected to overshoot by ~' + overshootAmt + ' — consider closing early</div>';
+      }
+      if (shortfallAmt > 0) {
+        cardsHtml += '<div style="margin:2px 14px 8px;padding:5px 10px;background:#FEF2F2;border:1px solid #FECACA;border-radius:4px;font-size:11px;color:#991B1B;font-weight:600">⚠️ Projected ~' + shortfallAmt + ' short — may need extra sessions</div>';
+      }
       if (sepNote) {
         cardsHtml += '<div class="ref-study-note">🔀 ' + sepNote + '</div>';
       }
@@ -4714,7 +5083,7 @@ document.querySelectorAll('.faq-group-body').forEach(function(body) {
   var today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
 
   // Find today or next upcoming lab
-  var target = null, isPast = false;
+  var target = null;
   for (var i = 0; i < openDates.length; i++) {
     var m = openDates[i].match(/(Mar|Apr)\s+(\d+)/);
     if (!m) continue;
@@ -4728,85 +5097,166 @@ document.querySelectorAll('.faq-group-body').forEach(function(body) {
   }
 
   if (!target) {
-    container.innerHTML = '<p style="font-size:13px;color:var(--text-3);padding:12px 0">Collection complete — no upcoming sessions.</p>';
+    container.innerHTML = '<p style="font-size:13px;color:var(--text-3);padding:20px 0">Collection complete — no upcoming sessions.</p>';
     return;
   }
 
   var isToday = target.diff === 0;
-  var comp = getSessionComposition(target.dayIndex);
+  var di = target.dayIndex;
+  var comp = getSessionComposition(di);
   var activeStudies = comp.active.filter(function(s) { return s.id !== 'New'; });
   var creditInfo = getCredit(comp.used);
-  var slots = getSlotsForDay(target.dayIndex);
-  var expected = getPerDayForDay(target.dayIndex);
-  var labNum = target.dayIndex + 1;
+  var slots = getSlotsForDay(di);
+  var expected = getPerDayForDay(di);
+  var labNum = di + 1;
 
   // Session times
-  var times = slots === 6
-    ? ['12:00 PM', '1:10 PM', '2:20 PM', '3:30 PM', '4:30 PM', '5:30 PM']
-    : ['12:00 PM', '3:30 PM', '4:30 PM', '5:30 PM'];
+  var allTimes = slots === 8
+    ? ['12:25 PM','1:20 PM','2:15 PM','3:30 PM','4:25 PM','5:20 PM','6:15 PM','7:10 PM']
+    : slots === 6
+      ? ['12:00 PM','1:10 PM','2:20 PM','3:30 PM','4:30 PM','5:30 PM']
+      : ['12:00 PM','3:30 PM','4:30 PM','5:30 PM'];
 
-  // RA checklist items
-  var checklist = [
-    'Confirm Qualtrics redirect chain is live end-to-end',
-    'Check SONA timeslots are open and filled',
-    'Verify lab computers are logged in to first study URL',
-    'Have SONA credit-grant screen ready for end of session',
-    'Note any no-shows for experimenter log'
-  ];
-
-  var statusColor = isToday ? 'var(--green)' : 'var(--text-3)';
   var statusLabel = isToday ? 'Live today' : (target.diff === 1 ? 'Tomorrow' : 'In ' + target.diff + ' days');
+  var statusBg = isToday ? '#16A34A' : '#2563EB';
 
   var html = '';
 
-  // Top row: lab info cards
-  html += '<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:16px">';
-  html += metaCard('Lab ' + labNum, target.label.replace(' ('+target.label.match(/\((\w+)\)/)[1]+')', ''), statusColor);
-  html += metaCard(slots + ' sessions', expected + ' participants expected', 'var(--text-2)');
-  html += metaCard(creditInfo.credit + ' credit', 'SONA / participant', creditInfo.color);
-  html += metaCard(comp.used + ' min', 'Session length', comp.used > 60 ? '#DC2626' : 'var(--text-2)');
+  // ── Hero header ──
+  html += '<div style="background:var(--cardinal);border-radius:8px 8px 0 0;padding:20px 24px 16px;margin:-1px -1px 0">';
+  html += '<div style="display:flex;align-items:flex-start;justify-content:space-between;gap:16px;flex-wrap:wrap">';
+  html += '<div>';
+  html += '<div style="font-family:\'Source Serif 4\',Georgia,serif;font-size:22px;font-weight:900;color:white;line-height:1.2">Lab ' + labNum + ' &nbsp;·&nbsp; ' + target.label + '</div>';
+  html += '<div style="font-size:13px;color:rgba(255,255,255,0.6);margin-top:4px">' + slots + ' sessions &nbsp;·&nbsp; ~' + expected + ' participants expected &nbsp;·&nbsp; <span style="color:' + (creditInfo.credit === '1.0' ? '#FACC15' : 'rgba(255,255,255,0.7)') + ';font-weight:600">' + creditInfo.credit + ' SONA credit</span></div>';
   html += '</div>';
+  html += '<span style="background:' + statusBg + ';color:white;font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:1.5px;padding:5px 14px;border-radius:4px;white-space:nowrap;align-self:flex-start">' + statusLabel + '</span>';
+  html += '</div>';
+  html += '</div>';
+
+  // ── Session bar (big) ──
+  var segStyle = 'display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;overflow:hidden;white-space:nowrap;letter-spacing:0.3px;height:100%';
+  html += '<div style="background:var(--surface);padding:16px 24px 12px;border-left:1px solid var(--border);border-right:1px solid var(--border)">';
+  html += '<div style="display:flex;height:36px;border-radius:6px;overflow:hidden;background:#EDEAE5;box-shadow:inset 0 1px 3px rgba(0,0,0,0.07)">';
+  html += '<div style="' + segStyle + ';width:' + (5/60*100).toFixed(1) + '%;background:#9CA3AF;color:white">Check-in</div>';
+  activeStudies.forEach(function(s) {
+    html += '<div style="' + segStyle + ';width:' + (s.dur/60*100).toFixed(1) + '%;background:' + s.color + ';color:#111">' + s.label + '</div>';
+  });
+  html += '<div style="' + segStyle + ';width:' + (5/60*100).toFixed(1) + '%;background:#9CA3AF;color:white">Check-out</div>';
+  if (comp.open > 0) {
+    html += '<div style="' + segStyle + ';flex:1;background:#F5F3EF;color:var(--text-3);border:1px solid var(--border-light)">' + comp.open + 'm open</div>';
+  }
+  html += '</div>';
+  // Legend
+  html += '<div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:8px;font-size:12px;color:var(--text-2)">';
+  activeStudies.forEach(function(s) {
+    html += '<span style="display:inline-flex;align-items:center;gap:5px"><span style="display:inline-block;width:10px;height:10px;border-radius:2px;background:' + s.color + '"></span>' + s.label + ' ' + s.title + ' (' + s.dur + 'm)</span>';
+  });
+  html += '<span style="margin-left:auto;color:var(--text-3)">' + comp.used + '/60 min &nbsp;·&nbsp; ' + creditInfo.credit + ' SONA credit</span>';
+  html += '</div>';
+  html += '</div>';
+
+  // ── Study progress tiles ──
+  html += '<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:1px;background:var(--border-light);border-left:1px solid var(--border);border-right:1px solid var(--border)">';
+  activeStudies.forEach(function(s) {
+    // Cumulative collected
+    var collected = s.priorN || 0;
+    for (var d2 = s.startLab - 1; d2 < Math.min(s.endLab, openDates.length); d2++) {
+      if (d2 <= TODAY_DAY_INDEX && LAB_ACTUALS.hasOwnProperty(d2)) collected += LAB_ACTUALS[d2];
+    }
+    var hitTarget = !s.openEnded && collected >= s.targetN;
+    var overTarget = !s.openEnded && collected > s.targetN;
+    var pct = s.openEnded ? 100 : Math.min(collected / s.targetN * 100, 100);
+    var barColor = overTarget ? '#D97706' : hitTarget ? '#16A34A' : s.color;
+
+    html += '<div style="background:var(--surface);padding:14px 16px">';
+    html += '<div style="display:flex;align-items:center;gap:6px;margin-bottom:4px">';
+    html += '<span style="display:inline-block;width:10px;height:10px;border-radius:2px;background:' + s.color + ';flex-shrink:0"></span>';
+    html += '<strong style="font-size:13px">' + s.label + '</strong>';
+    html += '<span style="font-size:12px;color:var(--text-2)">' + s.title + '</span>';
+    if (hitTarget) html += '<span style="margin-left:auto;font-size:10px;background:#DCFCE7;color:#16A34A;padding:1px 7px;border-radius:3px;font-weight:700">✓ Done</span>';
+    html += '</div>';
+    html += '<div style="font-size:11px;color:var(--text-3);margin-bottom:8px">' + s.researcher + '</div>';
+    if (!s.openEnded) {
+      html += '<div style="height:6px;background:#E5E2DC;border-radius:3px;overflow:hidden;margin-bottom:5px">';
+      html += '<div style="height:100%;width:' + pct.toFixed(0) + '%;background:' + barColor + ';border-radius:3px"></div>';
+      html += '</div>';
+      html += '<div style="display:flex;justify-content:space-between;font-size:11px;color:var(--text-3)">';
+      html += '<span>+' + expected + ' this day</span>';
+      html += '<span style="font-weight:' + (hitTarget ? '700' : '400') + ';color:' + (hitTarget ? 'var(--green-text)' : 'var(--text-3)') + '">' + collected.toLocaleString() + ' / ' + s.targetN.toLocaleString() + ' (' + pct.toFixed(0) + '%)</span>';
+      html += '</div>';
+    } else {
+      html += '<div style="font-size:11px;display:flex;justify-content:space-between;margin-top:4px">';
+      html += '<span style="color:var(--text-3)">+' + expected + ' this day</span>';
+      html += '<span style="color:var(--text-3);font-style:italic">' + collected.toLocaleString() + ' total · open-ended</span>';
+      html += '</div>';
+    }
+    html += '</div>';
+  });
+  html += '</div>';
+
+  // ── Session times + rotation schedule ──
+  html += '<div style="background:#F8F7F5;border:1px solid var(--border);border-top:none;border-radius:0 0 8px 8px;padding:16px 24px">';
 
   // Session times
   html += '<div style="margin-bottom:14px">';
-  html += '<div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.8px;color:var(--text-3);margin-bottom:6px">Session times</div>';
-  html += '<div style="display:flex;gap:8px;flex-wrap:wrap">';
-  times.forEach(function(t) {
-    html += '<span style="font-size:12px;font-weight:600;background:var(--surface);border:0.5px solid var(--border);border-radius:4px;padding:3px 10px;color:var(--text-2)">' + t + '</span>';
+  html += '<div style="font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:1.5px;color:var(--text-3);margin-bottom:8px">Session times</div>';
+  html += '<div style="display:flex;gap:6px;flex-wrap:wrap">';
+  allTimes.forEach(function(t) {
+    html += '<span style="font-size:12px;font-weight:600;background:var(--surface);border:1px solid var(--border);border-radius:4px;padding:3px 10px;color:var(--text-2)">' + t + '</span>';
   });
   html += '</div></div>';
 
-  // Studies running
-  html += '<div style="margin-bottom:14px">';
-  html += '<div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.8px;color:var(--text-3);margin-bottom:6px">Studies running</div>';
-  html += '<div style="display:flex;gap:8px;flex-wrap:wrap">';
-  activeStudies.forEach(function(s) {
-    html += '<span style="display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:600;background:var(--surface);border:0.5px solid var(--border);border-radius:4px;padding:4px 10px;color:var(--text)">';
-    html += '<span style="width:8px;height:8px;border-radius:2px;background:' + s.color + ';flex-shrink:0"></span>';
-    html += s.label + ' · ' + s.title + ' <span style="color:var(--text-3);font-weight:400">(' + s.dur + ' min)</span>';
-    html += '</span>';
-  });
-  html += '</div></div>';
+  // Rotation schedule
+  var rotations = getSessionRotations(di);
+  if (rotations && rotations.length) {
+    var studyColorMap = {};
+    STUDY_ROSTER.forEach(function(s) { studyColorMap[s.id] = s.color; });
+    html += '<div>';
+    html += '<div style="font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:1.5px;color:var(--text-3);margin-bottom:8px">Session order (counterbalanced)</div>';
+    html += '<div style="display:flex;flex-direction:column;gap:5px">';
+    rotations.forEach(function(rot, idx) {
+      html += '<div style="display:flex;align-items:center;gap:6px">';
+      html += '<span style="font-size:10px;font-weight:700;color:var(--text-3);min-width:24px">' + rot.rotName + '</span>';
+      html += '<span style="font-size:11px;font-weight:600;color:var(--text-3);min-width:48px">' + allTimes[idx] + '</span>';
+      html += '<div style="display:flex;align-items:center;gap:3px;flex-wrap:wrap">';
+      var activeOrder = rot.order.filter(function(id) {
+        return STUDY_ROSTER.some(function(s) { return s.id === id && di >= s.startLab - 1 && di < s.endLab; });
+      });
+      activeOrder.forEach(function(id, i) {
+        var col = studyColorMap[id] || '#ccc';
+        if (i > 0) html += '<span style="color:var(--text-3);font-size:10px">→</span>';
+        html += '<span style="display:inline-flex;align-items:center;gap:3px;background:' + col + '33;border:1px solid ' + col + '88;border-radius:3px;padding:2px 7px;font-size:12px;font-weight:700;color:var(--text)">' + id + '</span>';
+      });
+      html += '</div></div>';
+    });
+    html += '</div></div>';
+  }
+
+  // Sessions completed counter
+  html += '<div style="display:flex;align-items:center;gap:10px;margin-top:14px;margin-bottom:10px;padding:10px 14px;background:var(--surface);border:1px solid var(--border);border-radius:6px">';
+  html += '<span style="font-size:11px;font-weight:700;color:var(--text-3);text-transform:uppercase;letter-spacing:0.8px;flex:1">Sessions completed</span>';
+  html += '<button onclick="var el=this.parentNode.querySelector(\'[data-sc]\');var n=parseInt(el.textContent);if(n>0)el.textContent=n-1;" style="width:26px;height:26px;border-radius:50%;border:1px solid var(--border);background:var(--bg);font-size:16px;cursor:pointer;color:var(--text-2);line-height:1">−</button>';
+  html += '<span data-sc style="font-family:\'Source Serif 4\',serif;font-size:22px;font-weight:900;color:var(--cardinal);min-width:28px;text-align:center">0</span>';
+  html += '<span style="font-size:13px;color:var(--text-3)">/ ' + slots + '</span>';
+  html += '<button onclick="var el=this.parentNode.querySelector(\'[data-sc]\');var n=parseInt(el.textContent);if(n<' + slots + ')el.textContent=n+1;" style="width:26px;height:26px;border-radius:50%;border:1px solid var(--border);background:var(--bg);font-size:16px;cursor:pointer;color:var(--text-2);line-height:1">+</button>';
+  html += '</div>';
 
   // RA checklist
-  html += '<div style="margin-bottom:16px">';
-  html += '<div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.8px;color:var(--text-3);margin-bottom:6px">RA prep checklist</div>';
+  html += '<div style="margin-top:14px;padding-top:14px;border-top:1px solid var(--border-light)">';
+  html += '<div style="font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:1.5px;color:var(--text-3);margin-bottom:8px">RA prep checklist</div>';
   html += '<div style="display:flex;flex-direction:column;gap:5px">';
-  checklist.forEach(function(item) {
-    html += '<label style="display:flex;align-items:baseline;gap:8px;font-size:13px;color:var(--text-2);cursor:pointer">';
-    html += '<input type="checkbox" style="margin-top:1px;flex-shrink:0"> ' + item;
-    html += '</label>';
+  ['Confirm Qualtrics redirect chain is live end-to-end',
+   'Check SONA timeslots are open and filled',
+   'Verify lab computers are logged in to first study URL',
+   'Have SONA credit-grant screen ready for end of session',
+   'Note any no-shows for experimenter log'].forEach(function(item) {
+    html += '<label style="display:flex;align-items:baseline;gap:8px;font-size:13px;color:var(--text-2);cursor:pointer"><input type="checkbox" style="flex-shrink:0"> ' + item + '</label>';
   });
   html += '</div></div>';
 
-  container.innerHTML = html;
+  html += '</div>'; // end bottom panel
 
-  function metaCard(val, label, color) {
-    return '<div style="background:var(--surface);border:0.5px solid var(--border);border-radius:6px;padding:10px 12px">' +
-      '<div style="font-size:18px;font-weight:600;color:' + color + '">' + val + '</div>' +
-      '<div style="font-size:11px;color:var(--text-3);margin-top:2px">' + label + '</div>' +
-    '</div>';
-  }
+  container.innerHTML = html;
 })();
 </script>
 </body>
