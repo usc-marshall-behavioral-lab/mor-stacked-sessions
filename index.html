@@ -2233,7 +2233,7 @@ html { scroll-padding-top: 56px; }
       <div class="subtitle">In-person proctored data collection · MOR Subject Pool · LL102</div>
     </div>
     <span style="margin-left:8px;font-size:11px;font-weight:700;background:rgba(255,255,255,0.15);color:rgba(255,255,255,0.7);border:1px solid rgba(255,255,255,0.25);padding:5px 12px;border-radius:2px;letter-spacing:1px;white-space:nowrap;text-transform:uppercase;display:inline-flex;align-items:center;gap:6px">
-      <span style="display:inline-block;width:7px;height:7px;border-radius:50%;background:#FACC15;flex-shrink:0"></span>Updated Apr 2, 2026 (today)
+      <span style="display:inline-block;width:7px;height:7px;border-radius:50%;background:#FACC15;flex-shrink:0"></span>Updated Apr 3, 2026
     </span>
   </div>
   <div class="gold-bar"></div>
@@ -2458,8 +2458,8 @@ html { scroll-padding-top: 56px; }
           <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">
             <span style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:rgba(255,255,255,0.5);min-width:42px">April</span>
             <span style="display:inline-block;background:rgba(255,255,255,0.08);color:rgba(255,255,255,0.45);font-size:12px;font-weight:600;padding:3px 9px;border-radius:4px;text-decoration:line-through">Apr 2</span>
-            <span style="display:inline-block;background:rgba(255,255,255,0.15);color:white;font-size:12px;font-weight:700;padding:3px 9px;border-radius:4px">Apr 3</span>
-            <span style="display:inline-block;background:rgba(255,255,255,0.15);color:white;font-size:12px;font-weight:700;padding:3px 9px;border-radius:4px">Apr 6</span>
+            <span style="display:inline-block;background:rgba(255,255,255,0.08);color:rgba(255,255,255,0.45);font-size:12px;font-weight:600;padding:3px 9px;border-radius:4px;text-decoration:line-through">Apr 3</span>
+            <span style="display:inline-block;background:rgba(255,255,255,0.15);color:white;font-size:12px;font-weight:700;padding:3px 9px;border-radius:4px">Apr 9</span>
           </div>
         </div>
         <a href="#sec-timeline" onclick="var d=document.querySelector('#sec-timeline details');if(d)d.open=true;var el=document.getElementById('sec-timeline');if(el)window.scrollTo({top:el.getBoundingClientRect().top+window.scrollY-72,behavior:'smooth'});return false;" style="font-size:12px;font-weight:600;color:var(--gold);text-decoration:none;white-space:nowrap;padding-top:2px">View calendar →</a>
@@ -3632,6 +3632,7 @@ var LAB_ACTUALS = {
   3: 55,  // Lab 4 — Mar 26
   4: 105, // Lab 5 — Mar 27
   5: 112, // Lab 6 — Apr 2
+  6: 36,  // Lab 7 — Apr 3
 };
 
 function getActualOrProjected(dayIndex) {
@@ -3672,11 +3673,13 @@ function getSessionRotations(dayIndex) {
   }
   return result;
 }
-// Day-specific session counts: Mar 26 (dayIndex 3) ran 6 sessions, Mar 27 (dayIndex 4) ran 8 sessions, Apr 2 (dayIndex 5) runs 8 sessions
+// Day-specific session counts: Mar 26 (dayIndex 3) ran 6, Mar 27 (dayIndex 4) ran 8, Apr 2 (dayIndex 5) ran 8, Apr 3 (dayIndex 6) ran 4, Apr 9 (dayIndex 7) runs 5
 function getSlotsForDay(dayIndex) {
   if (dayIndex === 3) return 6;
   if (dayIndex === 4) return 8;
   if (dayIndex === 5) return 8;
+  if (dayIndex === 6) return 4;
+  if (dayIndex === 7) return 5;
   return SESSIONS_PER_DAY;
 }
 function getPerDayForDay(dayIndex) {
@@ -3743,7 +3746,7 @@ var ll102Weeks = [
   { wk: 'Mar 16', dates: 'Mar 16–20', days: ['break','break','break','break','break'], current: false },
   { wk: 'Mar 23', dates: 'Mar 23–27', days: ['no','no','no','open|Mar 26 (Thu)','open|Mar 27 (Fri)'], current: false },
   { wk: 'Mar 30', dates: 'Mar 30–Apr 3', days: ['no','no','no','open|Apr 2 (Thu)','open|Apr 3 (Fri)'], current: true },
-  { wk: 'Apr 6', dates: 'Apr 6', days: ['open|Apr 6 (Mon)','no','no','no','no'], current: false },
+  { wk: 'Apr 6', dates: 'Apr 6–10', days: ['no','no','no','open|Apr 9 (Thu)','no'], current: false },
 ];
 
 // Globally shared: index of the first open lab that is today or in the future.
@@ -4236,7 +4239,7 @@ renderAllLayouts();
   }).join('<span style="color:rgba(255,255,255,0.2);margin:0 4px">·</span>');
 
   // Last updated badge
-  var LAST_UPDATED = 'Apr 2, 2026';
+  var LAST_UPDATED = 'Apr 3, 2026';
 
   // ── Row 1: meta strip ──
   // Build inline capacity bar segments
@@ -5111,7 +5114,11 @@ document.querySelectorAll('.faq-group-body').forEach(function(body) {
   var labNum = di + 1;
 
   // Session times
-  var allTimes = slots === 8
+  var allTimes = target.dayIndex === 6
+    ? ['2:15 PM', '2:50 PM', '3:25 PM', '4:00 PM']
+    : target.dayIndex === 7
+    ? ['3:30 PM', '4:05 PM', '4:40 PM', '5:15 PM', '5:50 PM']
+    : slots === 8
     ? ['12:25 PM','1:20 PM','2:15 PM','3:30 PM','4:25 PM','5:20 PM','6:15 PM','7:10 PM']
     : slots === 6
       ? ['12:00 PM','1:10 PM','2:20 PM','3:30 PM','4:30 PM','5:30 PM']
