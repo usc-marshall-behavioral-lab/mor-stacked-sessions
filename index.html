@@ -3610,13 +3610,11 @@ var STUDY_ROSTER = [
     status: 'collecting', startLab: 1, endLab: 6 },
   { id: 'G', dur: 8, targetN: 9999, color: '#FDE68A', label: 'G',
     title: 'Entitlement 2026', researcher: 'Jacob Roberson', dept: 'Management & Organization',
-    status: 'collecting', startLab: 5, endLab: 8, priorN: 104, openEnded: true },
+    status: 'collecting', startLab: 5, endLab: 10, priorN: 104, openEnded: true },
   { id: 'H', dur: 5, targetN: 75, color: '#67E8F9', label: 'H',
     title: 'TBD', researcher: 'Zach Berry', dept: 'Management & Organization',
     status: 'collecting', startLab: 1, endLab: 2 },
-  { id: 'J', dur: 5, targetN: 400, color: '#6EE7F9', label: 'J',
-    title: 'Gender and Distance', researcher: 'Cheryl Wakslak', dept: 'Management & Organization',
-    status: 'collecting', startLab: 9, endLab: 11 },
+
   { id: 'K', dur: 5, targetN: 200, color: '#BBF7D0', label: 'K',
     title: 'Productivity Perceptions 2', researcher: 'Cheryl Wakslak', dept: 'Management & Organization',
     status: 'collecting', startLab: 9, endLab: 11 },
@@ -3662,12 +3660,12 @@ var ROTATION_ORDER = ['R2','R3','R4','R5','R6','R7','R8'];
 // Phase 2 rotations (Apr 16–17): H2, J, K — all 6 permutations
 var PHASE2_ROTATIONS = ['P1','P2','P3','P4','P5','P6'];
 var PHASE2_ROTATION_MAP = {
-  P1: ['H2','J','K'],
-  P2: ['J','H2','K'],
-  P3: ['J','K','H2'],
-  P4: ['K','H2','J'],
-  P5: ['K','J','H2'],
-  P6: ['H2','K','J'],
+  P1: ['H2','G','K'],
+  P2: ['G','H2','K'],
+  P3: ['G','K','H2'],
+  P4: ['K','G','H2'],
+  P5: ['K','H2','G'],
+  P6: ['H2','K','G'],
 };
 var PHASE2_START_DAY_IDX = 8; // Apr 16
 var ROTATION_START_IDX = 1;  // Lab 4 begins at R3 (index 1 in ROTATION_ORDER)
