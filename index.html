@@ -2233,7 +2233,7 @@ html { scroll-padding-top: 56px; }
       <div class="subtitle">In-person proctored data collection · MOR Subject Pool · LL102</div>
     </div>
     <span style="margin-left:8px;font-size:11px;font-weight:700;background:rgba(255,255,255,0.15);color:rgba(255,255,255,0.7);border:1px solid rgba(255,255,255,0.25);padding:5px 12px;border-radius:2px;letter-spacing:1px;white-space:nowrap;text-transform:uppercase;display:inline-flex;align-items:center;gap:6px">
-      <span style="display:inline-block;width:7px;height:7px;border-radius:50%;background:#FACC15;flex-shrink:0"></span>Updated Apr 3, 2026
+      <span style="display:inline-block;width:7px;height:7px;border-radius:50%;background:#FACC15;flex-shrink:0"></span>Updated Apr 16, 2026
     </span>
   </div>
   <div class="gold-bar"></div>
@@ -2459,7 +2459,9 @@ html { scroll-padding-top: 56px; }
             <span style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:rgba(255,255,255,0.5);min-width:42px">April</span>
             <span style="display:inline-block;background:rgba(255,255,255,0.08);color:rgba(255,255,255,0.45);font-size:12px;font-weight:600;padding:3px 9px;border-radius:4px;text-decoration:line-through">Apr 2</span>
             <span style="display:inline-block;background:rgba(255,255,255,0.08);color:rgba(255,255,255,0.45);font-size:12px;font-weight:600;padding:3px 9px;border-radius:4px;text-decoration:line-through">Apr 3</span>
-            <span style="display:inline-block;background:rgba(255,255,255,0.15);color:white;font-size:12px;font-weight:700;padding:3px 9px;border-radius:4px">Apr 9</span>
+            <span style="display:inline-block;background:rgba(255,255,255,0.08);color:rgba(255,255,255,0.45);font-size:12px;font-weight:600;padding:3px 9px;border-radius:4px;text-decoration:line-through">Apr 9</span>
+            <span style="display:inline-block;background:rgba(255,255,255,0.15);color:white;font-size:12px;font-weight:700;padding:3px 9px;border-radius:4px">Apr 16</span>
+            <span style="display:inline-block;background:rgba(255,255,255,0.15);color:white;font-size:12px;font-weight:700;padding:3px 9px;border-radius:4px">Apr 17</span>
           </div>
         </div>
         <a href="#sec-timeline" onclick="var d=document.querySelector('#sec-timeline details');if(d)d.open=true;var el=document.getElementById('sec-timeline');if(el)window.scrollTo({top:el.getBoundingClientRect().top+window.scrollY-72,behavior:'smooth'});return false;" style="font-size:12px;font-weight:600;color:var(--gold);text-decoration:none;white-space:nowrap;padding-top:2px">View calendar →</a>
@@ -3596,7 +3598,7 @@ var STUDY_ROSTER = [
     status: 'collecting', startLab: 1, endLab: 6 },
   { id: 'B', dur: 2, targetN: 400, color: '#FCD34D', label: 'B',
     title: 'AI Receptivity', researcher: 'Cheryl Wakslak', dept: 'Management & Organization',
-    status: 'collecting', startLab: 1, endLab: 9 },
+    status: 'collecting', startLab: 1, endLab: 8 },
   { id: 'C', dur: 7, targetN: 250, color: '#93C5FD', label: 'C',
     title: 'Serendipity Study Pool', researcher: 'Dani Yin', dept: 'Management & Organization',
     status: 'collecting', startLab: 1, endLab: 5 },
@@ -3608,10 +3610,16 @@ var STUDY_ROSTER = [
     status: 'collecting', startLab: 1, endLab: 6 },
   { id: 'G', dur: 8, targetN: 9999, color: '#FDE68A', label: 'G',
     title: 'Entitlement 2026', researcher: 'Jacob Roberson', dept: 'Management & Organization',
-    status: 'collecting', startLab: 5, endLab: 9, priorN: 104, openEnded: true },
+    status: 'collecting', startLab: 5, endLab: 8, priorN: 104, openEnded: true },
   { id: 'H', dur: 5, targetN: 75, color: '#67E8F9', label: 'H',
     title: 'TBD', researcher: 'Zach Berry', dept: 'Management & Organization',
     status: 'collecting', startLab: 1, endLab: 2 },
+  { id: 'J', dur: 5, targetN: 400, color: '#6EE7F9', label: 'J',
+    title: 'Gender and Distance', researcher: 'Cheryl Wakslak', dept: 'Management & Organization',
+    status: 'collecting', startLab: 9, endLab: 11 },
+  { id: 'K', dur: 5, targetN: 200, color: '#BBF7D0', label: 'K',
+    title: 'Productivity Perceptions 2', researcher: 'Cheryl Wakslak', dept: 'Management & Organization',
+    status: 'collecting', startLab: 9, endLab: 11 },
   { id: 'H2', dur: 5, targetN: 400, color: '#A5B4FC', label: 'H2',
     title: 'TBD', researcher: 'Zach Berry', dept: 'Management & Organization',
     status: 'collecting', startLab: 4, endLab: 9 },
@@ -3651,6 +3659,17 @@ var ROTATIONS = {
   R8: ['H2','C','F','B','D','A','G','E'],
 };
 var ROTATION_ORDER = ['R2','R3','R4','R5','R6','R7','R8'];
+// Phase 2 rotations (Apr 16–17): H2, J, K — all 6 permutations
+var PHASE2_ROTATIONS = ['P1','P2','P3','P4','P5','P6'];
+var PHASE2_ROTATION_MAP = {
+  P1: ['H2','J','K'],
+  P2: ['J','H2','K'],
+  P3: ['J','K','H2'],
+  P4: ['K','H2','J'],
+  P5: ['K','J','H2'],
+  P6: ['H2','K','J'],
+};
+var PHASE2_START_DAY_IDX = 8; // Apr 16
 var ROTATION_START_IDX = 1;  // Lab 4 begins at R3 (index 1 in ROTATION_ORDER)
 var ROTATION_START_LAB_IDX = 3; // dayIndex of Lab 4 (Mar 26)
 
@@ -3662,6 +3681,16 @@ function getRotationForSession(absSessionNum) {
 // Returns array of {rotName, studyOrder} for each session on a given dayIndex
 function getSessionRotations(dayIndex) {
   if (dayIndex < ROTATION_START_LAB_IDX) return null;
+  if (dayIndex >= PHASE2_START_DAY_IDX) {
+    var sessBeforeP2 = 0;
+    for (var d = PHASE2_START_DAY_IDX; d < dayIndex; d++) sessBeforeP2 += getSlotsForDay(d);
+    var res2 = [];
+    for (var s2 = 0; s2 < getSlotsForDay(dayIndex); s2++) {
+      var rn2 = PHASE2_ROTATIONS[(sessBeforeP2 + s2) % PHASE2_ROTATIONS.length];
+      res2.push({ rotName: rn2, order: PHASE2_ROTATION_MAP[rn2] });
+    }
+    return res2;
+  }
   var sessionsBeforeThisDay = 0;
   for (var d = ROTATION_START_LAB_IDX; d < dayIndex; d++) {
     sessionsBeforeThisDay += getSlotsForDay(d);
@@ -3680,6 +3709,8 @@ function getSlotsForDay(dayIndex) {
   if (dayIndex === 5) return 8;
   if (dayIndex === 6) return 4;
   if (dayIndex === 7) return 5;
+  if (dayIndex === 8) return 6;
+  if (dayIndex === 9) return 7;
   return SESSIONS_PER_DAY;
 }
 function getPerDayForDay(dayIndex) {
@@ -3745,8 +3776,9 @@ var ll102Weeks = [
   { wk: 'Mar 9', dates: 'Mar 9–13', days: ['no','no','open|Mar 11 (Wed)','no','open|Mar 13 (Fri)'], current: false },
   { wk: 'Mar 16', dates: 'Mar 16–20', days: ['break','break','break','break','break'], current: false },
   { wk: 'Mar 23', dates: 'Mar 23–27', days: ['no','no','no','open|Mar 26 (Thu)','open|Mar 27 (Fri)'], current: false },
-  { wk: 'Mar 30', dates: 'Mar 30–Apr 3', days: ['no','no','no','open|Apr 2 (Thu)','open|Apr 3 (Fri)'], current: true },
+  { wk: 'Mar 30', dates: 'Mar 30–Apr 3', days: ['no','no','no','open|Apr 2 (Thu)','open|Apr 3 (Fri)'], current: false },
   { wk: 'Apr 6', dates: 'Apr 6–10', days: ['no','no','no','open|Apr 9 (Thu)','no'], current: false },
+  { wk: 'Apr 13', dates: 'Apr 13–17', days: ['no','no','no','open|Apr 16 (Thu)','open|Apr 17 (Fri)'], current: true },
 ];
 
 // Globally shared: index of the first open lab that is today or in the future.
@@ -4239,7 +4271,7 @@ renderAllLayouts();
   }).join('<span style="color:rgba(255,255,255,0.2);margin:0 4px">·</span>');
 
   // Last updated badge
-  var LAST_UPDATED = 'Apr 3, 2026';
+  var LAST_UPDATED = 'Apr 16, 2026';
 
   // ── Row 1: meta strip ──
   // Build inline capacity bar segments
@@ -5118,6 +5150,10 @@ document.querySelectorAll('.faq-group-body').forEach(function(body) {
     ? ['2:15 PM', '2:50 PM', '3:25 PM', '4:00 PM']
     : target.dayIndex === 7
     ? ['3:30 PM', '4:05 PM', '4:40 PM', '5:15 PM', '5:50 PM']
+    : target.dayIndex === 8
+    ? ['3:30 PM', '4:00 PM', '4:30 PM', '5:00 PM', '5:30 PM', '6:00 PM']
+    : target.dayIndex === 9
+    ? ['2:00 PM', '2:30 PM', '3:00 PM', '3:30 PM', '4:00 PM', '4:30 PM', '5:00 PM']
     : slots === 8
     ? ['12:25 PM','1:20 PM','2:15 PM','3:30 PM','4:25 PM','5:20 PM','6:15 PM','7:10 PM']
     : slots === 6
